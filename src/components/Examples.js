@@ -1,7 +1,7 @@
 import React from 'react';
-import {NavLink, Route} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 import {withRouter} from 'react-router-dom'
-import examples from '../configs/examples';
+import RouteWithSubRoutes from './RouteWithSubRoutes';
 
 class Examples extends React.Component {
   constructor(props) {
@@ -9,44 +9,44 @@ class Examples extends React.Component {
   }
 
   render() {
-    const {match} = this.props;
+    const {match, routes} = this.props;
 
     return (
       <div className="col-xs-12">
         <h3>
           <NavLink to={match.url}>Example Gallery!!</NavLink>
         </h3>
-        {match.isExact ? <Thumbnails match={match} examples={examples}/> : null}
-        {examples.map(example => (
-          <Route
-            component={example.component}
-            path={match.url + example.path}
-            key={match.url + example.path}/>
+        {match.isExact ? <Thumbnails match={match} routes={routes}/> : null}
+        {routes.map((route, i) => (
+          <RouteWithSubRoutes
+            component={route.component}
+            path={route.path}
+            key={i}/>
         ))}
       </div>
     )
   }
 }
 
-const Thumbnails = ({match, examples}) => (
+const Thumbnails = ({routes}) => (
   <div className="panel panel-default">
     <div className="panel-body">
-      <p>Select an example</p>
-      {examples.map(example => (
+      <p>Select an route</p>
+      {routes.map((route, i) => (
         <Thumbnail
-          key={example.path}
-          example={example}
-          match={match}/>
+          to={route.path}
+          title={route.title}
+          key={i}/>
       ))}
     </div>
   </div>
 );
 
-const Thumbnail = ({match, example}) => (
+const Thumbnail = ({to, title}) => (
   <div className="col-xs-6 col-sm-3">
     <NavLink
       className="thumbnail"
-      to={match.url + example.path}>{example.title}</NavLink>
+      to={to}>{title}</NavLink>
   </div>
 );
 

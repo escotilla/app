@@ -1,5 +1,6 @@
 import Home from '../components/Home';
 import Examples from '../components/Examples';
+import NationalParks from '../components/NationalParks';
 
 export default [
     {
@@ -11,6 +12,13 @@ export default [
         path: '/examples',
         title: 'Examples',
         component: Examples,
-        exact: false
+        exact: false,
+        routes: [
+            {
+                path: '/examples/national-parks',
+                title: 'National Parks',
+                component: NationalParks
+            }
+        ]
     }
 ];
