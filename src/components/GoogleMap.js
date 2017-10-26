@@ -1,4 +1,5 @@
 import React from 'react';
+import { hasWindow } from '../utilities/environment';
 
 class GoogleMap extends React.Component {
   constructor(props) {
@@ -28,7 +29,7 @@ class GoogleMap extends React.Component {
   }
 
   isLoaded() {
-    return typeof window !== 'undefined' && window.google !== 'undefined' && typeof window.google.maps !== 'undefined';
+    return hasWindow() && window.google !== 'undefined' && typeof window.google.maps !== 'undefined';
   }
 
   loadData(data) {
@@ -121,17 +122,17 @@ class GoogleMap extends React.Component {
   }
 
   render() {
-    const { height, width } = this.props;
-    var style = {};
+    const { height, width, className, style } = this.props;
+    let dimensions = {};
 
     if (height && width) {
-      style= {height: height, width: width};
+      dimensions = {height: height, width: width};
     }
 
     return (
       <div
-        style={style}
-        className={"google-map-container " + this.props.className}>
+        style={Object.assign({}, style, dimensions)}
+        className={"google-map-container " + className}>
         <div className="google-map" ref={map => this.mapDiv = map}>
         </div>
       </div>
@@ -143,7 +144,8 @@ GoogleMap.defaultProps = {
   lng: -98,
   lat: 35,
   center: [],
-  bounds: [[0, 0], [5, 5]]
+  bounds: [[0, 0], [5, 5]],
+  style: {}
 };
 
 export default GoogleMap;
