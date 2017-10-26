@@ -25,7 +25,7 @@ function production(bundle) {
       console.error(err);
       this.emit('end');
     })
-    .pipe(source('bundle.min.js'))
+    .pipe(source('bundle.js'))
     .pipe(buffer())
     .pipe(uglify())
     .pipe(gulp.dest('./public'));
