@@ -14,7 +14,7 @@ class Examples extends React.Component {
     return (
       <div className="col-xs-12">
         <h3>
-          <NavLink to={match.url}>Example Gallery!!</NavLink>
+          <NavLink to={match.url}>Example Gallery</NavLink>
         </h3>
         {match.isExact ? <Thumbnails match={match} routes={routes}/> : null}
         {routes.map((route, i) => (
@@ -31,7 +31,7 @@ class Examples extends React.Component {
 const Thumbnails = ({routes}) => (
   <div className="panel panel-default">
     <div className="panel-body">
-      <p>Select an route</p>
+      <p>Select an example</p>
       {routes.map((route, i) => (
         <Thumbnail
           to={route.path}

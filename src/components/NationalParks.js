@@ -70,9 +70,10 @@ class NationalParks extends React.Component {
     return feature.properties.UNIT_NAME + ' (' + feature.properties.UNIT_TYPE + ') ';
   }
 
-  renderTableRow(feature) {
+  renderTableRow(feature, i) {
     return (
       <button
+        key={i}
         onClick={this.handleClick.bind(this, feature)}
         type="button"
         className="list-group-item">
@@ -115,7 +116,7 @@ class NationalParks extends React.Component {
           <div className="park-table">
             <div
               className="list-group">
-              {this.props.featureCollection.features.map(feature => this.renderTableRow(feature, color))}
+              {this.props.featureCollection.features.map((feature, i) => this.renderTableRow(feature, i))}
             </div>
           </div>
         </div>
