@@ -1,6 +1,6 @@
 {
-  "name": "frontend",
-  "version": "0.1.0",
+  "name": "react-router-redux-boilerplate",
+  "version": "1.0.0",
   "author": {
     "name": "Sam Stanton-Reid",
     "email": "stantonr@bu.edu"
@@ -13,9 +13,7 @@
     "d3": "^4.10.2",
     "es6-promise": "^4.1.1",
     "express": "^4.15.3",
-    "immutable": "^3.8.1",
     "isomorphic-fetch": "^2.2.1",
-    "ls-cache": "^0.2.3",
     "prop-types": "^15.6.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.2",
@@ -29,20 +27,22 @@
     "vinyl-source-stream": "^1.1.0"
   },
   "scripts": {
-    "build": "gulp build",
-    "watch": "gulp watch",
-    "start": "node server.js"
+    "build": "gulp --production 9001",
+    "start": "gulp"
   },
   "devDependencies": {
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
-    "babelify": "^7.3.0",
     "babel-preset-stage-2": "^6.24.1",
+    "babelify": "^7.3.0",
     "browser-sync": "^2.18.13",
     "browserify": "^13.0.0",
     "gulp": "^3.9.1",
+    "gulp-nodemon": "^2.2.1",
     "gulp-sass": "^3.1.0",
     "gulp-uglify": "^3.0.0",
+    "require-dir": "^0.3.2",
+    "run-sequence": "^2.2.0",
     "watchify": "^3.9.0"
   }
 }

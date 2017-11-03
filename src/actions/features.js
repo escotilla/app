@@ -9,15 +9,16 @@ import {
 function fetchFeatures(collection) {
   return dispatch => {
     dispatch(featuresStart(collection));
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
 
     return fetch(getApiUrl() + 'features', {
       method: "POST",
       body: JSON.stringify({
         collection: collection
       }),
-      headers: {
-        "Content-Type": "application/json"
-      }
+      headers: headers,
+      mode: 'cors'
     })
       .then(response => {
         return response.json();
