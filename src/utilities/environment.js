@@ -1,5 +1,5 @@
 export function isNode() {
-  return process && process.title && process.title === 'node';
+  return typeof process === 'object' && process.title && process.title === 'node';
 }
 
 export function hasWindow() {
