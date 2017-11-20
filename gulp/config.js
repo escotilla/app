@@ -1,5 +1,5 @@
 var port = 3002;
-var dest = './public';
+var dest = './dist/public';
 
 var arguments = process.argv.slice(2);
 var production = false;
@@ -29,7 +29,7 @@ module.exports = {
     debug: !production
   },
   nodemon: {
-    script: 'server.js',
+    script: './dist/server.js',
     ignore: [
       'gulpfile.js',
       'gulp/',
