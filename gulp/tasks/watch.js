@@ -2,7 +2,7 @@ var gulp = require('gulp');
 var browserSync = require('browser-sync');
 var config = require('../config');
 
-gulp.task('watch', ['nodemon'], function () {
+gulp.task('watch', ['nodemon', 'build'], function () {
   if (!config.production) {
     browserSync.init(null, config.browserSync);
 
