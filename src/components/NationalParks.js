@@ -22,7 +22,7 @@ class NationalParks extends React.Component {
     }
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.fetchFeaturesIfNeeded('park');
   }
 
