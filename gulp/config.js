@@ -18,23 +18,33 @@ process.env.PORT = port;
 module.exports = {
   production: production,
   dest: dest,
+  presets: ['react', 'stage-2', 'env'],
   browserSync: {
     files: [dest + '/**'],
-    proxy: 'localhost:' + port
+    proxy: 'localhost:' + port,
+    ui: {
+      port: 3007
+    }
   },
   browserify: {
-    entries: './src/components/App.js',
+    entries: './src/client.js',
     cache: {},
     packageCache: {},
     debug: !production
   },
   nodemon: {
-    script: './dist/server.js',
+    script: './server.js',
     ignore: [
       'gulpfile.js',
       'gulp/',
       'node_modules/',
       'public/'
     ]
+  },
+  server: {
+    entries: './server.js',
+    cache: {},
+    packageCache: {},
+    debug: !production
   }
 };

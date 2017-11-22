@@ -31,7 +31,7 @@ function rebundle(bundler) {
 
 gulp.task('browserify', function () {
   var bundler = browserify(config.browserify)
-    .transform(babel.configure({presets: ['es2015', 'react', 'stage-2']}));
+    .transform(babel.configure({presets: config.presets}));
 
   if (!config.production) {
     bundler = watchify(bundler);
