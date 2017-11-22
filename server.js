@@ -13,6 +13,7 @@ import rootReducer from './src/reducers/index'
 import App from './src/components/App'
 
 const app = Express();
+const port = process.env.PORT || 3002;
 
 app.use(compression());
 app.use(cookieParser());
@@ -23,7 +24,7 @@ app.use('/public', Express['static'](__dirname + '/dist/public'));
 
 app.get('*', handleRender);
 
-app.listen(3002, function () {
+app.listen(port, function () {
   console.log('listing on port 3002')
 });
 
@@ -53,7 +54,7 @@ function renderApp(html, preloadedState) {
     <html>
       <head>
         <title>React Router Redux Boilerplate</title>
-                <link rel="stylesheet" type="text/css" href="/public/styles.css">
+        <link rel="stylesheet" type="text/css" href="/public/styles.css">
         <link
         rel="stylesheet"
         href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"

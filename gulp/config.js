@@ -31,20 +31,5 @@ module.exports = {
     cache: {},
     packageCache: {},
     debug: !production
-  },
-  nodemon: {
-    script: './server.js',
-    ignore: [
-      'gulpfile.js',
-      'gulp/',
-      'node_modules/',
-      'public/'
-    ]
-  },
-  server: {
-    entries: './server.js',
-    cache: {},
-    packageCache: {},
-    debug: !production
   }
 };
