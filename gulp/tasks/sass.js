@@ -11,5 +11,5 @@ gulp.task('sass', function () {
 
   return gulp.src('./src/sass/*.scss')
     .pipe(sass(sassConfig).on('error', sass.logError))
-    .pipe(gulp.dest(config.dest));
+    .pipe(gulp.dest(config.dest + '/public'));
 });

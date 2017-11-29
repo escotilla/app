@@ -1,16 +1,18 @@
+var glob = require('glob');
 var port = 3002;
-var dest = './dist/public';
+var dest = './dist/';
 
-var arguments = process.argv.slice(2);
+var args = process.argv.slice(2);
 var production = false;
+var testFiles = glob.sync('./tests/unit/*.js');
 
-if (arguments[0] === '--production') {
+if (args[0] === '--production') {
   process.env.NODE_ENV = 'production';
   production = true;
 }
 
-if (arguments.length > 1) {
-  port = arguments[1];
+if (args.length > 1) {
+  port = args[1];
 }
 
 process.env.PORT = port;
@@ -20,7 +22,7 @@ module.exports = {
   dest: dest,
   presets: ['react', 'stage-2', 'env'],
   browserSync: {
-    files: [dest + '/**'],
+    files: [dest + '/public/**'],
     proxy: 'localhost:' + port,
     ui: {
       port: 3007
@@ -31,5 +33,20 @@ module.exports = {
     cache: {},
     packageCache: {},
     debug: !production
+  },
+  server: {
+    entries: './server.js',
+    cache: {},
+    packageCache: {},
+    debug: !production
+  },
+  tests: {
+    entries: testFiles,
+    cache: {},
+    packageCache: {},
+    debug: !production
+  },
+  nodemon: {
+    script: 'dist/server.js'
   }
 };

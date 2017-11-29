@@ -16,7 +16,7 @@ function production(bundler) {
     .pipe(source('bundle.js'))
     .pipe(buffer())
     .pipe(uglify())
-    .pipe(gulp.dest(config.dest));
+    .pipe(gulp.dest(config.dest + '/public'));
 }
 
 function rebundle(bundler) {
@@ -26,7 +26,7 @@ function rebundle(bundler) {
       this.emit('end');
     })
     .pipe(source('bundle.js'))
-    .pipe(gulp.dest(config.dest));
+    .pipe(gulp.dest(config.dest + '/public'));
 }
 
 gulp.task('browserify', function () {

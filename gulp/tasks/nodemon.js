@@ -1,12 +1,7 @@
 var gulp = require('gulp');
 var nodemon = require('gulp-nodemon');
-var exec = require('child_process').exec;
+var config = require('../config');
 
-gulp.task('nodemon', function(callback) {
-  exec('nodemon server.js --exec node_modules/babel-cli/bin/babel-node.js --presets es2015,stage-2,react', function (err, stdout, stderr) {
-    console.log(stdout);
-    console.log(stderr);
-  });
-
-  callback();
+gulp.task('nodemon', function() {
+  return nodemon(config.nodemon)
 });
