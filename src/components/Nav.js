@@ -15,6 +15,7 @@ class Nav extends React.Component {
           <NavLink
             exact={route.exact}
             to={route.path}
+            id={route.path}
             activeStyle={{color: 'rgba(255, 0, 0, 1)'}}>
             {route.title}
           </NavLink>

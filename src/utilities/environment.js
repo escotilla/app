@@ -8,7 +8,7 @@ export function hasWindow() {
 
 export function getApiUrl() {
   if (isNode() && process.env.NODE_ENV === 'production') {
-    return 'http://34.198.157.92:81/';
+    return 'http://34.198.157.92:81/api/';
   } else {
     return 'http://localhost:3000/api/';
   }

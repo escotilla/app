@@ -31,7 +31,7 @@ class Examples extends React.Component {
 const Thumbnails = ({routes}) => (
   <div className="panel panel-default">
     <div className="panel-body">
-      <p>Select an example</p>
+      <p id="select-example-text">Select an example</p>
       {routes.map((route, i) => (
         <Thumbnail
           to={route.path}
