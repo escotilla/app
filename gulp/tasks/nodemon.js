@@ -3,5 +3,7 @@ var nodemon = require('gulp-nodemon');
 var config = require('../config');
 
 gulp.task('nodemon', function() {
-  return nodemon(config.nodemon)
+  if (!config.production) {
+    return nodemon(config.nodemon)
+  }
 });

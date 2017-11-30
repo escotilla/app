@@ -13,7 +13,7 @@ import rootReducer from './src/reducers/index'
 import App from './src/components/App'
 
 const app = Express();
-const port = process.env.PORT || 3002;
+const port = 8000;
 
 app.use(compression());
 app.use(cookieParser());
@@ -75,7 +75,8 @@ function renderApp(html, preloadedState) {
         rel="stylesheet"
         href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-       <link rel="stylesheet" type="text/css" href="/public/styles.css">
+        <link rel="stylesheet" href="https://cdn.rawgit.com/konpa/devicon/df6431e323547add1b4cf45992913f15286456d3/devicon.min.css">
+        <link rel="stylesheet" type="text/css" href="/public/styles.css">
         </noscript>
          <script>
       var loadDeferredStyles = function() {
