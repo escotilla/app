@@ -5,8 +5,9 @@ WORKDIR /app
 COPY package.json /app
 
 RUN npm install
+CMD npm run build
 
 COPY . /app
 
-CMD node dist/server.js
+CMD npm run server
 EXPOSE 8000

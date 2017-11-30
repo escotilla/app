@@ -28,8 +28,10 @@
     "vinyl-source-stream": "^1.1.0"
   },
   "scripts": {
-    "build": "gulp --production 9001",
-    "start": "gulp"
+    "build": "gulp --production 8000",
+    "start": "gulp",
+    "test": "mocha dist/tests/unit",
+    "server": "node dist/server.js"
   },
   "devDependencies": {
     "assert": "^1.4.1",
