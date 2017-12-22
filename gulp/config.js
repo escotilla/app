@@ -1,5 +1,5 @@
 var glob = require('glob');
-var port = 3002;
+var port = 8000;
 var dest = './dist/';
 
 var args = process.argv.slice(2);

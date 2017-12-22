@@ -1,16 +1,17 @@
-require('es6-promise').polyfill();
-import React from 'react'
-import compression from 'compression'
-import bodyParser from 'body-parser'
-import cookieParser from 'cookie-parser'
-import csurf from 'csurf'
-import Express from 'express'
-import {renderToString} from 'react-dom/server'
-import {createStore} from 'redux'
-import {StaticRouter} from 'react-router-dom'
-import {Provider} from 'react-redux'
-import rootReducer from './src/reducers/index'
-import App from './src/components/App'
+import {polyfill} from 'es6-promise';
+polyfill();
+import React from 'react';
+import compression from 'compression';
+import bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
+import csurf from 'csurf';
+import Express from 'express';
+import {renderToString} from 'react-dom/server';
+import {createStore} from 'redux';
+import {StaticRouter} from 'react-router-dom';
+import {Provider} from 'react-redux';
+import rootReducer from './src/reducers/index';
+import App from './src/components/App';
 
 const app = Express();
 const port = 8000;
@@ -32,7 +33,7 @@ app.use('/public', Express['static'](__dirname + '/public'));
 app.get('*', handleRender);
 
 app.listen(port, function () {
-  console.log('listing on port ' + port)
+  console.log('listing on port ' + port);
 });
 
 function handleRender(req, res) {
@@ -52,7 +53,7 @@ function handleRender(req, res) {
 
   const preloadedState = store.getState();
 
-  res.send(renderApp(html, preloadedState))
+  res.send(renderApp(html, preloadedState));
 }
 
 function renderApp(html, preloadedState) {
@@ -83,7 +84,7 @@ function renderApp(html, preloadedState) {
         var addStylesNode = document.getElementById("deferred-styles");
         var replacement = document.createElement("div");
         replacement.innerHTML = addStylesNode.textContent;
-        document.body.appendChild(replacement)
+        document.body.appendChild(replacement);
         addStylesNode.parentElement.removeChild(addStylesNode);
       };
       var raf = requestAnimationFrame || mozRequestAnimationFrame ||
@@ -101,5 +102,5 @@ function renderApp(html, preloadedState) {
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpVI0dT4zjgVZLsbVB-FR7ENQdtZVf52I" async defer></script>
       </body>
     </html>
-    `
+    `;
 }

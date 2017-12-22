@@ -12,10 +12,14 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouterDom = require('react-router-dom');
 
+var _PrivateRoute = require('./PrivateRoute');
+
+var _PrivateRoute2 = _interopRequireDefault(_PrivateRoute);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var RouteWithSubRoutes = function RouteWithSubRoutes(route) {
-  return _react2.default.createElement(_reactRouterDom.Route, {
+  return route.private ? _react2.default.createElement(_PrivateRoute2.default, { route: route }) : _react2.default.createElement(_reactRouterDom.Route, {
     path: route.path,
     exact: route.exact,
     render: function render(props) {
