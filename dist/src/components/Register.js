@@ -79,11 +79,11 @@ var Register = function (_React$Component) {
         invalid.push('email');
       }
 
-      if (name.length < 2) {
+      if (!name || name.length < 2) {
         invalid.push('name');
       }
 
-      if (password.length < 2) {
+      if (!password || password.length < 2) {
         invalid.push('password');
       }
 
@@ -196,7 +196,7 @@ var Register = function (_React$Component) {
         _react2.default.createElement(
           'h4',
           null,
-          'Sign up for Escotilla.'
+          'Sign up for an account.'
         ),
         passwordBox
       );

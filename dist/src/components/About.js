@@ -10,7 +10,7 @@ var _react2 = _interopRequireDefault(_react);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Home = function Home(_ref) {
+var About = function About(_ref) {
   var match = _ref.match;
   return _react2.default.createElement(
     "div",
@@ -18,14 +18,14 @@ var Home = function Home(_ref) {
     _react2.default.createElement(
       "h1",
       { id: "home-header-text" },
-      "Home page"
+      "About page"
     ),
     _react2.default.createElement(
       "p",
       null,
-      "To the moon!"
+      "We do awesome stuff!"
     )
   );
 };
 
-exports.default = Home;
+exports.default = About;

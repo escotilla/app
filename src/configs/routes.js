@@ -1,6 +1,6 @@
 import Home from '../components/Home';
-import Examples from '../components/Examples';
-import NationalParks from '../components/NationalParks';
+import Settings from '../components/Settings';
+import About from '../components/About';
 import Register from '../components/Register';
 import Login from '../components/Login';
 import Account from '../components/Account';
@@ -10,7 +10,14 @@ export default [
     path: '/',
     title: 'Home',
     component: Home,
-    exact: true
+    exact: true,
+    includeInNav: true
+  },
+  {
+    path: '/about',
+    title: 'About',
+    component: About,
+    includeInNav: true
   },
   {
     path: '/register',
@@ -26,6 +33,12 @@ export default [
     path: '/account',
     title: 'Account',
     component: Account,
+    private: true
+  },
+  {
+    path: '/settings',
+    title: 'Settings',
+    component: Settings,
     private: true
   }
 ];

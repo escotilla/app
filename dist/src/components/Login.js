@@ -76,7 +76,7 @@ var Login = function (_React$Component) {
         invalid.push('email');
       }
 
-      if (password.length < 2) {
+      if (!password || password.length < 2) {
         invalid.push('password');
       }
 
@@ -100,11 +100,9 @@ var Login = function (_React$Component) {
 
       var _props = this.props,
           error = _props.error,
-          payload = _props.payload,
           loading = _props.loading,
           success = _props.success,
           email = _props.email,
-          name = _props.name,
           password = _props.password,
           user = _props.user;
 
@@ -126,7 +124,7 @@ var Login = function (_React$Component) {
           id: 'submit',
           onClick: this.submit,
           className: 'button' },
-        loading ? _react2.default.createElement('i', { className: 'fa fa-cog fa-spin' }) : 'Send Message'
+        loading ? _react2.default.createElement('i', { className: 'fa fa-cog fa-spin' }) : 'Login'
       );
 
       return _react2.default.createElement(

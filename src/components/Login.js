@@ -42,7 +42,7 @@ class Login extends React.Component {
       invalid.push('email');
     }
 
-    if (password.length < 2) {
+    if (!password || password.length < 2) {
       invalid.push('password');
     }
 
@@ -61,7 +61,7 @@ class Login extends React.Component {
   }
 
   getMessageBox() {
-    const {error, payload, loading, success, email, name, password, user} = this.props;
+    const {error, loading, success, email, password, user} = this.props;
 
     if (success && user.token) {
       return <Redirect to='/account' />;
@@ -77,7 +77,7 @@ class Login extends React.Component {
         disabled={success || loading || error}
         id="submit"
         onClick={this.submit}
-        className="button">{loading ? <i className="fa fa-cog fa-spin" /> : 'Send Message'}
+        className="button">{loading ? <i className="fa fa-cog fa-spin" /> : 'Login'}
       </button>
     );
 

@@ -12,6 +12,12 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouterDom = require('react-router-dom');
 
+var _reactRedux = require('react-redux');
+
+var _logout = require('../actions/logout');
+
+var _redux = require('redux');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -32,10 +38,12 @@ var Nav = function (_React$Component) {
   _createClass(Nav, [{
     key: 'render',
     value: function render() {
+      var _this2 = this;
+
       var routes = this.props.routes;
 
       var navLinks = routes.map(function (route) {
-        return _react2.default.createElement(
+        return route.includeInNav ? _react2.default.createElement(
           'li',
           { key: route.path },
           _react2.default.createElement(
@@ -47,19 +55,102 @@ var Nav = function (_React$Component) {
               activeStyle: { color: 'rgba(255, 0, 0, 1)' } },
             route.title
           )
-        );
+        ) : null;
       });
 
-      return _react2.default.createElement(
-        'nav',
-        { className: 'navbar navbar-inverse' },
+      var authLinks = this.props.isAuthenticated ? _react2.default.createElement(
+        'ul',
+        { className: 'nav navbar-nav' },
         _react2.default.createElement(
-          'div',
-          { className: 'container-fluid' },
+          'li',
+          { onClick: function onClick() {
+              return _this2.props.logout();
+            } },
           _react2.default.createElement(
-            'ul',
-            { className: 'nav navbar-nav' },
-            navLinks
+            'a',
+            null,
+            'Logout'
+          )
+        )
+      ) : _react2.default.createElement(
+        'ul',
+        { className: 'nav navbar-nav' },
+        _react2.default.createElement(
+          'li',
+          null,
+          _react2.default.createElement(
+            _reactRouterDom.NavLink,
+            {
+              to: '/login',
+              activeStyle: { color: 'rgba(255, 0, 0, 1)' } },
+            'Login'
+          )
+        ),
+        _react2.default.createElement(
+          'li',
+          null,
+          _react2.default.createElement(
+            _reactRouterDom.NavLink,
+            {
+              to: '/register',
+              activeStyle: { color: 'rgba(255, 0, 0, 1)' } },
+            'Register'
+          )
+        )
+      );
+
+      return _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(
+          'nav',
+          null,
+          _react2.default.createElement(
+            'div',
+            { className: 'container-fluid' },
+            authLinks
+          )
+        ),
+        this.props.isAuthenticated ? _react2.default.createElement(
+          'nav',
+          { className: 'navbar navbar-inverse' },
+          _react2.default.createElement(
+            'div',
+            { className: 'container-fluid' },
+            _react2.default.createElement(
+              'ul',
+              { className: 'nav navbar-nav' },
+              _react2.default.createElement(
+                'li',
+                null,
+                _react2.default.createElement(
+                  _reactRouterDom.NavLink,
+                  {
+                    to: '/account',
+                    activeStyle: { color: 'rgba(255, 0, 0, 1)' } },
+                  'Account'
+                ),
+                _react2.default.createElement(
+                  _reactRouterDom.NavLink,
+                  {
+                    to: '/settings',
+                    activeStyle: { color: 'rgba(255, 0, 0, 1)' } },
+                  'Settings'
+                )
+              )
+            )
+          )
+        ) : _react2.default.createElement(
+          'nav',
+          { className: 'navbar navbar-inverse' },
+          _react2.default.createElement(
+            'div',
+            { className: 'container-fluid' },
+            _react2.default.createElement(
+              'ul',
+              { className: 'nav navbar-nav' },
+              navLinks
+            )
           )
         )
       );
@@ -73,4 +164,19 @@ Nav.defaultProps = {
   routes: []
 };
 
-exports.default = Nav;
+var mapStateToProps = function mapStateToProps(state) {
+  var user = state.user;
+
+
+  var isAuthenticated = user.token && user.token.length > 0;
+
+  return { isAuthenticated: isAuthenticated, user: user };
+};
+
+var mapStateToDispatch = function mapStateToDispatch(dispatch) {
+  return {
+    logout: (0, _redux.bindActionCreators)(_logout.logout, dispatch)
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapStateToDispatch)(Nav);

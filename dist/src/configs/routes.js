@@ -8,13 +8,13 @@ var _Home = require('../components/Home');
 
 var _Home2 = _interopRequireDefault(_Home);
 
-var _Examples = require('../components/Examples');
+var _Settings = require('../components/Settings');
 
-var _Examples2 = _interopRequireDefault(_Examples);
+var _Settings2 = _interopRequireDefault(_Settings);
 
-var _NationalParks = require('../components/NationalParks');
+var _About = require('../components/About');
 
-var _NationalParks2 = _interopRequireDefault(_NationalParks);
+var _About2 = _interopRequireDefault(_About);
 
 var _Register = require('../components/Register');
 
@@ -34,7 +34,13 @@ exports.default = [{
   path: '/',
   title: 'Home',
   component: _Home2.default,
-  exact: true
+  exact: true,
+  includeInNav: true
+}, {
+  path: '/about',
+  title: 'About',
+  component: _About2.default,
+  includeInNav: true
 }, {
   path: '/register',
   title: 'Register',
@@ -47,5 +53,10 @@ exports.default = [{
   path: '/account',
   title: 'Account',
   component: _Account2.default,
+  private: true
+}, {
+  path: '/settings',
+  title: 'Settings',
+  component: _Settings2.default,
   private: true
 }];

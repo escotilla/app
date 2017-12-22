@@ -28,6 +28,7 @@ function register(body) {
     }).then(function (response) {
       return response.json();
     }).then(handleErrors).then(function (json) {
+      json.name = body.name;
       dispatch(registerSuccess(json.data));
     }).catch(function (err) {
       dispatch(registerFailure(err));
@@ -53,7 +54,8 @@ function registerSuccess(json) {
   return {
     type: _actionTypes.REGISTER_SUCCESS,
     token: json.api_token,
-    email: json.email
+    email: json.email,
+    name: json.name
   };
 }
 

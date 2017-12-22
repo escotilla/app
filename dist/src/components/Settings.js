@@ -24,16 +24,16 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Account = function (_React$Component) {
-  _inherits(Account, _React$Component);
+var Settings = function (_React$Component) {
+  _inherits(Settings, _React$Component);
 
-  function Account() {
-    _classCallCheck(this, Account);
+  function Settings() {
+    _classCallCheck(this, Settings);
 
-    return _possibleConstructorReturn(this, (Account.__proto__ || Object.getPrototypeOf(Account)).apply(this, arguments));
+    return _possibleConstructorReturn(this, (Settings.__proto__ || Object.getPrototypeOf(Settings)).apply(this, arguments));
   }
 
-  _createClass(Account, [{
+  _createClass(Settings, [{
     key: 'render',
     value: function render() {
       var _this2 = this;
@@ -47,7 +47,7 @@ var Account = function (_React$Component) {
         _react2.default.createElement(
           'h1',
           null,
-          'Account Page Home'
+          'Settings page'
         ),
         _react2.default.createElement(
           'p',
@@ -66,7 +66,7 @@ var Account = function (_React$Component) {
     }
   }]);
 
-  return Account;
+  return Settings;
 }(_react2.default.Component);
 
 var mapStateToProps = function mapStateToProps(state) {
@@ -82,4 +82,4 @@ var mapStateToDispatch = function mapStateToDispatch(dispatch) {
   };
 };
 
-exports.default = (0, _reactRedux.connect)(mapStateToProps, mapStateToDispatch)(Account);
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapStateToDispatch)(Settings);

@@ -2,13 +2,13 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {logout} from '../actions/logout';
 import {bindActionCreators} from 'redux'
-class Account extends React.Component {
+class Settings extends React.Component {
   render() {
     const { user } = this.props;
 
     return (
       <div>
-        <h1>Account Page Home</h1>
+        <h1>Settings page</h1>
         <p>You are logged in as {user.email}</p>
 
         <h3 onClick={() => this.props.logout()}> LOGOUT </h3>
@@ -31,4 +31,4 @@ const mapStateToDispatch = dispatch => {
   }
 };
 
-export default connect(mapStateToProps, mapStateToDispatch)(Account);
+export default connect(mapStateToProps, mapStateToDispatch)(Settings);

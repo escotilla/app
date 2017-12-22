@@ -43,11 +43,11 @@ class Register extends React.Component {
       invalid.push('email');
     }
 
-    if (name.length < 2) {
+    if (!name || name.length < 2) {
       invalid.push('name');
     }
 
-    if (password.length < 2) {
+    if (!password || password.length < 2) {
       invalid.push('password');
     }
 
@@ -128,7 +128,7 @@ class Register extends React.Component {
 
     return (
       <div className="register-container text-center">
-        <h4>Sign up for Escotilla.</h4>
+        <h4>Sign up for an account.</h4>
         {passwordBox}
       </div>
     );

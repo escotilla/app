@@ -24,6 +24,7 @@ export function register(body) {
       })
       .then(handleErrors)
       .then(json => {
+        json.name = body.name;
         dispatch(registerSuccess(json.data));
       })
       .catch(err => {
@@ -50,7 +51,8 @@ function registerSuccess(json) {
   return {
     type: REGISTER_SUCCESS,
     token: json.api_token,
-    email: json.email
+    email: json.email,
+    name: json.name
   }
 }
 
