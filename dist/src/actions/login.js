@@ -11,10 +11,6 @@ var _isomorphicFetch2 = _interopRequireDefault(_isomorphicFetch);
 
 var _environment = require('../utilities/environment');
 
-var _lscache = require('lscache');
-
-var _lscache2 = _interopRequireDefault(_lscache);
-
 var _actionTypes = require('./action-types');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -33,7 +29,6 @@ function login(body) {
       return response.json();
     }).then(handleErrors).then(function (json) {
       dispatch(loginSuccess(json.data));
-      _lscache2.default.set('user', json.data);
     }).catch(function (err) {
       dispatch(loginFailure(err));
     });

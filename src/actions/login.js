@@ -1,6 +1,5 @@
 import fetch from 'isomorphic-fetch';
 import {getApiUrl} from '../utilities/environment';
-import lscache from 'lscache';
 
 import {
   LOGIN_INIT,
@@ -25,7 +24,6 @@ export function login(body) {
       .then(handleErrors)
       .then(json => {
         dispatch(loginSuccess(json.data));
-        lscache.set('user', json.data);
       })
       .catch(err => {
         dispatch(loginFailure(err));

@@ -12,8 +12,6 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = require('react-redux');
 
-var _loadUser = require('../actions/load-user');
-
 var _redux = require('redux');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -60,10 +58,4 @@ var mapStateToProps = function mapStateToProps(state) {
   return { user: user };
 };
 
-var mapStateToDispatch = function mapStateToDispatch(dispatch) {
-  return {
-    loadUser: (0, _redux.bindActionCreators)(_loadUser.loadUser, dispatch)
-  };
-};
-
-exports.default = (0, _reactRedux.connect)(mapStateToProps, mapStateToDispatch)(AppContainer);
+exports.default = (0, _reactRedux.connect)(mapStateToProps)(AppContainer);
