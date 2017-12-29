@@ -7,7 +7,7 @@ import {Redirect} from 'react-router-dom';
 
 class Warning extends React.Component {
   render() {
-    const {code, message} = this.props;
+    const {code, message} = this.props.error;
 
     if (code && message) {
       return (

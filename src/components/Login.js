@@ -111,7 +111,7 @@ class Login extends React.Component {
           </div>
         </form>
         {button}
-        {error ? <Warning code={code} message={message}/> : null}
+        {error ? <Warning error={error}/> : null}
       </div>
     );
   }
