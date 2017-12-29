@@ -14,7 +14,7 @@ const preloadedState = window.__PRELOADED_STATE__;
 // Get rid of it!
 delete window.__PRELOADED_STATE__;
 
-const store = createStore(rootReducer, preloadedState, applyMiddleware(thunkMiddleware));
+export const store = createStore(rootReducer, preloadedState, applyMiddleware(thunkMiddleware));
 
 ReactDOM.render((
   <BrowserRouter>

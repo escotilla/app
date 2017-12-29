@@ -32,11 +32,15 @@ var _NotFound = require('./NotFound');
 
 var _NotFound2 = _interopRequireDefault(_NotFound);
 
+var _AppContainer = require('./AppContainer');
+
+var _AppContainer2 = _interopRequireDefault(_AppContainer);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var App = function App() {
   return _react2.default.createElement(
-    'div',
+    _AppContainer2.default,
     null,
     _react2.default.createElement(_Nav2.default, { routes: _routes2.default }),
     _react2.default.createElement(

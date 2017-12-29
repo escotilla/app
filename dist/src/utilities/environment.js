@@ -19,7 +19,11 @@ function hasWindow() {
 }
 
 function getApiUrl() {
-  return 'http://flowerpunk-env.us-east-1.elasticbeanstalk.com';
+  if (isNode() && process.env.NODE_ENV === 'production') {
+    return 'http://flowerpunk-env.us-east-1.elasticbeanstalk.com';
+  } else {
+    return 'http://localhost:5000';
+  }
 }
 
 function handleErrors(response) {

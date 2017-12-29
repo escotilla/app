@@ -5,9 +5,10 @@ import RouteWithSubRoutes from './RouteWithSubRoutes';
 import Footer from './Footer';
 import routes from '../configs/routes';
 import NotFound from './NotFound';
+import AppContainer from './AppContainer';
 
 const App = () => (
-  <div>
+  <AppContainer>
     <Nav routes={routes}/>
     <Switch>
       {routes.map((route, i) => (
@@ -16,7 +17,7 @@ const App = () => (
       <Route component={NotFound}/>
     </Switch>
     <Footer />
-  </div>
+  </AppContainer>
 );
 
 export default App;

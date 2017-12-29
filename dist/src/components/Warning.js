@@ -10,11 +10,15 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _login = require('../actions/login');
+
+var _updatePayload = require('../actions/update-payload');
+
 var _reactRedux = require('react-redux');
 
 var _redux = require('redux');
 
-var _loadUser = require('../actions/load-user');
+var _reactRouterDom = require('react-router-dom');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -24,61 +28,48 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var AppContainer = function (_React$Component) {
-  _inherits(AppContainer, _React$Component);
+var Warning = function (_React$Component) {
+  _inherits(Warning, _React$Component);
 
-  function AppContainer() {
-    _classCallCheck(this, AppContainer);
+  function Warning() {
+    _classCallCheck(this, Warning);
 
-    return _possibleConstructorReturn(this, (AppContainer.__proto__ || Object.getPrototypeOf(AppContainer)).apply(this, arguments));
+    return _possibleConstructorReturn(this, (Warning.__proto__ || Object.getPrototypeOf(Warning)).apply(this, arguments));
   }
 
-  _createClass(AppContainer, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      var actions = this.props.actions;
-      actions.reduce(function (prev, current) {
-        return prev.then(current);
-      }, Promise.resolve());
-    }
-  }, {
+  _createClass(Warning, [{
     key: 'render',
     value: function render() {
-      if (this.props.booting) {
+      var _props = this.props,
+          code = _props.code,
+          message = _props.message;
+
+
+      if (code && message) {
         return _react2.default.createElement(
           'div',
           null,
           _react2.default.createElement(
-            'h1',
-            null,
-            'BOOTING'
+            'div',
+            { className: 'alert alert-warning', role: 'alert' },
+            message
+          )
+        );
+      } else {
+        return _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement(
+            'div',
+            { className: 'alert alert-danger', role: 'alert' },
+            'Critical Error!'
           )
         );
       }
-
-      return _react2.default.createElement(
-        'div',
-        null,
-        this.props.children
-      );
     }
   }]);
 
-  return AppContainer;
+  return Warning;
 }(_react2.default.Component);
 
-var mapStateToProps = function mapStateToProps(state) {
-  var boot = state.boot;
-
-  console.log(boot);
-
-  return { booting: boot.booting, actions: boot.actions };
-};
-
-var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-  return {
-    loadUser: (0, _redux.bindActionCreators)(_loadUser.loadUser, dispatch)
-  };
-};
-
-exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(AppContainer);
+exports.default = Warning;

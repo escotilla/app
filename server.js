@@ -5,6 +5,7 @@ import compression from 'compression';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import csurf from 'csurf';
+import cors from 'cors';
 import Express from 'express';
 import {renderToString} from 'react-dom/server';
 import {createStore} from 'redux';
@@ -18,6 +19,7 @@ const port = 8000;
 
 app.use(compression());
 app.use(cookieParser());
+app.use(cors());
 app.use(bodyParser.json());
 app.use(csurf({cookie: true}));
 

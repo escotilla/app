@@ -6,25 +6,29 @@ Object.defineProperty(exports, "__esModule", {
 
 var _actionTypes = require('../actions/action-types');
 
-var INITIAL_STATE = {};
+var _loadUser = require('../actions/load-user');
 
-var user = function user() {
+var INITIAL_STATE = {
+  booting: true,
+  actions: [{
+    action: _loadUser.loadUser
+  }, {
+    action: _loadUser.bootComplete
+  }]
+};
+
+var boot = function boot() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : INITIAL_STATE;
   var action = arguments[1];
 
   switch (action.type) {
-    case _actionTypes.REGISTER_SUCCESS:
-    case _actionTypes.LOGIN_SUCCESS:
-    case _actionTypes.LOAD_USER:
+    case _actionTypes.BOOT_COMPLETE:
       return Object.assign({}, state, {
-        token: action.token,
-        email: action.email
+        booting: false
       });
-    case _actionTypes.LOGOUT:
-      return INITIAL_STATE;
     default:
       return state;
   }
 };
 
-exports.default = user;
+exports.default = boot;

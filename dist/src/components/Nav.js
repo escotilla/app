@@ -16,7 +16,13 @@ var _reactRedux = require('react-redux');
 
 var _logout = require('../actions/logout');
 
+var _changeLanguage = require('../actions/change-language');
+
 var _redux = require('redux');
+
+var _language = require('../utilities/language');
+
+var _language2 = _interopRequireDefault(_language);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -40,7 +46,10 @@ var Nav = function (_React$Component) {
     value: function render() {
       var _this2 = this;
 
-      var routes = this.props.routes;
+      var _props = this.props,
+          routes = _props.routes,
+          language = _props.language;
+
 
       var navLinks = routes.map(function (route) {
         return route.includeInNav ? _react2.default.createElement(
@@ -83,7 +92,7 @@ var Nav = function (_React$Component) {
             {
               to: '/login',
               activeStyle: { color: 'rgba(255, 0, 0, 1)' } },
-            'Login'
+            _language2.default.get(language, 'button.login')
           )
         ),
         _react2.default.createElement(
@@ -94,7 +103,7 @@ var Nav = function (_React$Component) {
             {
               to: '/register',
               activeStyle: { color: 'rgba(255, 0, 0, 1)' } },
-            'Register'
+            _language2.default.get(language, 'button.register')
           )
         )
       );
@@ -152,6 +161,24 @@ var Nav = function (_React$Component) {
               navLinks
             )
           )
+        ),
+        _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement(
+            'button',
+            { onClick: function onClick() {
+                return _this2.props.changeLanguage('spanish');
+              } },
+            'Spanish'
+          ),
+          _react2.default.createElement(
+            'button',
+            { onClick: function onClick() {
+                return _this2.props.changeLanguage('english');
+              } },
+            'English'
+          )
         )
       );
     }
@@ -165,17 +192,19 @@ Nav.defaultProps = {
 };
 
 var mapStateToProps = function mapStateToProps(state) {
-  var user = state.user;
+  var user = state.user,
+      language = state.language;
 
 
   var isAuthenticated = user.token && user.token.length > 0;
 
-  return { isAuthenticated: isAuthenticated, user: user };
+  return { isAuthenticated: isAuthenticated, user: user, language: language };
 };
 
 var mapStateToDispatch = function mapStateToDispatch(dispatch) {
   return {
-    logout: (0, _redux.bindActionCreators)(_logout.logout, dispatch)
+    logout: (0, _redux.bindActionCreators)(_logout.logout, dispatch),
+    changeLanguage: (0, _redux.bindActionCreators)(_changeLanguage.changeLanguage, dispatch)
   };
 };
 

@@ -1,14 +1,22 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
+import {boot} from '../actions/load-user';
 
 class AppContainer extends React.Component {
   componentDidMount() {
-    this.props.loadUser();
+    this.props.boot();
   }
 
   render() {
-    console.log(this);
+    if (this.props.booting) {
+      return (
+        <div>
+          <h1>BOOTING</h1>
+        </div>
+      )
+    }
+
     return (
       <div>
         {this.props.children}
@@ -19,10 +27,16 @@ class AppContainer extends React.Component {
 
 const mapStateToProps = state => {
   const {
-    user,
+    boot,
   } = state;
 
-  return { user };
+  return { booting: boot.booting };
 };
 
-export default connect(mapStateToProps)(AppContainer);
+const mapDispatchToProps = dispatch => {
+  return {
+    boot: bindActionCreators(boot, dispatch)
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AppContainer);

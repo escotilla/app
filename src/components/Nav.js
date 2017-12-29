@@ -2,7 +2,9 @@ import React from 'react';
 import {NavLink} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {logout} from '../actions/logout';
+import {changeLanguage} from '../actions/change-language';
 import {bindActionCreators} from 'redux';
+import Language from '../utilities/language';
 
 class Nav extends React.Component {
   constructor(props) {
@@ -10,7 +12,7 @@ class Nav extends React.Component {
   }
 
   render() {
-    const routes = this.props.routes;
+    const {routes, language} = this.props;
 
     const navLinks = routes.map(route => {
       return (
@@ -39,14 +41,14 @@ class Nav extends React.Component {
           <NavLink
             to='/login'
             activeStyle={{color: 'rgba(255, 0, 0, 1)'}}>
-            Login
+            {Language.get(language, 'button.login')}
           </NavLink>
         </li>
         <li>
           <NavLink
             to='/register'
             activeStyle={{color: 'rgba(255, 0, 0, 1)'}}>
-            Register
+            {Language.get(language, 'button.register')}
           </NavLink>
         </li>
       </ul>
@@ -76,6 +78,10 @@ class Nav extends React.Component {
                   </NavLink>
                 </li>
               </ul>
+              <div>
+                <button onClick={() => this.props.changeLanguage('spanish')}>Spanish</button>
+                <button onClick={() => this.props.changeLanguage('english')}>English</button>
+              </div>
             </div>
           </nav>
         ) : (
@@ -84,6 +90,10 @@ class Nav extends React.Component {
               <ul className="nav navbar-nav">
                 {navLinks}
               </ul>
+              <div>
+                <button onClick={() => this.props.changeLanguage('spanish')}>Spanish</button>
+                <button onClick={() => this.props.changeLanguage('english')}>English</button>
+              </div>
             </div>
           </nav>
         )}
@@ -99,16 +109,18 @@ Nav.defaultProps = {
 const mapStateToProps = state => {
   const {
     user,
+    language
   } = state;
 
   const isAuthenticated = user.token && user.token.length > 0;
 
-  return { isAuthenticated, user };
+  return { isAuthenticated, user, language };
 };
 
 const mapStateToDispatch = dispatch => {
   return {
-    logout: bindActionCreators(logout, dispatch)
+    logout: bindActionCreators(logout, dispatch),
+    changeLanguage: bindActionCreators(changeLanguage, dispatch),
   }
 };
 

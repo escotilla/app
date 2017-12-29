@@ -12,9 +12,9 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = require('react-redux');
 
-var _redux = require('redux');
+var _language = require('../configs/language');
 
-var _loadUser = require('../actions/load-user');
+var _language2 = _interopRequireDefault(_language);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -24,61 +24,43 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var AppContainer = function (_React$Component) {
-  _inherits(AppContainer, _React$Component);
+var Language = function (_React$Component) {
+  _inherits(Language, _React$Component);
 
-  function AppContainer() {
-    _classCallCheck(this, AppContainer);
+  function Language() {
+    _classCallCheck(this, Language);
 
-    return _possibleConstructorReturn(this, (AppContainer.__proto__ || Object.getPrototypeOf(AppContainer)).apply(this, arguments));
+    return _possibleConstructorReturn(this, (Language.__proto__ || Object.getPrototypeOf(Language)).apply(this, arguments));
   }
 
-  _createClass(AppContainer, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      var actions = this.props.actions;
-      actions.reduce(function (prev, current) {
-        return prev.then(current);
-      }, Promise.resolve());
+  _createClass(Language, [{
+    key: 'resolve',
+    value: function resolve(path, obj) {
+      return path.split('.').reduce(function (prev, current) {
+        return prev ? prev[current] : undefined;
+      }, obj);
     }
   }, {
     key: 'render',
     value: function render() {
-      if (this.props.booting) {
-        return _react2.default.createElement(
-          'div',
-          null,
-          _react2.default.createElement(
-            'h1',
-            null,
-            'BOOTING'
-          )
-        );
-      }
+      var _props = this.props,
+          language = _props.language,
+          path = _props.path;
 
-      return _react2.default.createElement(
-        'div',
-        null,
-        this.props.children
-      );
+      var fullPath = language + '.' + path;
+
+      return this.resolve(fullPath, _language2.default);
     }
   }]);
 
-  return AppContainer;
+  return Language;
 }(_react2.default.Component);
 
 var mapStateToProps = function mapStateToProps(state) {
-  var boot = state.boot;
+  var _ref = state || 'spanish',
+      language = _ref.language;
 
-  console.log(boot);
-
-  return { booting: boot.booting, actions: boot.actions };
+  return { language: language };
 };
 
-var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-  return {
-    loadUser: (0, _redux.bindActionCreators)(_loadUser.loadUser, dispatch)
-  };
-};
-
-exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(AppContainer);
+exports.default = (0, _reactRedux.connect)(mapStateToProps)(Language);

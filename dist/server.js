@@ -22,6 +22,10 @@ var _csurf = require('csurf');
 
 var _csurf2 = _interopRequireDefault(_csurf);
 
+var _cors = require('cors');
+
+var _cors2 = _interopRequireDefault(_cors);
+
 var _express = require('express');
 
 var _express2 = _interopRequireDefault(_express);
@@ -52,6 +56,7 @@ var port = 8000;
 
 app.use((0, _compression2.default)());
 app.use((0, _cookieParser2.default)());
+app.use((0, _cors2.default)());
 app.use(_bodyParser2.default.json());
 app.use((0, _csurf2.default)({ cookie: true }));
 

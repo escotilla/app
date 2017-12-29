@@ -1,5 +1,6 @@
 import fetch from 'isomorphic-fetch';
 import {getApiUrl} from '../utilities/environment';
+import lscache from 'ls-cache';
 
 import {
   LOGIN_INIT,
@@ -7,55 +8,61 @@ import {
   LOGIN_SUCCESS,
 } from './action-types';
 
-export function login(body) {
+export function login(body, page = 'login') {
   return dispatch => {
-    dispatch(loginStart());
+    dispatch(loginStart(page));
+
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
 
     return fetch(getApiUrl() + '/user/login', {
       method: "POST",
       body: JSON.stringify(body),
-      headers: {
-        "Content-Type": "application/json"
-      }
+      headers: headers
     })
       .then(response => {
         return response.json();
       })
       .then(handleErrors)
       .then(json => {
-        dispatch(loginSuccess(json.data));
+        dispatch(loginSuccess(json.data, page));
+        lscache.set('user', json.data);
       })
       .catch(err => {
-        dispatch(loginFailure(err));
+        dispatch(loginFailure(err, page));
       })
   }
 }
 
 function handleErrors(response) {
   if (!response.success) {
-    throw Error(response.error);
+    throw response;
   }
 
   return response;
 }
 
-function loginStart() {
+function loginStart(page) {
   return {
-    type: LOGIN_INIT
+    type: LOGIN_INIT,
+    page: page
   }
 }
 
-function loginSuccess(json) {
+function loginSuccess(json, page) {
   return {
     type: LOGIN_SUCCESS,
     token: json.api_token,
-    email: json.email
+    email: json.email,
+    page: page
   }
 }
 
-function loginFailure(err) {
+function loginFailure(err, page) {
   return {
     type: LOGIN_FAILURE,
-    error: err
+    error: err,
+    page: page
   }
 }

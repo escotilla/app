@@ -1,27 +1,80 @@
 import {
   UPDATE_PAYLOAD,
   REGISTER_SUCCESS,
-  REGISTER_FAILURE
+  LOGIN_SUCCESS,
+  REGISTER_FAILURE,
+  LOGIN_FAILURE,
+  LOGIN_INIT,
+  REGISTER_INIT
 } from '../actions/action-types';
 
-const INITIAL_STATE = {
-  email: '',
-  name: '',
-  password: ''
-};
+const INITIAL_STATE = {};
 
-const payload = (state = {payload: INITIAL_STATE}, action) => {
+const payload = (state = {
+  payload: {},
+  loading: false,
+  error: null,
+  message: null,
+  success: null
+}, action) => {
     switch (action.type) {
       case UPDATE_PAYLOAD:
         return Object.assign({}, state, {
-          [action.id]: action.text
+          payload: updatePayload(state.payload, action)
+        });
+      case LOGIN_INIT:
+      case REGISTER_INIT:
+        return Object.assign({}, state, {
+          loading: true
         });
       case REGISTER_SUCCESS:
+      case LOGIN_SUCCESS:
+        return Object.assign({}, state, {
+          payload: INITIAL_STATE,
+          loading: false,
+          success: true,
+          error: null
+        });
       case REGISTER_FAILURE:
-        return {};
+      case LOGIN_FAILURE:
+        return Object.assign({}, state, {
+          loading: false,
+          error: {
+            message: action.error.message || undefined,
+            code: action.error.code || 500
+          }
+        });
       default:
         return state;
     }
   };
 
-export default payload;
+const updatePayload = (state, action) => {
+  switch (action.type) {
+    case UPDATE_PAYLOAD:
+      return Object.assign({}, state, {
+        [action.id]: action.text
+      });
+    default:
+      return state;
+  }
+};
+
+const payloadByPage = (state = {}, action) => {
+  switch (action.type) {
+    case UPDATE_PAYLOAD:
+    case REGISTER_FAILURE:
+    case REGISTER_SUCCESS:
+    case REGISTER_INIT:
+    case LOGIN_SUCCESS:
+    case LOGIN_FAILURE:
+    case LOGIN_INIT:
+      return Object.assign({}, state, {
+        [action.page]: payload(state[action.page], action)
+      });
+    default:
+      return state
+  }
+};
+
+export default payloadByPage;

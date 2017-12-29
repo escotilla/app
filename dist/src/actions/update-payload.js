@@ -7,10 +7,11 @@ exports.updatePayload = updatePayload;
 
 var _actionTypes = require('./action-types');
 
-function updatePayload(id, text) {
+function updatePayload(id, page, text) {
   return {
     type: _actionTypes.UPDATE_PAYLOAD,
     id: id,
+    page: page,
     text: text
   };
 }

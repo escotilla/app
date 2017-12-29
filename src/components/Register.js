@@ -4,19 +4,18 @@ import {updatePayload} from '../actions/update-payload';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux'
 import {Redirect} from 'react-router-dom';
+import Warning from './Warning';
+
+const REGISTER = 'register';
 
 class Register extends React.Component {
   constructor(props) {
     super(props);
     this.submit = this.submit.bind(this);
     this.verifiedSubmit = this.verifiedSubmit.bind(this);
-    this.getMessageBox = this.getMessageBox.bind(this);
+    this.renderForm = this.renderForm.bind(this);
 
     this.state = {
-      submitted: false,
-      email: '',
-      name: '',
-      password: '',
       invalid: []
     }
   }
@@ -25,9 +24,7 @@ class Register extends React.Component {
     return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email);
   }
 
-  verifiedSubmit() {
-    const {email, name, password} = this.props.payload;
-
+  verifiedSubmit(email, name, password) {
     this.props.register({
       email: email,
       name: name,
@@ -53,11 +50,10 @@ class Register extends React.Component {
 
     if (invalid.length === 0) {
       this.setState({
-        submitted: true,
         invalid: invalid
       });
 
-      this.verifiedSubmit()
+      this.verifiedSubmit(email, name, password);
     } else {
       this.setState({
         invalid: invalid
@@ -65,10 +61,12 @@ class Register extends React.Component {
     }
   }
 
-  getMessageBox() {
-    const {error, loading, success, email, name, password, user} = this.props;
+  renderForm() {
+    const {error, loading, loggedIn, payload} = this.props;
 
-    if (success && user.token) {
+    const {email, name, password} = payload;
+
+    if (loggedIn) {
       return <Redirect to='/account' />;
     }
 
@@ -80,7 +78,7 @@ class Register extends React.Component {
 
     let button = (
       <button
-        disabled={success || loading || error}
+        disabled={loading}
         id="submit"
         onClick={this.submit}
         className="button">{loading ? <i className="fa fa-cog fa-spin" /> : 'Create Account'}
@@ -92,7 +90,8 @@ class Register extends React.Component {
         <form>
           <div className={"form-group " + emailClass}>
             <input
-              onChange={(e) => this.props.updatePayload('email', e.target.value)}
+              disabled={loading}
+              onChange={(e) => this.props.updatePayload('email', REGISTER, e.target.value)}
               value={email}
               type="email"
               className="form-control form-transparent"
@@ -101,7 +100,8 @@ class Register extends React.Component {
           </div>
           <div className={"form-group " + nameClass}>
             <input
-              onChange={(e) => this.props.updatePayload('name', e.target.value)}
+              onChange={(e) => this.props.updatePayload('name', REGISTER, e.target.value)}
+              disabled={loading}
               value={name}
               type="name"
               className="form-control form-transparent"
@@ -110,7 +110,8 @@ class Register extends React.Component {
           </div>
           <div className={"form-group " + passwordClass}>
             <input
-              onChange={(e) => this.props.updatePayload('password', e.target.value)}
+              onChange={(e) => this.props.updatePayload('password', REGISTER, e.target.value)}
+              disabled={loading}
               value={password}
               type="password"
               className="form-control form-transparent"
@@ -119,17 +120,16 @@ class Register extends React.Component {
           </div>
         </form>
         {button}
+        {error ? <Warning code={code} message={message}/> : null}
       </div>
     );
   }
 
   render() {
-    let passwordBox = this.getMessageBox();
-
     return (
       <div className="register-container text-center">
         <h4>Sign up for an account.</h4>
-        {passwordBox}
+        {this.renderForm()}
       </div>
     );
   }
@@ -139,30 +139,26 @@ class Register extends React.Component {
 const mapStateToProps = state => {
   const {
     user,
-    payload
+    payloadByPage
   } = state;
-
-  const {
-    name,
-    email,
-    password
-  } = payload || {
-    name: '',
-    email: '',
-    password: ''
-  };
 
   const {
     loading,
     error,
-    success
-  } = user || {
+    payload
+  } = payloadByPage[REGISTER] || {
     loading: false,
     error: null,
-    success: false
+    payload: {
+      name: '',
+      email: '',
+      password: ''
+    }
   };
 
-  return { user, payload, loading, error, success, name, email, password };
+  const loggedIn = user && user.token && user.token.length > 0;
+
+  return { loggedIn, loading, error, payload };
 };
 
 const mapDispatchToProps = dispatch => {

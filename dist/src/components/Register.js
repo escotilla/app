@@ -20,6 +20,10 @@ var _redux = require('redux');
 
 var _reactRouterDom = require('react-router-dom');
 
+var _Warning = require('./Warning');
+
+var _Warning2 = _interopRequireDefault(_Warning);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -27,6 +31,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var REGISTER = 'register';
 
 var Register = function (_React$Component) {
   _inherits(Register, _React$Component);
@@ -38,13 +44,9 @@ var Register = function (_React$Component) {
 
     _this.submit = _this.submit.bind(_this);
     _this.verifiedSubmit = _this.verifiedSubmit.bind(_this);
-    _this.getMessageBox = _this.getMessageBox.bind(_this);
+    _this.renderForm = _this.renderForm.bind(_this);
 
     _this.state = {
-      submitted: false,
-      email: '',
-      name: '',
-      password: '',
       invalid: []
     };
     return _this;
@@ -52,13 +54,7 @@ var Register = function (_React$Component) {
 
   _createClass(Register, [{
     key: 'verifiedSubmit',
-    value: function verifiedSubmit() {
-      var _props$payload = this.props.payload,
-          email = _props$payload.email,
-          name = _props$payload.name,
-          password = _props$payload.password;
-
-
+    value: function verifiedSubmit(email, name, password) {
       this.props.register({
         email: email,
         name: name,
@@ -68,10 +64,10 @@ var Register = function (_React$Component) {
   }, {
     key: 'submit',
     value: function submit() {
-      var _props$payload2 = this.props.payload,
-          email = _props$payload2.email,
-          name = _props$payload2.name,
-          password = _props$payload2.password;
+      var _props$payload = this.props.payload,
+          email = _props$payload.email,
+          name = _props$payload.name,
+          password = _props$payload.password;
 
       var invalid = [];
 
@@ -89,11 +85,10 @@ var Register = function (_React$Component) {
 
       if (invalid.length === 0) {
         this.setState({
-          submitted: true,
           invalid: invalid
         });
 
-        this.verifiedSubmit();
+        this.verifiedSubmit(email, name, password);
       } else {
         this.setState({
           invalid: invalid
@@ -101,21 +96,21 @@ var Register = function (_React$Component) {
       }
     }
   }, {
-    key: 'getMessageBox',
-    value: function getMessageBox() {
+    key: 'renderForm',
+    value: function renderForm() {
       var _this2 = this;
 
       var _props = this.props,
           error = _props.error,
           loading = _props.loading,
-          success = _props.success,
-          email = _props.email,
-          name = _props.name,
-          password = _props.password,
-          user = _props.user;
+          loggedIn = _props.loggedIn,
+          payload = _props.payload;
+      var email = payload.email,
+          name = payload.name,
+          password = payload.password;
 
 
-      if (success && user.token) {
+      if (loggedIn) {
         return _react2.default.createElement(_reactRouterDom.Redirect, { to: '/account' });
       }
 
@@ -129,7 +124,7 @@ var Register = function (_React$Component) {
       var button = _react2.default.createElement(
         'button',
         {
-          disabled: success || loading || error,
+          disabled: loading,
           id: 'submit',
           onClick: this.submit,
           className: 'button' },
@@ -146,8 +141,9 @@ var Register = function (_React$Component) {
             'div',
             { className: "form-group " + emailClass },
             _react2.default.createElement('input', {
+              disabled: loading,
               onChange: function onChange(e) {
-                return _this2.props.updatePayload('email', e.target.value);
+                return _this2.props.updatePayload('email', REGISTER, e.target.value);
               },
               value: email,
               type: 'email',
@@ -160,8 +156,9 @@ var Register = function (_React$Component) {
             { className: "form-group " + nameClass },
             _react2.default.createElement('input', {
               onChange: function onChange(e) {
-                return _this2.props.updatePayload('name', e.target.value);
+                return _this2.props.updatePayload('name', REGISTER, e.target.value);
               },
+              disabled: loading,
               value: name,
               type: 'name',
               className: 'form-control form-transparent',
@@ -173,8 +170,9 @@ var Register = function (_React$Component) {
             { className: "form-group " + passwordClass },
             _react2.default.createElement('input', {
               onChange: function onChange(e) {
-                return _this2.props.updatePayload('password', e.target.value);
+                return _this2.props.updatePayload('password', REGISTER, e.target.value);
               },
+              disabled: loading,
               value: password,
               type: 'password',
               className: 'form-control form-transparent',
@@ -182,14 +180,13 @@ var Register = function (_React$Component) {
               placeholder: 'Password' })
           )
         ),
-        button
+        button,
+        error ? _react2.default.createElement(_Warning2.default, { code: code, message: message }) : null
       );
     }
   }, {
     key: 'render',
     value: function render() {
-      var passwordBox = this.getMessageBox();
-
       return _react2.default.createElement(
         'div',
         { className: 'register-container text-center' },
@@ -198,7 +195,7 @@ var Register = function (_React$Component) {
           null,
           'Sign up for an account.'
         ),
-        passwordBox
+        this.renderForm()
       );
     }
   }], [{
@@ -214,27 +211,24 @@ var Register = function (_React$Component) {
 
 var mapStateToProps = function mapStateToProps(state) {
   var user = state.user,
-      payload = state.payload;
+      payloadByPage = state.payloadByPage;
 
-  var _ref = payload || {
-    name: '',
-    email: '',
-    password: ''
-  },
-      name = _ref.name,
-      email = _ref.email,
-      password = _ref.password;
-
-  var _ref2 = user || {
+  var _ref = payloadByPage[REGISTER] || {
     loading: false,
     error: null,
-    success: false
+    payload: {
+      name: '',
+      email: '',
+      password: ''
+    }
   },
-      loading = _ref2.loading,
-      error = _ref2.error,
-      success = _ref2.success;
+      loading = _ref.loading,
+      error = _ref.error,
+      payload = _ref.payload;
 
-  return { user: user, payload: payload, loading: loading, error: error, success: success, name: name, email: email, password: password };
+  var loggedIn = user && user.token && user.token.length > 0;
+
+  return { loggedIn: loggedIn, loading: loading, error: error, payload: payload };
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {

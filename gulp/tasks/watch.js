@@ -12,9 +12,10 @@ gulp.task('watch', function (callback) {
   );
 
   if (!config.production) {
-    browserSync.init(null, config.browserSync);
+    browserSync.init(config.browserSync);
 
     gulp.watch('src/sass/*.scss', ['sass']);
-    gulp.watch(['server.js', 'src/*.js', 'src/**/*.js'], ['build']);
+    gulp.watch(['src/*.js', 'src/**/*.js'], ['browserify']);
+    gulp.watch(['server.js'], ['buildServer']);
   }
 });
