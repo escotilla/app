@@ -7,7 +7,10 @@ export function hasWindow() {
 }
 
 export function getApiUrl() {
+  if (process.env.NODE_ENV === 'production') {
     return 'http://flowerpunk-env.us-east-1.elasticbeanstalk.com';
+  }
+  return 'http://localhost:5000'
 }
 
 export function handleErrors(response) {

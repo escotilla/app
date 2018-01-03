@@ -48,6 +48,7 @@
     "browser-sync": "^2.18.13",
     "browserify": "^13.0.0",
     "cors": "^2.8.4",
+    "envify": "^4.1.0",
     "eslint": "^4.12.1",
     "eslint-plugin-react": "^7.5.1",
     "glob": "^7.1.2",

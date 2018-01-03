@@ -5,10 +5,12 @@ var browserify = require('browserify');
 var watchify = require('watchify');
 var babel = require('babelify');
 var uglify = require('gulp-uglify');
+var envify = require('envify/custom');
 var config = require('../config');
 
 function production(bundler) {
-  return bundler.bundle()
+  return bundler
+    .bundle()
     .on('error', function (err) {
       console.error(err);
       this.emit('end');
@@ -31,7 +33,10 @@ function rebundle(bundler) {
 
 gulp.task('browserify', function () {
   var bundler = browserify(config.browserify)
-    .transform(babel.configure({presets: config.presets}));
+    .transform(babel.configure({presets: config.presets}))
+    .transform(envify({
+      NODE_ENV: config.production ? 'production' : 'development'
+    }));
 
   if (!config.production) {
     bundler = watchify(bundler);
