@@ -4,6 +4,8 @@ import About from '../components/About';
 import Register from '../components/Register';
 import Login from '../components/Login';
 import Account from '../components/Account';
+import AboutLoanProgram from '../components/AboutLoanProgram';
+import Faq from '../components/Faq';
 
 export default [
   {
@@ -15,6 +17,18 @@ export default [
   },
   {
     path: '/about',
+    title: 'About the Loan Program',
+    component: AboutLoanProgram,
+    includeInNav: true
+  },
+  {
+    path: '/faq',
+    title: 'FAQ',
+    component: Faq,
+    includeInNav: true
+  },
+  {
+    path: '/about-us',
     title: 'About',
     component: About,
     includeInNav: true
@@ -31,14 +45,16 @@ export default [
   },
   {
     path: '/account',
-    title: 'Account',
+    title: 'Account Escotilla',
     component: Account,
-    private: true
+    private: true,
+    includeInPrivateNav: true
   },
   {
     path: '/settings',
     title: 'Settings',
     component: Settings,
-    private: true
+    private: true,
+    includeInPrivateNav: true
   }
 ];

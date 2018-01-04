@@ -52,19 +52,38 @@ var Nav = function (_React$Component) {
 
 
       var navLinks = routes.map(function (route) {
-        return route.includeInNav ? _react2.default.createElement(
-          'li',
-          { key: route.path },
-          _react2.default.createElement(
-            _reactRouterDom.NavLink,
-            {
-              exact: route.exact,
-              to: route.path,
-              id: route.path,
-              activeStyle: { color: 'rgba(255, 0, 0, 1)' } },
-            route.title
-          )
-        ) : null;
+
+        if (!_this2.props.isAuthenticated && route.includeInNav) {
+          return _react2.default.createElement(
+            'li',
+            { key: route.path },
+            _react2.default.createElement(
+              _reactRouterDom.NavLink,
+              {
+                exact: route.exact,
+                to: route.path,
+                id: route.path,
+                activeStyle: { color: 'rgba(255, 0, 0, 1)' } },
+              route.title
+            )
+          );
+        } else if (_this2.props.isAuthenticated && route.includeInPrivateNav) {
+          return _react2.default.createElement(
+            'li',
+            { key: route.path },
+            _react2.default.createElement(
+              _reactRouterDom.NavLink,
+              {
+                exact: route.exact,
+                to: route.path,
+                id: route.path,
+                activeStyle: { color: 'rgba(255, 0, 0, 1)' } },
+              route.title
+            )
+          );
+        }
+
+        return null;
       });
 
       var authLinks = this.props.isAuthenticated ? _react2.default.createElement(
@@ -92,7 +111,11 @@ var Nav = function (_React$Component) {
             {
               to: '/login',
               activeStyle: { color: 'rgba(255, 0, 0, 1)' } },
-            _language2.default.get(language, 'button.login')
+            _react2.default.createElement(
+              'button',
+              { className: 'btn btn-primary' },
+              _language2.default.get(language, 'button.login')
+            )
           )
         ),
         _react2.default.createElement(
@@ -103,7 +126,11 @@ var Nav = function (_React$Component) {
             {
               to: '/register',
               activeStyle: { color: 'rgba(255, 0, 0, 1)' } },
-            _language2.default.get(language, 'button.register')
+            _react2.default.createElement(
+              'button',
+              { className: 'btn btn-primary' },
+              _language2.default.get(language, 'button.register')
+            )
           )
         )
       );
@@ -113,45 +140,57 @@ var Nav = function (_React$Component) {
         null,
         _react2.default.createElement(
           'nav',
-          null,
+          { className: 'escotilla-nav' },
           _react2.default.createElement(
             'div',
-            { className: 'container-fluid' },
-            authLinks
-          )
-        ),
-        this.props.isAuthenticated ? _react2.default.createElement(
-          'nav',
-          { className: 'navbar navbar-inverse' },
-          _react2.default.createElement(
-            'div',
-            { className: 'container-fluid' },
+            { className: 'escotilla-nav-flex' },
             _react2.default.createElement(
-              'ul',
-              { className: 'nav navbar-nav' },
+              'div',
+              { className: 'escotilla-nav-flex-logo' },
+              _react2.default.createElement('img', { src: '/public/images/logo.png' })
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'escotilla-nav-flex-links' },
               _react2.default.createElement(
-                'li',
+                'div',
+                { className: 'container-fluid' },
+                authLinks
+              ),
+              _react2.default.createElement(
+                'div',
                 null,
                 _react2.default.createElement(
-                  _reactRouterDom.NavLink,
-                  {
-                    to: '/account',
-                    activeStyle: { color: 'rgba(255, 0, 0, 1)' } },
-                  'Account'
+                  'div',
+                  null,
+                  _react2.default.createElement(
+                    'span',
+                    { onClick: function onClick() {
+                        return _this2.props.changeLanguage('spanish');
+                      } },
+                    _react2.default.createElement('span', { className: 'flag-icon flag-icon-gr' }),
+                    _language2.default.get(language, 'spanish')
+                  )
                 ),
                 _react2.default.createElement(
-                  _reactRouterDom.NavLink,
-                  {
-                    to: '/settings',
-                    activeStyle: { color: 'rgba(255, 0, 0, 1)' } },
-                  'Settings'
+                  'div',
+                  null,
+                  _react2.default.createElement(
+                    'span',
+                    { onClick: function onClick() {
+                        return _this2.props.changeLanguage('english');
+                      } },
+                    _react2.default.createElement('span', { className: 'flag-icon flag-icon-gr' }),
+                    _language2.default.get(language, 'english')
+                  )
                 )
               )
             )
           )
-        ) : _react2.default.createElement(
+        ),
+        _react2.default.createElement(
           'nav',
-          { className: 'navbar navbar-inverse' },
+          { className: 'escotilla-nav-auth' },
           _react2.default.createElement(
             'div',
             { className: 'container-fluid' },
@@ -160,24 +199,6 @@ var Nav = function (_React$Component) {
               { className: 'nav navbar-nav' },
               navLinks
             )
-          )
-        ),
-        _react2.default.createElement(
-          'div',
-          null,
-          _react2.default.createElement(
-            'button',
-            { onClick: function onClick() {
-                return _this2.props.changeLanguage('spanish');
-              } },
-            'Spanish'
-          ),
-          _react2.default.createElement(
-            'button',
-            { onClick: function onClick() {
-                return _this2.props.changeLanguage('english');
-              } },
-            'English'
           )
         )
       );

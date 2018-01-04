@@ -1,0 +1,32 @@
+.escotilla-nav {
+  .escotilla-nav-flex {
+    display: flex;
+    div {
+      flex-grow: 1;
+    }
+
+    .escotilla-nav-flex-logo {
+      max-width: 200px;
+    }
+
+    .escotilla-nav-flex-links {
+      div {
+        float: right;
+      }
+
+      flex-direction: column;
+    }
+  }
+}
+
+.escotilla-nav-auth {
+  width: 100%;
+
+  li, ul {
+    float: right;
+  }
+}
+
+.flag {
+  height: 2rem;
+}

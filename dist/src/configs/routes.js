@@ -28,6 +28,14 @@ var _Account = require('../components/Account');
 
 var _Account2 = _interopRequireDefault(_Account);
 
+var _AboutLoanProgram = require('../components/AboutLoanProgram');
+
+var _AboutLoanProgram2 = _interopRequireDefault(_AboutLoanProgram);
+
+var _Faq = require('../components/Faq');
+
+var _Faq2 = _interopRequireDefault(_Faq);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = [{
@@ -38,6 +46,16 @@ exports.default = [{
   includeInNav: true
 }, {
   path: '/about',
+  title: 'About the Loan Program',
+  component: _AboutLoanProgram2.default,
+  includeInNav: true
+}, {
+  path: '/faq',
+  title: 'FAQ',
+  component: _Faq2.default,
+  includeInNav: true
+}, {
+  path: '/about-us',
   title: 'About',
   component: _About2.default,
   includeInNav: true
@@ -51,12 +69,14 @@ exports.default = [{
   component: _Login2.default
 }, {
   path: '/account',
-  title: 'Account',
+  title: 'Account Escotilla',
   component: _Account2.default,
-  private: true
+  private: true,
+  includeInPrivateNav: true
 }, {
   path: '/settings',
   title: 'Settings',
   component: _Settings2.default,
-  private: true
+  private: true,
+  includeInPrivateNav: true
 }];
