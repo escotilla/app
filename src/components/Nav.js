@@ -48,22 +48,22 @@ class Nav extends React.Component {
     const languageLinks = [
       <li>
         <div style={{padding: '10px 15px'}}>
-        <button
-          className="btn btn-light"
-          onClick={() => this.props.changeLanguage('spanish')}>
-          <img className="flag" src="/public/images/spain-flag.svg"/>
-          {Language.get(language, 'spanish')}
-        </button>
+          <button
+            className="btn btn-light"
+            onClick={() => this.props.changeLanguage('spanish')}>
+            <img className="flag" src="/public/images/spain-flag.svg"/>
+            {Language.get(language, 'spanish')}
+          </button>
         </div>
       </li>,
       <li>
         <div style={{padding: '10px 15px'}}>
-        <button
-          className="btn btn-light"
-          onClick={() => this.props.changeLanguage('english')}>
-          <img className="flag" src="/public/images/uk.svg"/>
-          {Language.get(language, 'english')}
-        </button>
+          <button
+            className="btn btn-light"
+            onClick={() => this.props.changeLanguage('english')}>
+            <img className="flag" src="/public/images/uk.svg"/>
+            {Language.get(language, 'english')}
+          </button>
         </div>
       </li>
     ];
@@ -104,7 +104,9 @@ class Nav extends React.Component {
         <nav className="escotilla-nav">
           <div className="escotilla-nav-flex">
             <div className="escotilla-nav-flex-logo">
-              <img src="/public/images/logo.png"/>
+              <NavLink to='/'>
+                <img src="/public/images/logo.png"/>
+              </NavLink>
             </div>
             <div className="escotilla-nav-flex-links">
               <div className="container-fluid">

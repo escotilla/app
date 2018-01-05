@@ -14,16 +14,26 @@ var Home = function Home(_ref) {
   var match = _ref.match;
   return _react2.default.createElement(
     "div",
-    { className: "col-xs-12" },
+    null,
     _react2.default.createElement(
-      "h1",
-      { id: "home-header-text" },
-      "Home page"
-    ),
-    _react2.default.createElement(
-      "p",
-      null,
-      "To the moon!"
+      "div",
+      {
+        className: "hero-image"
+      },
+      _react2.default.createElement(
+        "div",
+        { className: "hero-text" },
+        _react2.default.createElement(
+          "h1",
+          { id: "home-header-text" },
+          "Home page"
+        ),
+        _react2.default.createElement(
+          "p",
+          null,
+          "We do awesome stuff"
+        )
+      )
     )
   );
 };

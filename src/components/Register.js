@@ -127,9 +127,19 @@ class Register extends React.Component {
 
   render() {
     return (
+      <div>
+        <div
+          style={{backgroundImage: "url('/public/images/application-banner.jpg')"}}
+          className="hero-image">
+          <div className="hero-text">
+          <h1>WE HELP YOU TO GROW
+            YOUR DREAM BUSINESS</h1>
+          </div>
+        </div>
       <div className="register-container text-center">
         <h4>Sign up for an account.</h4>
         {this.renderForm()}
+      </div>
       </div>
     );
   }

@@ -86,9 +86,46 @@ var Nav = function (_React$Component) {
         return null;
       });
 
+      var languageLinks = [_react2.default.createElement(
+        'li',
+        null,
+        _react2.default.createElement(
+          'div',
+          { style: { padding: '10px 15px' } },
+          _react2.default.createElement(
+            'button',
+            {
+              className: 'btn btn-light',
+              onClick: function onClick() {
+                return _this2.props.changeLanguage('spanish');
+              } },
+            _react2.default.createElement('img', { className: 'flag', src: '/public/images/spain-flag.svg' }),
+            _language2.default.get(language, 'spanish')
+          )
+        )
+      ), _react2.default.createElement(
+        'li',
+        null,
+        _react2.default.createElement(
+          'div',
+          { style: { padding: '10px 15px' } },
+          _react2.default.createElement(
+            'button',
+            {
+              className: 'btn btn-light',
+              onClick: function onClick() {
+                return _this2.props.changeLanguage('english');
+              } },
+            _react2.default.createElement('img', { className: 'flag', src: '/public/images/uk.svg' }),
+            _language2.default.get(language, 'english')
+          )
+        )
+      )];
+
       var authLinks = this.props.isAuthenticated ? _react2.default.createElement(
         'ul',
         { className: 'nav navbar-nav' },
+        languageLinks,
         _react2.default.createElement(
           'li',
           { onClick: function onClick() {
@@ -103,6 +140,7 @@ var Nav = function (_React$Component) {
       ) : _react2.default.createElement(
         'ul',
         { className: 'nav navbar-nav' },
+        languageLinks,
         _react2.default.createElement(
           'li',
           null,
@@ -157,34 +195,7 @@ var Nav = function (_React$Component) {
                 { className: 'container-fluid' },
                 authLinks
               ),
-              _react2.default.createElement(
-                'div',
-                null,
-                _react2.default.createElement(
-                  'div',
-                  null,
-                  _react2.default.createElement(
-                    'span',
-                    { onClick: function onClick() {
-                        return _this2.props.changeLanguage('spanish');
-                      } },
-                    _react2.default.createElement('span', { className: 'flag-icon flag-icon-gr' }),
-                    _language2.default.get(language, 'spanish')
-                  )
-                ),
-                _react2.default.createElement(
-                  'div',
-                  null,
-                  _react2.default.createElement(
-                    'span',
-                    { onClick: function onClick() {
-                        return _this2.props.changeLanguage('english');
-                      } },
-                    _react2.default.createElement('span', { className: 'flag-icon flag-icon-gr' }),
-                    _language2.default.get(language, 'english')
-                  )
-                )
-              )
+              _react2.default.createElement('div', null)
             )
           )
         ),

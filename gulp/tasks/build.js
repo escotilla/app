@@ -11,7 +11,6 @@ gulp.task('build', ['buildServer', 'buildModules', 'buildTests'], function (call
     'mocha',
     'browserify',
     'sass',
-    'image',
     callback
   )
 });
