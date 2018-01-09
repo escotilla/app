@@ -97,15 +97,10 @@ var Login = function (_React$Component) {
       var _props = this.props,
           error = _props.error,
           loading = _props.loading,
-          loggedIn = _props.loggedIn,
           payload = _props.payload;
       var email = payload.email,
           password = payload.password;
 
-
-      if (loggedIn) {
-        return _react2.default.createElement(_reactRouterDom.Redirect, { to: '/account' });
-      }
 
       var invalid = this.state.invalid;
 
@@ -158,12 +153,18 @@ var Login = function (_React$Component) {
           )
         ),
         button,
-        error ? _react2.default.createElement(_Warning2.default, { code: code, message: message }) : null
+        error ? _react2.default.createElement(_Warning2.default, { error: error }) : null
       );
     }
   }, {
     key: 'render',
     value: function render() {
+      var loggedIn = this.props.loggedIn;
+
+
+      if (loggedIn) {
+        return _react2.default.createElement(_reactRouterDom.Redirect, { to: '/account' });
+      }
       return _react2.default.createElement(
         'div',
         { className: 'login-container text-center' },

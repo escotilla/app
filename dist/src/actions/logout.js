@@ -15,6 +15,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function logout() {
   _lsCache2.default.remove('user');
+  _lsCache2.default.remove('application');
 
   return {
     type: _actionTypes.LOGOUT

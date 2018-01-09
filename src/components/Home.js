@@ -1,8 +1,15 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import Language from '../utilities/language';
+import {Redirect} from 'react-router-dom';
 
-const Home = ({match, language}) => (
+const Home = ({match, language, loggedIn}) => {
+
+  if (loggedIn) {
+      return <Redirect to='/account' />;
+  }
+
+  return (
   <div className="table">
     <div
       style={{
@@ -46,15 +53,17 @@ const Home = ({match, language}) => (
       </div>
     </div>
   </div>
-);
+)};
 
 const mapStateToProps = state => {
   const {
-    language
+    language,
+    user
   } = state;
 
+  const loggedIn = user && user.token;
 
-  return {language};
+  return {language, loggedIn};
 };
 
 export default connect(mapStateToProps)(Home);

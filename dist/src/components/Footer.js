@@ -32,11 +32,12 @@ var Footer = function (_React$Component) {
     value: function render() {
       return _react2.default.createElement(
         "div",
-        { className: "footer" },
+        { className: "footer escotilla-footer" },
+        _react2.default.createElement("img", { src: "/public/images/logo.png" }),
         _react2.default.createElement(
           "p",
           { className: "text-center" },
-          "Sam Stanton-Reid 2017"
+          "\xA9 2017. Escotilla Financiera. All Rights Reserved. Torres de Las Americas, Punta Pacifica, 15th Floor Panama City, Panama"
         )
       );
     }

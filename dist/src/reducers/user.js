@@ -18,7 +18,8 @@ var user = function user() {
     case _actionTypes.LOAD_USER:
       return Object.assign({}, state, {
         token: action.token,
-        email: action.email
+        email: action.email,
+        application_ids: action.application_ids
       });
     case _actionTypes.LOGOUT:
       return INITIAL_STATE;

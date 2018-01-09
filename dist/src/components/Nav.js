@@ -185,7 +185,11 @@ var Nav = function (_React$Component) {
             _react2.default.createElement(
               'div',
               { className: 'escotilla-nav-flex-logo' },
-              _react2.default.createElement('img', { src: '/public/images/logo.png' })
+              _react2.default.createElement(
+                _reactRouterDom.NavLink,
+                { to: '/' },
+                _react2.default.createElement('img', { src: '/public/images/logo.png' })
+              )
             ),
             _react2.default.createElement(
               'div',

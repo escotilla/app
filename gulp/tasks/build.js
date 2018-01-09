@@ -2,9 +2,6 @@ var gulp = require('gulp');
 var runSequence = require('run-sequence');
 var babel = require('gulp-babel');
 var config = require('../config');
-var Cache = require('gulp-file-cache');
-
-var cache = new Cache();
 
 gulp.task('build', ['buildServer', 'buildModules', 'buildTests'], function (callback) {
   runSequence(
@@ -24,12 +21,10 @@ gulp.task('buildServer', function () {
 });
 
 gulp.task('buildModules', function () {
-  return gulp.src(['src/*.js', 'src/**/*.js'])
-    .pipe(cache.filter())
+  return gulp.src(['./src/*.js', './src/**/*.js'])
     .pipe(babel({
       presets: config.presets
     }))
-    .pipe(cache.cache())
     .pipe(gulp.dest(config.dest + '/src'));
 });
 

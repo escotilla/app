@@ -62,13 +62,9 @@ class Register extends React.Component {
   }
 
   renderForm() {
-    const {error, loading, loggedIn, payload} = this.props;
+    const {error, loading, payload} = this.props;
 
     const {email, name, password} = payload;
-
-    if (loggedIn) {
-      return <Redirect to='/account' />;
-    }
 
     const {invalid} = this.state;
 
@@ -126,6 +122,13 @@ class Register extends React.Component {
   }
 
   render() {
+    const {loggedIn} = this.props;
+
+
+    if (loggedIn) {
+      return <Redirect to='/account' />;
+    }
+
     return (
       <div>
         <div

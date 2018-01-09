@@ -40,9 +40,9 @@ var Warning = function (_React$Component) {
   _createClass(Warning, [{
     key: 'render',
     value: function render() {
-      var _props = this.props,
-          code = _props.code,
-          message = _props.message;
+      var _props$error = this.props.error,
+          code = _props$error.code,
+          message = _props$error.message;
 
 
       if (code && message) {

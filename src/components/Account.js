@@ -1,17 +1,53 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {logout} from '../actions/logout';
-import {bindActionCreators} from 'redux'
+import {bindActionCreators} from 'redux';
+import CreateApplication from './CreateApplication';
+import Q from '../configs/questions';
+import {NavLink} from 'react-router-dom';
+
 class Account extends React.Component {
   render() {
-    const { user } = this.props;
+    const {application, question, language} = this.props;
+
+    const applications = application.applications ? application.applications : [];
+
+    if (application.loading) {
+      return <div>loadng...</div>;
+    }
 
     return (
-      <div>
-        <h1>Account Page Home</h1>
-        <p>You are logged in as {user.email}</p>
-
-        <h3 onClick={() => this.props.logout()}> LOGOUT </h3>
+      <div className="row">
+        <div className="col-xs-12 col-md-3 col-lg-2 side-bar">
+          <ul>
+            <li>
+              <NavLink
+                to='/account/upload-documents'
+                activeStyle={{color: 'rgba(255, 0, 0, 1)'}}>
+                Upload Documents
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to='/account/loan-contract'
+                activeStyle={{color: 'rgba(255, 0, 0, 1)'}}>
+                Loan Contract
+              </NavLink>
+            </li>
+          </ul>
+        </div>
+        <div className="col-xs-12 col-md-9 col-lg-10">
+          {application.applications && application.applications.length > 0 ? applications.map(app => {
+            return (
+              <div>
+                <h1>Loan application for: ${app.answers[Q.LOAN_AMOUNT]}</h1>
+                <ul>{app.checklist.map(item => <li>{item.title + ': ' + item.status}</li>)}</ul>
+              </div>
+            )
+          }) : <CreateApplication
+            language={language}
+            questions={question.questions}/>}
+        </div>
       </div>
     );
   }
@@ -20,9 +56,12 @@ class Account extends React.Component {
 const mapStateToProps = state => {
   const {
     user,
+    application,
+    question,
+    language
   } = state;
 
-  return { user };
+  return {user, application, question, language};
 };
 
 const mapStateToDispatch = dispatch => {

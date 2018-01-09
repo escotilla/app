@@ -15,7 +15,6 @@ gulp.task('watch', function (callback) {
     browserSync.init(config.browserSync);
 
     gulp.watch('src/sass/*.scss', ['sass']);
-    gulp.watch(['src/*.js', 'src/**/*.js'], ['browserify']);
     gulp.watch(['server.js'], ['buildServer']);
   }
 });

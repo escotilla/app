@@ -16,6 +16,14 @@ var _logout = require('../actions/logout');
 
 var _redux = require('redux');
 
+var _CreateApplication = require('./CreateApplication');
+
+var _CreateApplication2 = _interopRequireDefault(_CreateApplication);
+
+var _questions = require('../configs/questions');
+
+var _questions2 = _interopRequireDefault(_questions);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -38,12 +46,49 @@ var Account = function (_React$Component) {
     value: function render() {
       var _this2 = this;
 
-      var user = this.props.user;
+      var _props = this.props,
+          user = _props.user,
+          application = _props.application,
+          question = _props.question,
+          language = _props.language;
 
+
+      var applications = application.applications ? application.applications : [];
+
+      if (application.loading) {
+        return _react2.default.createElement(
+          'div',
+          null,
+          'loadng...'
+        );
+      }
 
       return _react2.default.createElement(
         'div',
         null,
+        _react2.default.createElement(
+          'div',
+          null,
+          application.applications && application.applications.length > 0 ? applications.map(function (app) {
+            return _react2.default.createElement(
+              'div',
+              null,
+              _react2.default.createElement(
+                'h1',
+                null,
+                'Loan application for: ',
+                app.answers[_questions2.default.LOAN_AMOUNT]
+              ),
+              _react2.default.createElement(
+                'p',
+                null,
+                JSON.stringify(app.checklist)
+              )
+            );
+          }) : _react2.default.createElement(_CreateApplication2.default, {
+            language: language,
+            questions: question.questions })
+        ),
         _react2.default.createElement(
           'h1',
           null,
@@ -70,10 +115,13 @@ var Account = function (_React$Component) {
 }(_react2.default.Component);
 
 var mapStateToProps = function mapStateToProps(state) {
-  var user = state.user;
+  var user = state.user,
+      application = state.application,
+      question = state.question,
+      language = state.language;
 
 
-  return { user: user };
+  return { user: user, application: application, question: question, language: language };
 };
 
 var mapStateToDispatch = function mapStateToDispatch(dispatch) {

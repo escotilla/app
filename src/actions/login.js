@@ -1,7 +1,7 @@
 import fetch from 'isomorphic-fetch';
 import {getApiUrl} from '../utilities/environment';
 import lscache from 'ls-cache';
-
+import {getApplicationsIfExist} from './get-applications';
 import {
   LOGIN_INIT,
   LOGIN_FAILURE,
@@ -28,7 +28,10 @@ export function login(body, page = 'login') {
       .then(json => {
         dispatch(loginSuccess(json.data, page));
         lscache.set('user', json.data);
+
+        return json.data;
       })
+      .then(user => dispatch(getApplicationsIfExist(user)))
       .catch(err => {
         dispatch(loginFailure(err, page));
       })
@@ -55,7 +58,8 @@ function loginSuccess(json, page) {
     type: LOGIN_SUCCESS,
     token: json.api_token,
     email: json.email,
-    page: page
+    page: page,
+    application_ids: json.application_ids
   }
 }
 

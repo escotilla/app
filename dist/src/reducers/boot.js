@@ -6,15 +6,8 @@ Object.defineProperty(exports, "__esModule", {
 
 var _actionTypes = require('../actions/action-types');
 
-var _loadUser = require('../actions/load-user');
-
 var INITIAL_STATE = {
-  booting: true,
-  actions: [{
-    action: _loadUser.loadUser
-  }, {
-    action: _loadUser.bootComplete
-  }]
+  booting: true
 };
 
 var boot = function boot() {

@@ -59,7 +59,6 @@ class Login extends React.Component {
     const {
       error,
       loading,
-      loggedIn,
       payload
     } = this.props;
 
@@ -67,10 +66,6 @@ class Login extends React.Component {
       email,
       password
     } = payload;
-
-    if (loggedIn) {
-      return <Redirect to='/account' />;
-    }
 
     const invalid = this.state.invalid;
 
@@ -117,6 +112,13 @@ class Login extends React.Component {
   }
 
   render() {
+    const {
+      loggedIn,
+    } = this.props;
+
+    if (loggedIn) {
+      return <Redirect to='/account' />;
+    }
     return (
       <div className="login-container text-center">
         <h4>Login</h4>

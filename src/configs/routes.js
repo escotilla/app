@@ -6,6 +6,8 @@ import Login from '../components/Login';
 import Account from '../components/Account';
 import AboutLoanProgram from '../components/AboutLoanProgram';
 import Faq from '../components/Faq';
+import UploadDocuments from '../components/UploadDocuments';
+import LoanContract from '../components/LoanContract';
 
 export default [
   {
@@ -47,14 +49,27 @@ export default [
     path: '/account',
     title: 'Account Escotilla',
     component: Account,
+    exact: true,
     private: true,
     includeInPrivateNav: true
   },
   {
-    path: '/settings',
+    path: '/account/settings',
     title: 'Settings',
     component: Settings,
     private: true,
     includeInPrivateNav: true
+  },
+  {
+    path: '/account/upload-documents',
+    title: 'Upload Documents',
+    component: UploadDocuments,
+    private: true
+  },
+  {
+    path: '/account/loan-contract',
+    title: 'Loan Contract',
+    component: LoanContract,
+    private: true
   }
 ];

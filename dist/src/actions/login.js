@@ -15,6 +15,8 @@ var _lsCache = require('ls-cache');
 
 var _lsCache2 = _interopRequireDefault(_lsCache);
 
+var _getApplications = require('./get-applications');
+
 var _actionTypes = require('./action-types');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -38,6 +40,10 @@ function login(body) {
     }).then(handleErrors).then(function (json) {
       dispatch(loginSuccess(json.data, page));
       _lsCache2.default.set('user', json.data);
+
+      return json.data;
+    }).then(function (user) {
+      return dispatch((0, _getApplications.getApplicationsIfExist)(user));
     }).catch(function (err) {
       dispatch(loginFailure(err, page));
     });
@@ -64,7 +70,8 @@ function loginSuccess(json, page) {
     type: _actionTypes.LOGIN_SUCCESS,
     token: json.api_token,
     email: json.email,
-    page: page
+    page: page,
+    application_ids: json.application_ids
   };
 }
 

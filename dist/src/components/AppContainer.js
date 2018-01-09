@@ -36,10 +36,7 @@ var AppContainer = function (_React$Component) {
   _createClass(AppContainer, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      var actions = this.props.actions;
-      actions.reduce(function (prev, current) {
-        return prev.then(current);
-      }, Promise.resolve());
+      this.props.boot();
     }
   }, {
     key: 'render',
@@ -70,14 +67,13 @@ var AppContainer = function (_React$Component) {
 var mapStateToProps = function mapStateToProps(state) {
   var boot = state.boot;
 
-  console.log(boot);
 
-  return { booting: boot.booting, actions: boot.actions };
+  return { booting: boot.booting };
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
-    loadUser: (0, _redux.bindActionCreators)(_loadUser.loadUser, dispatch)
+    boot: (0, _redux.bindActionCreators)(_loadUser.boot, dispatch)
   };
 };
 

@@ -10,7 +10,7 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _register = require('../actions/register');
+var _createApplication = require('../actions/create-application');
 
 var _updatePayload = require('../actions/update-payload');
 
@@ -24,6 +24,10 @@ var _Warning = require('./Warning');
 
 var _Warning2 = _interopRequireDefault(_Warning);
 
+var _questions = require('../configs/questions');
+
+var _questions2 = _interopRequireDefault(_questions);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -32,18 +36,17 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var REGISTER = 'register';
+var PAGE = 'create-application';
 
-var Register = function (_React$Component) {
-  _inherits(Register, _React$Component);
+var CreateApplication = function (_React$Component) {
+  _inherits(CreateApplication, _React$Component);
 
-  function Register(props) {
-    _classCallCheck(this, Register);
+  function CreateApplication(props) {
+    _classCallCheck(this, CreateApplication);
 
-    var _this = _possibleConstructorReturn(this, (Register.__proto__ || Object.getPrototypeOf(Register)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (CreateApplication.__proto__ || Object.getPrototypeOf(CreateApplication)).call(this, props));
 
     _this.submit = _this.submit.bind(_this);
-    _this.verifiedSubmit = _this.verifiedSubmit.bind(_this);
     _this.renderForm = _this.renderForm.bind(_this);
 
     _this.state = {
@@ -52,48 +55,10 @@ var Register = function (_React$Component) {
     return _this;
   }
 
-  _createClass(Register, [{
-    key: 'verifiedSubmit',
-    value: function verifiedSubmit(email, name, password) {
-      this.props.register({
-        email: email,
-        name: name,
-        password: password
-      });
-    }
-  }, {
+  _createClass(CreateApplication, [{
     key: 'submit',
     value: function submit() {
-      var _props$payload = this.props.payload,
-          email = _props$payload.email,
-          name = _props$payload.name,
-          password = _props$payload.password;
-
-      var invalid = [];
-
-      if (!Register.validateEmail(email)) {
-        invalid.push('email');
-      }
-
-      if (!name || name.length < 2) {
-        invalid.push('name');
-      }
-
-      if (!password || password.length < 2) {
-        invalid.push('password');
-      }
-
-      if (invalid.length === 0) {
-        this.setState({
-          invalid: invalid
-        });
-
-        this.verifiedSubmit(email, name, password);
-      } else {
-        this.setState({
-          invalid: invalid
-        });
-      }
+      this.props.createApplicationWithAuth(this.props.payload);
     }
   }, {
     key: 'renderForm',
@@ -103,16 +68,10 @@ var Register = function (_React$Component) {
       var _props = this.props,
           error = _props.error,
           loading = _props.loading,
-          payload = _props.payload;
-      var email = payload.email,
-          name = payload.name,
-          password = payload.password;
-      var invalid = this.state.invalid;
+          payload = _props.payload,
+          questions = _props.questions,
+          language = _props.language;
 
-
-      var emailClass = invalid.indexOf('email') > -1 ? 'has-error' : '';
-      var nameClass = invalid.indexOf('name') > -1 ? 'has-error' : '';
-      var passwordClass = invalid.indexOf('password') > -1 ? 'has-error' : '';
 
       var button = _react2.default.createElement(
         'button',
@@ -121,7 +80,7 @@ var Register = function (_React$Component) {
           id: 'submit',
           onClick: this.submit,
           className: 'button' },
-        loading ? _react2.default.createElement('i', { className: 'fa fa-cog fa-spin' }) : 'Create Account'
+        loading ? _react2.default.createElement('i', { className: 'fa fa-cog fa-spin' }) : 'Create Application'
       );
 
       return _react2.default.createElement(
@@ -132,45 +91,76 @@ var Register = function (_React$Component) {
           null,
           _react2.default.createElement(
             'div',
-            { className: "form-group " + emailClass },
+            { className: "form-group " },
+            _react2.default.createElement(
+              'label',
+              null,
+              questions[_questions2.default.LOAN_AMOUNT][language]
+            ),
             _react2.default.createElement('input', {
               disabled: loading,
               onChange: function onChange(e) {
-                return _this2.props.updatePayload('email', REGISTER, e.target.value);
+                return _this2.props.updatePayload(_questions2.default.LOAN_AMOUNT, PAGE, e.target.value);
               },
-              value: email,
-              type: 'email',
+              value: payload[_questions2.default.LOAN_AMOUNT],
               className: 'form-control form-transparent',
-              id: 'email',
-              placeholder: 'Email or phone' })
+              id: _questions2.default.LOAN_AMOUNT,
+              placeholder: 200 })
           ),
           _react2.default.createElement(
             'div',
-            { className: "form-group " + nameClass },
+            { className: "form-group " },
+            _react2.default.createElement(
+              'label',
+              null,
+              questions[_questions2.default.BUSINESS_NAME][language]
+            ),
+            _react2.default.createElement('input', {
+              disabled: loading,
+              onChange: function onChange(e) {
+                return _this2.props.updatePayload(_questions2.default.BUSINESS_NAME, PAGE, e.target.value);
+              },
+              value: payload[_questions2.default.BUSINESS_NAME],
+              className: 'form-control form-transparent',
+              id: _questions2.default.BUSINESS_NAME,
+              placeholder: questions[_questions2.default.BUSINESS_NAME][language] })
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: "form-group " },
+            _react2.default.createElement(
+              'label',
+              null,
+              questions[_questions2.default.BUSINESS_DESCRIPTION][language]
+            ),
             _react2.default.createElement('input', {
               onChange: function onChange(e) {
-                return _this2.props.updatePayload('name', REGISTER, e.target.value);
+                return _this2.props.updatePayload(_questions2.default.BUSINESS_DESCRIPTION, PAGE, e.target.value);
               },
               disabled: loading,
-              value: name,
+              value: payload[_questions2.default.BUSINESS_DESCRIPTION],
               type: 'name',
               className: 'form-control form-transparent',
-              id: 'name',
-              placeholder: 'Name' })
+              id: _questions2.default.BUSINESS_DESCRIPTION,
+              placeholder: questions[_questions2.default.BUSINESS_DESCRIPTION][language] })
           ),
           _react2.default.createElement(
             'div',
-            { className: "form-group " + passwordClass },
+            { className: "form-group " },
+            _react2.default.createElement(
+              'label',
+              null,
+              questions[_questions2.default.BUSINESS_PRODUCT][language]
+            ),
             _react2.default.createElement('input', {
               onChange: function onChange(e) {
-                return _this2.props.updatePayload('password', REGISTER, e.target.value);
+                return _this2.props.updatePayload(_questions2.default.BUSINESS_PRODUCT, PAGE, e.target.value);
               },
               disabled: loading,
-              value: password,
-              type: 'password',
+              value: payload[_questions2.default.BUSINESS_PRODUCT],
               className: 'form-control form-transparent',
-              id: 'password',
-              placeholder: 'Password' })
+              id: _questions2.default.BUSINESS_PRODUCT,
+              placeholder: questions[_questions2.default.BUSINESS_PRODUCT][language] })
           )
         ),
         button,
@@ -180,41 +170,10 @@ var Register = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      var loggedIn = this.props.loggedIn;
-
-
-      if (loggedIn) {
-        return _react2.default.createElement(_reactRouterDom.Redirect, { to: '/account' });
-      }
-
       return _react2.default.createElement(
         'div',
         null,
-        _react2.default.createElement(
-          'div',
-          {
-            style: { backgroundImage: "url('/public/images/application-banner.jpg')" },
-            className: 'hero-image' },
-          _react2.default.createElement(
-            'div',
-            { className: 'hero-text' },
-            _react2.default.createElement(
-              'h1',
-              null,
-              'WE HELP YOU TO GROW YOUR DREAM BUSINESS'
-            )
-          )
-        ),
-        _react2.default.createElement(
-          'div',
-          { className: 'register-container text-center' },
-          _react2.default.createElement(
-            'h4',
-            null,
-            'Sign up for an account.'
-          ),
-          this.renderForm()
-        )
+        this.renderForm()
       );
     }
   }], [{
@@ -225,21 +184,17 @@ var Register = function (_React$Component) {
     }
   }]);
 
-  return Register;
+  return CreateApplication;
 }(_react2.default.Component);
 
 var mapStateToProps = function mapStateToProps(state) {
   var user = state.user,
       payloadByPage = state.payloadByPage;
 
-  var _ref = payloadByPage[REGISTER] || {
+  var _ref = payloadByPage[PAGE] || {
     loading: false,
     error: null,
-    payload: {
-      name: '',
-      email: '',
-      password: ''
-    }
+    payload: {}
   },
       loading = _ref.loading,
       error = _ref.error,
@@ -253,8 +208,8 @@ var mapStateToProps = function mapStateToProps(state) {
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     updatePayload: (0, _redux.bindActionCreators)(_updatePayload.updatePayload, dispatch),
-    register: (0, _redux.bindActionCreators)(_register.register, dispatch)
+    createApplicationWithAuth: (0, _redux.bindActionCreators)(_createApplication.createApplicationWithAuth, dispatch)
   };
 };
 
-exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Register);
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(CreateApplication);

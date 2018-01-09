@@ -57,7 +57,8 @@ function registerSuccess(json, page) {
     token: json.api_token,
     email: json.email,
     name: json.name,
-    page: page
+    page: page,
+    application_ids: json.application_ids
   }
 }
 

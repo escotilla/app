@@ -5,6 +5,7 @@ import {
 
 export function logout() {
   lscache.remove('user');
+  lscache.remove('application');
 
   return {
     type: LOGOUT

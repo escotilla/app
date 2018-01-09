@@ -71,10 +71,11 @@ exports.default = [{
   path: '/account',
   title: 'Account Escotilla',
   component: _Account2.default,
+  exact: true,
   private: true,
   includeInPrivateNav: true
 }, {
-  path: '/settings',
+  path: '/account/settings',
   title: 'Settings',
   component: _Settings2.default,
   private: true,
