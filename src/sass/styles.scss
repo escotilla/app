@@ -1,5 +1,6 @@
 @import "nav";
 @import "footer";
+@import "dropzone";
 
 .hero {
   width: 100%;
@@ -23,4 +24,13 @@
   left: 50%;
   transform: translate(-50%, -50%);
   color: white;
+}
+
+.drop-zone {
+  border: 2px dashed #0087F7;
+  border-radius: 5px;
+}
+
+.link {
+  cursor: pointer;
 }

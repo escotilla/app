@@ -16,6 +16,7 @@ class Account extends React.Component {
       return <div>loadng...</div>;
     }
 
+    console.log(this);
     return (
       <div className="row">
         <div className="col-xs-12 col-md-3 col-lg-2 side-bar">

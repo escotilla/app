@@ -6,6 +6,7 @@ import {
   LOGIN_INIT,
   LOGIN_FAILURE,
   LOGIN_SUCCESS,
+  LOAD_USER
 } from './action-types';
 
 export function login(body, page = 'login') {
@@ -56,10 +57,16 @@ function loginStart(page) {
 function loginSuccess(json, page) {
   return {
     type: LOGIN_SUCCESS,
-    token: json.api_token,
-    email: json.email,
     page: page,
-    application_ids: json.application_ids
+    user: json
+  }
+}
+
+export function updateUserSuccess(json) {
+  lscache.set('user', json);
+  return {
+    type: LOAD_USER,
+    user: json
   }
 }
 
