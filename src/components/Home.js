@@ -61,7 +61,7 @@ const mapStateToProps = state => {
     user
   } = state;
 
-  const loggedIn = user && user.token;
+  const loggedIn = user && user.api_token;
 
   return {language, loggedIn};
 };

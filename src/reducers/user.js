@@ -12,11 +12,7 @@ const user = (state = INITIAL_STATE, action) => {
       case REGISTER_SUCCESS:
       case LOGIN_SUCCESS:
       case LOAD_USER:
-        return Object.assign({}, state, {
-          token: action.token,
-          email: action.email,
-          application_ids: action.application_ids
-        });
+        return Object.assign({}, state, action.user);
       case LOGOUT:
         return INITIAL_STATE;
       default:

@@ -39,7 +39,7 @@ export function getApplicationsIfExist() {
   return (dispatch, getState) => {
     const state = getState();
     if (shouldGetApplications(state)) {
-      dispatch(getApplications({'api_token': state.user.token}));
+      dispatch(getApplications({'api_token': state.user.api_token}));
     }
   }
 }

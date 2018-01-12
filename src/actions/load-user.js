@@ -39,12 +39,11 @@ export function boot() {
     dispatch(bootComplete());
   }
 }
-function loadSuccess(json) {
+
+export function loadSuccess(json) {
   return {
     type: LOAD_USER,
-    token: json.api_token,
-    email: json.email,
-    application_ids: json.application_ids
+    user: json
   }
 }
 

@@ -117,7 +117,7 @@ const mapStateToProps = state => {
     payload: {}
   };
 
-  const loggedIn = user && user.token && user.token.length > 0;
+  const loggedIn = user && user.api_token && user.api_token.length > 0;
 
   return { loggedIn, loading, error, payload };
 };

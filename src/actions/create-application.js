@@ -38,11 +38,11 @@ export function createApplication(body) {
 export function createApplicationWithAuth(payload) {
   return (dispatch, getState) => {
     const state = getState();
-    if (state.user && state.user.token) {
+    if (state.user && state.user.api_token) {
       dispatch(createApplication(
         {
           payload: payload,
-          api_token: state.user.token
+          api_token: state.user.api_token
         }
       ))
     }

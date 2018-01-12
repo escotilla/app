@@ -28,7 +28,7 @@ const mapStateToProps = state => {
     user,
   } = state;
 
-  const isAuthenticated = user.token && user.token.length > 0;
+  const isAuthenticated = user.api_token && user.api_token.length > 0;
   return { isAuthenticated };
 };
 
