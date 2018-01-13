@@ -26,6 +26,10 @@ var _boot = require('./boot');
 
 var _boot2 = _interopRequireDefault(_boot);
 
+var _file = require('./file');
+
+var _file2 = _interopRequireDefault(_file);
+
 var _application = require('./application');
 
 var _application2 = _interopRequireDefault(_application);
@@ -43,7 +47,8 @@ var rootReducer = (0, _redux.combineReducers)({
   language: _language2.default,
   boot: _boot2.default,
   application: _application2.default,
-  question: _question2.default
+  question: _question2.default,
+  file: _file2.default
 });
 
 exports.default = rootReducer;

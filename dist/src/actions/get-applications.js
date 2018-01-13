@@ -48,7 +48,7 @@ function getApplicationsIfExist() {
   return function (dispatch, getState) {
     var state = getState();
     if (shouldGetApplications(state)) {
-      dispatch(getApplications({ 'api_token': state.user.token }));
+      dispatch(getApplications({ 'api_token': state.user.api_token }));
     }
   };
 }

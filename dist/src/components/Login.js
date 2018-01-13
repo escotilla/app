@@ -204,7 +204,7 @@ var mapStateToProps = function mapStateToProps(state) {
       error = _ref.error,
       payload = _ref.payload;
 
-  var loggedIn = user && user.token && user.token.length > 0;
+  var loggedIn = user && user.api_token && user.api_token.length > 0;
 
   return { loggedIn: loggedIn, loading: loading, error: error, payload: payload };
 };

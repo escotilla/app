@@ -4,6 +4,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.login = login;
+exports.updateUserSuccess = updateUserSuccess;
 
 var _isomorphicFetch = require('isomorphic-fetch');
 
@@ -68,10 +69,16 @@ function loginStart(page) {
 function loginSuccess(json, page) {
   return {
     type: _actionTypes.LOGIN_SUCCESS,
-    token: json.api_token,
-    email: json.email,
     page: page,
-    application_ids: json.application_ids
+    user: json
+  };
+}
+
+function updateUserSuccess(json) {
+  _lsCache2.default.set('user', json);
+  return {
+    type: _actionTypes.LOAD_USER,
+    user: json
   };
 }
 

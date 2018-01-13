@@ -16,11 +16,7 @@ var user = function user() {
     case _actionTypes.REGISTER_SUCCESS:
     case _actionTypes.LOGIN_SUCCESS:
     case _actionTypes.LOAD_USER:
-      return Object.assign({}, state, {
-        token: action.token,
-        email: action.email,
-        application_ids: action.application_ids
-      });
+      return Object.assign({}, state, action.user);
     case _actionTypes.LOGOUT:
       return INITIAL_STATE;
     default:

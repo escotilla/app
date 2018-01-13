@@ -158,7 +158,7 @@ var mapStateToProps = function mapStateToProps(state) {
       user = state.user;
 
 
-  var loggedIn = user && user.token;
+  var loggedIn = user && user.api_token;
 
   return { language: language, loggedIn: loggedIn };
 };

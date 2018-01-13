@@ -24,6 +24,8 @@ var _questions = require('../configs/questions');
 
 var _questions2 = _interopRequireDefault(_questions);
 
+var _reactRouterDom = require('react-router-dom');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -44,10 +46,7 @@ var Account = function (_React$Component) {
   _createClass(Account, [{
     key: 'render',
     value: function render() {
-      var _this2 = this;
-
       var _props = this.props,
-          user = _props.user,
           application = _props.application,
           question = _props.question,
           language = _props.language;
@@ -65,10 +64,40 @@ var Account = function (_React$Component) {
 
       return _react2.default.createElement(
         'div',
-        null,
+        { className: 'row' },
         _react2.default.createElement(
           'div',
-          null,
+          { className: 'col-xs-12 col-md-3 col-lg-2 side-bar' },
+          _react2.default.createElement(
+            'ul',
+            null,
+            _react2.default.createElement(
+              'li',
+              null,
+              _react2.default.createElement(
+                _reactRouterDom.NavLink,
+                {
+                  to: '/account/upload-documents',
+                  activeStyle: { color: 'rgba(255, 0, 0, 1)' } },
+                'Upload Documents'
+              )
+            ),
+            _react2.default.createElement(
+              'li',
+              null,
+              _react2.default.createElement(
+                _reactRouterDom.NavLink,
+                {
+                  to: '/account/loan-contract',
+                  activeStyle: { color: 'rgba(255, 0, 0, 1)' } },
+                'Loan Contract'
+              )
+            )
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'col-xs-12 col-md-9 col-lg-10' },
           application.applications && application.applications.length > 0 ? applications.map(function (app) {
             return _react2.default.createElement(
               'div',
@@ -76,36 +105,24 @@ var Account = function (_React$Component) {
               _react2.default.createElement(
                 'h1',
                 null,
-                'Loan application for: ',
+                'Loan application for: $',
                 app.answers[_questions2.default.LOAN_AMOUNT]
               ),
               _react2.default.createElement(
-                'p',
+                'ul',
                 null,
-                JSON.stringify(app.checklist)
+                app.checklist.map(function (item) {
+                  return _react2.default.createElement(
+                    'li',
+                    null,
+                    item.title + ': ' + item.status
+                  );
+                })
               )
             );
           }) : _react2.default.createElement(_CreateApplication2.default, {
             language: language,
             questions: question.questions })
-        ),
-        _react2.default.createElement(
-          'h1',
-          null,
-          'Account Page Home'
-        ),
-        _react2.default.createElement(
-          'p',
-          null,
-          'You are logged in as ',
-          user.email
-        ),
-        _react2.default.createElement(
-          'h3',
-          { onClick: function onClick() {
-              return _this2.props.logout();
-            } },
-          ' LOGOUT '
         )
       );
     }

@@ -46,10 +46,10 @@ function createApplication(body) {
 function createApplicationWithAuth(payload) {
   return function (dispatch, getState) {
     var state = getState();
-    if (state.user && state.user.token) {
+    if (state.user && state.user.api_token) {
       dispatch(createApplication({
         payload: payload,
-        api_token: state.user.token
+        api_token: state.user.api_token
       }));
     }
   };

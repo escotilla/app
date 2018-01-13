@@ -4,7 +4,6 @@ import {logout} from '../actions/logout';
 import {download} from "../actions/download";
 import {updateUserSuccess} from '../actions/login';
 import {bindActionCreators} from 'redux'
-import Dropzone from 'dropzone';
 import {getApiUrl} from '../utilities/environment';
 
 class UploadDocuments extends React.Component {
@@ -13,28 +12,34 @@ class UploadDocuments extends React.Component {
     const application_ids = this.props.application_ids;
     const updateUserSuccess = this.props.updateUserSuccess;
 
-    const dz = new Dropzone("div#dropzone", {
-      url: getApiUrl() + "/document/create",
-      headers: {
-        "Cache-Control": "",
-        "X-Requested-With": ""
-      },
-      init: function () {
-        this.on("sending", function (file, xhr, formData) {
-          formData.append("api_token", api_token);
-          formData.append("application_id", application_ids && application_ids.length > 0 ? application_ids[0] : 'bnan');
-        });
+    if (typeof window !== 'undefined') {
+      const Dropzone = require('dropzone');
+      const dz = new Dropzone("div#dropzone", {
+        url: getApiUrl() + "/document/create",
+        headers: {
+          "Cache-Control": "",
+          "X-Requested-With": ""
+        },
+        init: function () {
+          this.on("sending", function (file, xhr, formData) {
+            formData.append("api_token", api_token);
+            formData.append("application_id", application_ids && application_ids.length > 0 ? application_ids[0] : 'bnan');
+          });
 
-        this.on("success", function (file, response) {
-          if (response.success) {
-            updateUserSuccess(response.data);
-          }
-        });
-      }
-    });
+          this.on("success", function (file, response) {
+            if (response.success) {
+              updateUserSuccess(response.data);
+            }
+          });
+        }
+      });
+    }
   }
 
   render() {
+    const {isLoading, uploaded_files, download, api_token} = this.props;
+    const hasFiles = uploaded_files && uploaded_files.length;
+
     return (
       <div>
         <h1>Upload Documents page</h1>
@@ -53,8 +58,7 @@ class UploadDocuments extends React.Component {
           </tr>
           </thead>
           <tbody>
-          {this.props.uploaded_files && this.props.uploaded_files.length > 0 ?
-            this.props.uploaded_files.map(file => {
+          {hasFiles && uploaded_files.map(file => {
               return (
                 <tr>
                   <td>{file.original_file_name}</td>
@@ -63,15 +67,15 @@ class UploadDocuments extends React.Component {
                     <i
                       className="fa fa-download fa-2x link"
                       aria-hidden="true"
-                      onClick={() => this.props.download({
-                        api_token: this.props.api_token,
+                      onClick={() => isLoading ? null : download({
+                        api_token: api_token,
                         uploaded_file_id: file.uploaded_file_id
                       }, file.original_file_name, file.mime_type)}
                     />
                   </td>
                 </tr>
               )
-            }) : null}
+            })}
           </tbody>
         </table>
       </div>
@@ -82,13 +86,15 @@ class UploadDocuments extends React.Component {
 const mapStateToProps = state => {
   const {
     user,
+    file
   } = state;
 
   const uploaded_files = user.uploaded_files;
   const api_token = user.api_token;
   const application_ids = user.application_ids;
+  const isLoading = file.loading;
 
-  return {uploaded_files, api_token, application_ids, user};
+  return {uploaded_files, api_token, application_ids, user, isLoading};
 };
 
 const mapStateToDispatch = dispatch => {

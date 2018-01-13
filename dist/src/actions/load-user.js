@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.loadUser = loadUser;
 exports.loadApplication = loadApplication;
 exports.boot = boot;
+exports.loadSuccess = loadSuccess;
 exports.bootComplete = bootComplete;
 
 var _lsCache = require('ls-cache');
@@ -53,12 +54,11 @@ function boot() {
     dispatch(bootComplete());
   };
 }
+
 function loadSuccess(json) {
   return {
     type: _actionTypes.LOAD_USER,
-    token: json.api_token,
-    email: json.email,
-    application_ids: json.application_ids
+    user: json
   };
 }
 

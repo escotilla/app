@@ -4,8 +4,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = require('react');
@@ -14,7 +12,9 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = require('react-redux');
 
-var _reactRouterDom = require('react-router-dom');
+var _logout = require('../actions/logout');
+
+var _redux = require('redux');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -24,43 +24,67 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var PrivateRoute = function (_React$Component) {
-  _inherits(PrivateRoute, _React$Component);
+var LoanContract = function (_React$Component) {
+  _inherits(LoanContract, _React$Component);
 
-  function PrivateRoute() {
-    _classCallCheck(this, PrivateRoute);
+  function LoanContract() {
+    _classCallCheck(this, LoanContract);
 
-    return _possibleConstructorReturn(this, (PrivateRoute.__proto__ || Object.getPrototypeOf(PrivateRoute)).apply(this, arguments));
+    return _possibleConstructorReturn(this, (LoanContract.__proto__ || Object.getPrototypeOf(LoanContract)).apply(this, arguments));
   }
 
-  _createClass(PrivateRoute, [{
+  _createClass(LoanContract, [{
     key: 'render',
     value: function render() {
-      var _props = this.props,
-          route = _props.route,
-          isAuthenticated = _props.isAuthenticated;
+      var _this2 = this;
+
+      var user = this.props.user;
 
 
-      return _react2.default.createElement(_reactRouterDom.Route, { path: route.path,
-        exact: route.exact,
-        render: function render(props) {
-          return isAuthenticated ? _react2.default.createElement(route.component, _extends({}, props, { routes: route.routes })) : _react2.default.createElement(_reactRouterDom.Redirect, { to: {
-              pathname: '/login',
-              state: { from: props.location }
-            } });
-        } });
+      return _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(
+          'h1',
+          null,
+          'Loan Contract page'
+        ),
+        _react2.default.createElement(
+          'p',
+          null,
+          'You are logged in as ',
+          user.email
+        ),
+        _react2.default.createElement(
+          'h1',
+          null,
+          'Please accept our contract'
+        ),
+        _react2.default.createElement(
+          'h3',
+          { onClick: function onClick() {
+              return _this2.props.logout();
+            } },
+          ' LOGOUT '
+        )
+      );
     }
   }]);
 
-  return PrivateRoute;
+  return LoanContract;
 }(_react2.default.Component);
 
 var mapStateToProps = function mapStateToProps(state) {
   var user = state.user;
 
 
-  var isAuthenticated = user.api_token && user.api_token.length > 0;
-  return { isAuthenticated: isAuthenticated };
+  return { user: user };
 };
 
-exports.default = (0, _reactRedux.connect)(mapStateToProps)(PrivateRoute);
+var mapStateToDispatch = function mapStateToDispatch(dispatch) {
+  return {
+    logout: (0, _redux.bindActionCreators)(_logout.logout, dispatch)
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapStateToDispatch)(LoanContract);

@@ -36,6 +36,14 @@ var _Faq = require('../components/Faq');
 
 var _Faq2 = _interopRequireDefault(_Faq);
 
+var _UploadDocuments = require('../components/UploadDocuments');
+
+var _UploadDocuments2 = _interopRequireDefault(_UploadDocuments);
+
+var _LoanContract = require('../components/LoanContract');
+
+var _LoanContract2 = _interopRequireDefault(_LoanContract);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = [{
@@ -80,4 +88,14 @@ exports.default = [{
   component: _Settings2.default,
   private: true,
   includeInPrivateNav: true
+}, {
+  path: '/account/upload-documents',
+  title: 'Upload Documents',
+  component: _UploadDocuments2.default,
+  private: true
+}, {
+  path: '/account/loan-contract',
+  title: 'Loan Contract',
+  component: _LoanContract2.default,
+  private: true
 }];

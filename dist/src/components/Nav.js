@@ -232,7 +232,7 @@ var mapStateToProps = function mapStateToProps(state) {
       language = state.language;
 
 
-  var isAuthenticated = user.token && user.token.length > 0;
+  var isAuthenticated = user.api_token && user.api_token.length > 0;
 
   return { isAuthenticated: isAuthenticated, user: user, language: language };
 };
