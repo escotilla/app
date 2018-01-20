@@ -3,7 +3,7 @@ import Settings from '../components/Settings';
 import About from '../components/About';
 import Register from '../components/Register';
 import Login from '../components/Login';
-import Account from '../components/Account';
+import Dashboard from '../components/Dashboard';
 import AboutLoanProgram from '../components/AboutLoanProgram';
 import Faq from '../components/Faq';
 import UploadDocuments from '../components/UploadDocuments';
@@ -47,29 +47,29 @@ export default [
   },
   {
     path: '/account',
-    title: 'Account Escotilla',
-    component: Account,
-    exact: true,
+    title: 'Dashboard Escotilla',
+    component: Dashboard,
     private: true,
-    includeInPrivateNav: true
-  },
-  {
-    path: '/account/settings',
-    title: 'Settings',
-    component: Settings,
-    private: true,
-    includeInPrivateNav: true
-  },
-  {
-    path: '/account/upload-documents',
-    title: 'Upload Documents',
-    component: UploadDocuments,
-    private: true
-  },
-  {
-    path: '/account/loan-contract',
-    title: 'Loan Contract',
-    component: LoanContract,
-    private: true
+    includeInPrivateNav: true,
+    routes: [
+      {
+        path: '/account/settings',
+        title: 'Settings',
+        component: Settings,
+        private: true,
+      },
+      {
+        path: '/account/upload-documents',
+        title: 'Upload Documents',
+        component: UploadDocuments,
+        private: true
+      },
+      {
+        path: '/account/loan-contract',
+        title: 'Loan Contract',
+        component: LoanContract,
+        private: true
+      }
+    ]
   }
 ];
