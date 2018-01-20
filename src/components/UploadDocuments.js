@@ -38,7 +38,7 @@ class UploadDocuments extends React.Component {
 
   render() {
     const {isLoading, uploaded_files, download, api_token} = this.props;
-    const hasFiles = uploaded_files && uploaded_files.length;
+    const hasFiles = uploaded_files && uploaded_files.length > 0;
 
     return (
       <div>
