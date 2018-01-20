@@ -12,73 +12,48 @@ class Nav extends React.Component {
   }
 
   render() {
-    const {routes, language} = this.props;
+    const {routes, language, isAuthenticated} = this.props;
 
-    const navLinks = routes.map(route => {
-
-      if (!this.props.isAuthenticated && route.includeInNav) {
-        return (
-          <li key={route.path}>
-            <NavLink
-              exact={route.exact}
-              to={route.path}
-              id={route.path}
-              activeStyle={{color: 'rgba(255, 0, 0, 1)'}}>
-              {route.title}
-            </NavLink>
-          </li>
-        );
-      } else if (this.props.isAuthenticated && route.includeInPrivateNav) {
-        return (
-          <li key={route.path}>
-            <NavLink
-              exact={route.exact}
-              to={route.path}
-              id={route.path}
-              activeStyle={{color: 'rgba(255, 0, 0, 1)'}}>
-              {route.title}
-            </NavLink>
-          </li>
-        );
-      }
-
-      return null;
-    });
-
-    const languageLinks = [
-      <li>
-        <div style={{padding: '10px 15px'}}>
-          <button
-            className="btn btn-light"
-            onClick={() => this.props.changeLanguage('spanish')}>
-            <img className="flag" src="/public/images/spain-flag.svg"/>
-            {Language.get(language, 'spanish')}
-          </button>
-        </div>
-      </li>,
-      <li>
-        <div style={{padding: '10px 15px'}}>
-          <button
-            className="btn btn-light"
-            onClick={() => this.props.changeLanguage('english')}>
-            <img className="flag" src="/public/images/uk.svg"/>
-            {Language.get(language, 'english')}
-          </button>
-        </div>
+    const navLinks = routes.map(route => route.includeInNav ? (
+      <li key={route.path}>
+        <NavLink
+          exact={route.exact}
+          to={route.path}
+          id={route.path}
+          activeStyle={{color: 'rgba(255, 0, 0, 1)'}}>
+          {route.title}
+        </NavLink>
       </li>
-    ];
+    ) : null);
 
-    const authLinks = this.props.isAuthenticated ? (
+    const authLinks = (
       <ul className="nav navbar-nav">
-        {languageLinks}
-        <li onClick={() => this.props.logout()}>
-          <a>Logout</a>
-        </li>
-      </ul>
-    ) : (
-      <ul className="nav navbar-nav">
-        {languageLinks}
         <li>
+          <div style={{padding: '10px 15px'}}>
+            <button
+              className="btn btn-light"
+              onClick={() => this.props.changeLanguage('spanish')}>
+              <img className="flag" src="/public/images/spain-flag.svg"/>
+              {Language.get(language, 'spanish')}
+            </button>
+          </div>
+        </li>
+        <li>
+          <div style={{padding: '10px 15px'}}>
+            <button
+              className="btn btn-light"
+              onClick={() => this.props.changeLanguage('english')}>
+              <img className="flag" src="/public/images/uk.svg"/>
+              {Language.get(language, 'english')}
+            </button>
+          </div>
+        </li>
+        {isAuthenticated ? (
+          <li onClick={() => this.props.logout()}>
+            <a>Logout</a>
+          </li>
+        ) : null}
+        {isAuthenticated ? null : [<li>
           <NavLink
             to='/login'
             activeStyle={{color: 'rgba(255, 0, 0, 1)'}}>
@@ -86,17 +61,27 @@ class Nav extends React.Component {
               {Language.get(language, 'button.login')}
             </button>
           </NavLink>
-        </li>
-        <li>
-          <NavLink
-            to='/register'
-            activeStyle={{color: 'rgba(255, 0, 0, 1)'}}>
-            <button className="btn btn-primary">
-              {Language.get(language, 'button.register')}
-            </button>
-          </NavLink>
-        </li>
+        </li>,
+          <li>
+            <NavLink
+              to='/register'
+              activeStyle={{color: 'rgba(255, 0, 0, 1)'}}>
+              <button className="btn btn-primary">
+                {Language.get(language, 'button.register')}
+              </button>
+            </NavLink>
+          </li>]}
       </ul>
+    );
+
+    const linkNav = isAuthenticated ? null : (
+      <nav className="escotilla-nav-auth">
+        <div className="container-fluid">
+          <ul className="nav navbar-nav">
+            {navLinks}
+          </ul>
+        </div>
+      </nav>
     );
 
     return (
@@ -117,13 +102,7 @@ class Nav extends React.Component {
             </div>
           </div>
         </nav>
-        <nav className="escotilla-nav-auth">
-          <div className="container-fluid">
-            <ul className="nav navbar-nav">
-              {navLinks}
-            </ul>
-          </div>
-        </nav>
+        {linkNav}
       </div>
     );
   }
