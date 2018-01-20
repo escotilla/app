@@ -74,6 +74,9 @@ function renderApp(html, preloadedState) {
         <meta property="og:site_name" content="Sam Stanton-Reid"/> 
         <meta property="og:type" content="website"/> 
         <meta name="author" content="Sam Stanton-Reid"/> 
+        <style>
+        .escotilla-nav .escotilla-nav-flex{display:flex}.escotilla-nav .escotilla-nav-flex div{flex-grow:1}.escotilla-nav .escotilla-nav-flex .escotilla-nav-flex-logo{max-width:200px}.escotilla-nav .escotilla-nav-flex .escotilla-nav-flex-links{flex-direction:column}.escotilla-nav .escotilla-nav-flex .escotilla-nav-flex-links div{float:right}.escotilla-nav-auth{width:100%}.escotilla-nav-auth li,.escotilla-nav-auth ul{float:right}.flag{height:2rem}.side-bar{max-width:300px;position:-webkit-sticky;position:sticky;top:10rem}
+        </style>
         <noscript id="deferred-styles"}>
            <link
         rel="stylesheet"

@@ -24,9 +24,9 @@ var _Login = require('../components/Login');
 
 var _Login2 = _interopRequireDefault(_Login);
 
-var _Account = require('../components/Account');
+var _Dashboard = require('../components/Dashboard');
 
-var _Account2 = _interopRequireDefault(_Account);
+var _Dashboard2 = _interopRequireDefault(_Dashboard);
 
 var _AboutLoanProgram = require('../components/AboutLoanProgram');
 
@@ -77,25 +77,24 @@ exports.default = [{
   component: _Login2.default
 }, {
   path: '/account',
-  title: 'Account Escotilla',
-  component: _Account2.default,
-  exact: true,
+  title: 'Dashboard Escotilla',
+  component: _Dashboard2.default,
   private: true,
-  includeInPrivateNav: true
-}, {
-  path: '/account/settings',
-  title: 'Settings',
-  component: _Settings2.default,
-  private: true,
-  includeInPrivateNav: true
-}, {
-  path: '/account/upload-documents',
-  title: 'Upload Documents',
-  component: _UploadDocuments2.default,
-  private: true
-}, {
-  path: '/account/loan-contract',
-  title: 'Loan Contract',
-  component: _LoanContract2.default,
-  private: true
+  includeInPrivateNav: true,
+  routes: [{
+    path: '/account/settings',
+    title: 'Settings',
+    component: _Settings2.default,
+    private: true
+  }, {
+    path: '/account/upload-documents',
+    title: 'Upload Documents',
+    component: _UploadDocuments2.default,
+    private: true
+  }, {
+    path: '/account/loan-contract',
+    title: 'Loan Contract',
+    component: _LoanContract2.default,
+    private: true
+  }]
 }];

@@ -20,7 +20,7 @@ function hasWindow() {
 
 function getApiUrl() {
   if (process.env.NODE_ENV === 'production') {
-    return 'http://escotilla-api.us-east-1.elasticbeanstalk.com';
+    return 'http://api.escotillafinanciera.com';
   }
   return 'http://localhost:5000';
 }

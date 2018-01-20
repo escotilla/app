@@ -72,11 +72,11 @@ var UploadDocuments = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _this2 = this;
-
       var _props = this.props,
           isLoading = _props.isLoading,
-          uploaded_files = _props.uploaded_files;
+          uploaded_files = _props.uploaded_files,
+          download = _props.download,
+          api_token = _props.api_token;
 
       var hasFiles = uploaded_files && uploaded_files.length;
 
@@ -153,8 +153,8 @@ var UploadDocuments = function (_React$Component) {
                     className: 'fa fa-download fa-2x link',
                     'aria-hidden': 'true',
                     onClick: function onClick() {
-                      return isLoading ? null : _this2.props.download({
-                        api_token: _this2.props.api_token,
+                      return isLoading ? null : download({
+                        api_token: api_token,
                         uploaded_file_id: file.uploaded_file_id
                       }, file.original_file_name, file.mime_type);
                     }

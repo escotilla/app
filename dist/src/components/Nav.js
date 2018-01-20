@@ -48,85 +48,66 @@ var Nav = function (_React$Component) {
 
       var _props = this.props,
           routes = _props.routes,
-          language = _props.language;
+          language = _props.language,
+          isAuthenticated = _props.isAuthenticated;
 
 
       var navLinks = routes.map(function (route) {
-
-        if (!_this2.props.isAuthenticated && route.includeInNav) {
-          return _react2.default.createElement(
-            'li',
-            { key: route.path },
-            _react2.default.createElement(
-              _reactRouterDom.NavLink,
-              {
-                exact: route.exact,
-                to: route.path,
-                id: route.path,
-                activeStyle: { color: 'rgba(255, 0, 0, 1)' } },
-              route.title
-            )
-          );
-        } else if (_this2.props.isAuthenticated && route.includeInPrivateNav) {
-          return _react2.default.createElement(
-            'li',
-            { key: route.path },
-            _react2.default.createElement(
-              _reactRouterDom.NavLink,
-              {
-                exact: route.exact,
-                to: route.path,
-                id: route.path,
-                activeStyle: { color: 'rgba(255, 0, 0, 1)' } },
-              route.title
-            )
-          );
-        }
-
-        return null;
+        return route.includeInNav ? _react2.default.createElement(
+          'li',
+          { key: route.path },
+          _react2.default.createElement(
+            _reactRouterDom.NavLink,
+            {
+              exact: route.exact,
+              to: route.path,
+              id: route.path,
+              activeStyle: { color: 'rgba(255, 0, 0, 1)' } },
+            route.title
+          )
+        ) : null;
       });
 
-      var languageLinks = [_react2.default.createElement(
-        'li',
-        null,
-        _react2.default.createElement(
-          'div',
-          { style: { padding: '10px 15px' } },
-          _react2.default.createElement(
-            'button',
-            {
-              className: 'btn btn-light',
-              onClick: function onClick() {
-                return _this2.props.changeLanguage('spanish');
-              } },
-            _react2.default.createElement('img', { className: 'flag', src: '/public/images/spain-flag.svg' }),
-            _language2.default.get(language, 'spanish')
-          )
-        )
-      ), _react2.default.createElement(
-        'li',
-        null,
-        _react2.default.createElement(
-          'div',
-          { style: { padding: '10px 15px' } },
-          _react2.default.createElement(
-            'button',
-            {
-              className: 'btn btn-light',
-              onClick: function onClick() {
-                return _this2.props.changeLanguage('english');
-              } },
-            _react2.default.createElement('img', { className: 'flag', src: '/public/images/uk.svg' }),
-            _language2.default.get(language, 'english')
-          )
-        )
-      )];
-
-      var authLinks = this.props.isAuthenticated ? _react2.default.createElement(
+      var authLinks = _react2.default.createElement(
         'ul',
         { className: 'nav navbar-nav' },
-        languageLinks,
         _react2.default.createElement(
+          'li',
+          null,
+          _react2.default.createElement(
+            'div',
+            { style: { padding: '10px 15px' } },
+            _react2.default.createElement(
+              'button',
+              {
+                className: 'btn btn-light',
+                onClick: function onClick() {
+                  return _this2.props.changeLanguage('spanish');
+                } },
+              _react2.default.createElement('img', { className: 'flag', src: '/public/images/spain-flag.svg' }),
+              _language2.default.get(language, 'spanish')
+            )
+          )
+        ),
+        _react2.default.createElement(
+          'li',
+          null,
+          _react2.default.createElement(
+            'div',
+            { style: { padding: '10px 15px' } },
+            _react2.default.createElement(
+              'button',
+              {
+                className: 'btn btn-light',
+                onClick: function onClick() {
+                  return _this2.props.changeLanguage('english');
+                } },
+              _react2.default.createElement('img', { className: 'flag', src: '/public/images/uk.svg' }),
+              _language2.default.get(language, 'english')
+            )
+          )
+        ),
+        isAuthenticated ? _react2.default.createElement(
           'li',
           { onClick: function onClick() {
               return _this2.props.logout();
@@ -136,12 +117,8 @@ var Nav = function (_React$Component) {
             null,
             'Logout'
           )
-        )
-      ) : _react2.default.createElement(
-        'ul',
-        { className: 'nav navbar-nav' },
-        languageLinks,
-        _react2.default.createElement(
+        ) : null,
+        isAuthenticated ? null : [_react2.default.createElement(
           'li',
           null,
           _react2.default.createElement(
@@ -155,8 +132,7 @@ var Nav = function (_React$Component) {
               _language2.default.get(language, 'button.login')
             )
           )
-        ),
-        _react2.default.createElement(
+        ), _react2.default.createElement(
           'li',
           null,
           _react2.default.createElement(
@@ -169,6 +145,20 @@ var Nav = function (_React$Component) {
               { className: 'btn btn-primary' },
               _language2.default.get(language, 'button.register')
             )
+          )
+        )]
+      );
+
+      var linkNav = isAuthenticated ? null : _react2.default.createElement(
+        'nav',
+        { className: 'escotilla-nav-auth' },
+        _react2.default.createElement(
+          'div',
+          { className: 'container-fluid' },
+          _react2.default.createElement(
+            'ul',
+            { className: 'nav navbar-nav' },
+            navLinks
           )
         )
       );
@@ -203,19 +193,7 @@ var Nav = function (_React$Component) {
             )
           )
         ),
-        _react2.default.createElement(
-          'nav',
-          { className: 'escotilla-nav-auth' },
-          _react2.default.createElement(
-            'div',
-            { className: 'container-fluid' },
-            _react2.default.createElement(
-              'ul',
-              { className: 'nav navbar-nav' },
-              navLinks
-            )
-          )
-        )
+        linkNav
       );
     }
   }]);

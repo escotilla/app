@@ -62,69 +62,32 @@ var Account = function (_React$Component) {
         );
       }
 
-      return _react2.default.createElement(
-        'div',
-        { className: 'row' },
-        _react2.default.createElement(
+      console.log(this);
+      return application.applications && application.applications.length > 0 ? applications.map(function (app) {
+        return _react2.default.createElement(
           'div',
-          { className: 'col-xs-12 col-md-3 col-lg-2 side-bar' },
+          null,
+          _react2.default.createElement(
+            'h1',
+            null,
+            'Loan application for: $',
+            app.answers[_questions2.default.LOAN_AMOUNT]
+          ),
           _react2.default.createElement(
             'ul',
             null,
-            _react2.default.createElement(
-              'li',
-              null,
-              _react2.default.createElement(
-                _reactRouterDom.NavLink,
-                {
-                  to: '/account/upload-documents',
-                  activeStyle: { color: 'rgba(255, 0, 0, 1)' } },
-                'Upload Documents'
-              )
-            ),
-            _react2.default.createElement(
-              'li',
-              null,
-              _react2.default.createElement(
-                _reactRouterDom.NavLink,
-                {
-                  to: '/account/loan-contract',
-                  activeStyle: { color: 'rgba(255, 0, 0, 1)' } },
-                'Loan Contract'
-              )
-            )
+            app.checklist.map(function (item) {
+              return _react2.default.createElement(
+                'li',
+                null,
+                item.title + ': ' + item.status
+              );
+            })
           )
-        ),
-        _react2.default.createElement(
-          'div',
-          { className: 'col-xs-12 col-md-9 col-lg-10' },
-          application.applications && application.applications.length > 0 ? applications.map(function (app) {
-            return _react2.default.createElement(
-              'div',
-              null,
-              _react2.default.createElement(
-                'h1',
-                null,
-                'Loan application for: $',
-                app.answers[_questions2.default.LOAN_AMOUNT]
-              ),
-              _react2.default.createElement(
-                'ul',
-                null,
-                app.checklist.map(function (item) {
-                  return _react2.default.createElement(
-                    'li',
-                    null,
-                    item.title + ': ' + item.status
-                  );
-                })
-              )
-            );
-          }) : _react2.default.createElement(_CreateApplication2.default, {
-            language: language,
-            questions: question.questions })
-        )
-      );
+        );
+      }) : _react2.default.createElement(_CreateApplication2.default, {
+        language: language,
+        questions: question.questions });
     }
   }]);
 
