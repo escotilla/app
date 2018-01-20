@@ -3,14 +3,14 @@ import {connect} from 'react-redux';
 import Language from '../utilities/language';
 import {Redirect} from 'react-router-dom';
 
-const Home = ({match, language, loggedIn}) => {
+const Home = ({language, loggedIn}) => {
 
   if (loggedIn) {
       return <Redirect to='/account' />;
   }
 
   return (
-  <div className="table">
+  <div className="row">
     <div
       style={{
         backgroundImage: 'url("/public/images/background-shop.jpg")',

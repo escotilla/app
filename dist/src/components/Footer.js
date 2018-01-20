@@ -32,7 +32,7 @@ var Footer = function (_React$Component) {
     value: function render() {
       return _react2.default.createElement(
         "div",
-        { className: "footer escotilla-footer" },
+        { className: "row footer escotilla-footer" },
         _react2.default.createElement("img", { src: "/public/images/logo.png" }),
         _react2.default.createElement(
           "p",

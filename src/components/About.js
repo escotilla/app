@@ -1,7 +1,7 @@
 import React from 'react';
 
 const About = ({match}) => (
-  <div>
+  <div className="row">
     <div
       style={{backgroundImage: "url('/public/images/application-banner.jpg')"}}
       className="hero-image">
