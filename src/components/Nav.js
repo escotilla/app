@@ -27,83 +27,67 @@ class Nav extends React.Component {
     ) : null);
 
     const authLinks = (
-      <ul className="nav navbar-nav">
-        <li>
-          <div style={{padding: '10px 15px'}}>
-            <button
-              className="btn btn-light"
-              onClick={() => this.props.changeLanguage('spanish')}>
-              <img className="flag" src="/public/images/spain-flag.svg"/>
-              {Language.get(language, 'spanish')}
-            </button>
-          </div>
-        </li>
-        <li>
-          <div style={{padding: '10px 15px'}}>
-            <button
-              className="btn btn-light"
-              onClick={() => this.props.changeLanguage('english')}>
-              <img className="flag" src="/public/images/uk.svg"/>
-              {Language.get(language, 'english')}
-            </button>
-          </div>
-        </li>
+      <ul className="nav flex-auth">
         {isAuthenticated ? (
           <li onClick={() => this.props.logout()}>
             <a>Logout</a>
           </li>
-        ) : null}
-        {isAuthenticated ? null : [<li>
+        ) : <li>
+          <select
+            style={{maxWidth: '120px', display: 'inline-block'}}
+            value={language}
+            onChange={e => this.props.changeLanguage(e.target.value)}
+            className="form-control">
+            <option value="spanish">
+              {Language.get(language, 'spanish')}
+            </option>
+            <option value="english">
+              {Language.get(language, 'english')}
+            </option>
+          </select>
           <NavLink
+            style={{display: 'inline-block'}}
             to='/login'
             activeStyle={{color: 'rgba(255, 0, 0, 1)'}}>
             <button className="btn btn-primary">
               {Language.get(language, 'button.login')}
             </button>
           </NavLink>
-        </li>,
-          <li>
-            <NavLink
-              to='/register'
-              activeStyle={{color: 'rgba(255, 0, 0, 1)'}}>
-              <button className="btn btn-primary">
-                {Language.get(language, 'button.register')}
-              </button>
-            </NavLink>
-          </li>]}
+          <NavLink
+            style={{display: 'inline-block'}}
+            to='/register'
+            activeStyle={{color: 'rgba(255, 0, 0, 1)'}}>
+            <button className="btn btn-primary">
+              {Language.get(language, 'button.register')}
+            </button>
+          </NavLink>
+        </li>}
       </ul>
     );
 
-    const linkNav = isAuthenticated ? null : (
-      <nav className="escotilla-nav-auth">
-        <div className="container-fluid">
+    return (
+      <nav
+        style={{
+          marginBottom: '0',
+          minHeight: '4rem'
+        }}
+        className="navbar flex-nav">
+        <div className="flex-links">
+        <NavLink className="navbar-brand" to='/'>
+          <div
+            className="brand-logo"
+            style={{
+              backgroundImage: 'url("/public/images/logo.png")'
+            }}/>
+        </NavLink>
+        <div>
           <ul className="nav navbar-nav">
-            {navLinks}
+            {isAuthenticated ? null : navLinks}
           </ul>
         </div>
+        </div>
+        {authLinks}
       </nav>
-    );
-
-    return (
-      <div>
-        <nav className="escotilla-nav">
-          <div className="escotilla-nav-flex">
-            <div className="escotilla-nav-flex-logo">
-              <NavLink to='/'>
-                <img src="/public/images/logo.png"/>
-              </NavLink>
-            </div>
-            <div className="escotilla-nav-flex-links">
-              <div className="container-fluid">
-                {authLinks}
-              </div>
-              <div>
-              </div>
-            </div>
-          </div>
-        </nav>
-        {linkNav}
-      </div>
     );
   }
 }
