@@ -37,7 +37,7 @@
     "build": "gulp --production 8000",
     "start": "gulp",
     "buildModule": "gulp buildModules",
-    "test": "gulp build && mocha dist/tests/unit",
+    "test": "mocha dist/tests/unit",
     "e2e": "webdriver-manager update && ./node_modules/.bin/protractor",
     "server": "node dist/server.js"
   },
