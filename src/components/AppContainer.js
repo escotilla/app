@@ -11,10 +11,17 @@ class AppContainer extends React.Component {
   render() {
     if (this.props.booting) {
       return (
-        <div>
-          <h1>BOOTING</h1>
+        <div style={{
+          height: '100vh',
+          width: '100vw',
+          background: '#212121',
+          position: 'fixed',
+          top: 0,
+          left: 0
+        }}>
+          <div className="loader"/>
         </div>
-      )
+      );
     }
 
     return (
@@ -30,7 +37,7 @@ const mapStateToProps = state => {
     boot,
   } = state;
 
-  return { booting: boot.booting };
+  return {booting: boot.booting};
 };
 
 const mapDispatchToProps = dispatch => {

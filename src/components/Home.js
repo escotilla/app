@@ -18,18 +18,18 @@ const Home = ({language, loggedIn}) => {
       }}
       className="hero-image">
       <div className="hero-text">
-        <h1 id="home-header-text">{Language.get(language, 'home.header.part_1')}</h1>
-        <h1 id="home-header-text">
+        <h3 id="home-header-text">{Language.get(language, 'home.header.part_1')}</h3>
+        <h3 id="home-header-text">
           <strong>{Language.get(language, 'home.header.part_2')}</strong>
-        </h1>
-        <h1 id="home-header-text">{Language.get(language, 'home.header.part_3')}</h1>
+        </h3>
+        <h3 id="home-header-text">{Language.get(language, 'home.header.part_3')}</h3>
         <button className="btn btn-primary btn-lg">{Language.get(language, 'button.get_started')}</button>
       </div>
     </div>
     <div className="container">
       <div className="col-xs-12 text-center">
-        <h2>HOW IT WORKS</h2>
-        <h3>Apply quickly online directly from your Computer or Mobile Phone</h3>
+        <h3>HOW IT WORKS</h3>
+        <h4>Apply quickly online directly from your Computer or Mobile Phone</h4>
       </div>
       <div>
         <div className="col-xs-12 col-sm-4 text-center">
