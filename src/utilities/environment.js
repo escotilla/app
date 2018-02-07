@@ -20,3 +20,16 @@ export function handleErrors(response) {
 
   return response;
 }
+
+export function parseSearch(search) {
+  let obj = {};
+
+  search = search.substring(1).split('&');
+
+  for (let i = 0; i < search.length; i++) {
+    let inner = search[i].split('=');
+    obj[inner[0]] = inner[1];
+  }
+
+  return obj;
+}
