@@ -24,8 +24,6 @@ var _questions = require('../configs/questions');
 
 var _questions2 = _interopRequireDefault(_questions);
 
-var _reactRouterDom = require('react-router-dom');
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -52,42 +50,43 @@ var Account = function (_React$Component) {
           language = _props.language;
 
 
-      var applications = application.applications ? application.applications : [];
+      var hasApplications = application.applications && application.applications.length > 0;
 
       if (application.loading) {
         return _react2.default.createElement(
           'div',
           null,
-          'loadng...'
+          'loading...'
         );
       }
 
-      console.log(this);
-      return application.applications && application.applications.length > 0 ? applications.map(function (app) {
-        return _react2.default.createElement(
-          'div',
-          null,
-          _react2.default.createElement(
-            'h1',
+      return hasApplications ? _react2.default.createElement(
+        'div',
+        null,
+        application.applications.map(function (app) {
+          return _react2.default.createElement(
+            'div',
             null,
-            'Loan application for: $',
-            app.answers[_questions2.default.LOAN_AMOUNT]
-          ),
-          _react2.default.createElement(
-            'ul',
-            null,
-            app.checklist.map(function (item) {
-              return _react2.default.createElement(
-                'li',
-                null,
-                item.title + ': ' + item.status
-              );
-            })
-          )
-        );
-      }) : _react2.default.createElement(_CreateApplication2.default, {
-        language: language,
-        questions: question.questions });
+            _react2.default.createElement(
+              'h1',
+              null,
+              'Loan application for: $',
+              app.answers[_questions2.default.LOAN_AMOUNT]
+            ),
+            _react2.default.createElement(
+              'ul',
+              null,
+              app.checklist.map(function (item) {
+                return _react2.default.createElement(
+                  'li',
+                  null,
+                  item.title + ': ' + item.status
+                );
+              })
+            )
+          );
+        })
+      ) : _react2.default.createElement(_CreateApplication2.default, { language: language, questions: question.questions });
     }
   }]);
 

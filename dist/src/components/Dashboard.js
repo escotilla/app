@@ -24,6 +24,8 @@ var _Account = require('./Account');
 
 var _Account2 = _interopRequireDefault(_Account);
 
+var _environment = require('../utilities/environment');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -42,13 +44,31 @@ var Dashboard = function (_React$Component) {
   }
 
   _createClass(Dashboard, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+          console.log(position, position.coords.latitude, position.coords.longitude);
+        });
+      } else {
+        /* geolocation IS NOT available */
+      }
+    }
+  }, {
     key: 'render',
     value: function render() {
       var _props = this.props,
           routes = _props.routes,
-          match = _props.match;
+          match = _props.match,
+          location = _props.location;
 
+      var params = (0, _environment.parseSearch)(location.search || '');
+      console.log(params);
+      if (params && params.success && params.paymentId && params.token && params.PayerID) {
+        console.log('yess');
+      }
 
+      console.log(this);
       return _react2.default.createElement(
         'div',
         { className: 'row' },

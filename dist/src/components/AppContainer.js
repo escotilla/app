@@ -16,18 +16,6 @@ var _redux = require('redux');
 
 var _loadUser = require('../actions/load-user');
 
-var _Footer = require('./Footer');
-
-var _Footer2 = _interopRequireDefault(_Footer);
-
-var _routes = require('../configs/routes');
-
-var _routes2 = _interopRequireDefault(_routes);
-
-var _Nav = require('./Nav');
-
-var _Nav2 = _interopRequireDefault(_Nav);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -53,16 +41,25 @@ var AppContainer = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
+      if (this.props.booting) {
+        return _react2.default.createElement(
+          'div',
+          { style: {
+              height: '100vh',
+              width: '100vw',
+              background: '#212121',
+              position: 'fixed',
+              top: 0,
+              left: 0
+            } },
+          _react2.default.createElement('div', { className: 'loader' })
+        );
+      }
+
       return _react2.default.createElement(
         'div',
         { className: 'container-fluid' },
-        _react2.default.createElement(_Nav2.default, { routes: _routes2.default }),
-        this.props.booting ? _react2.default.createElement(
-          'h1',
-          null,
-          'BOOTING'
-        ) : this.props.children,
-        _react2.default.createElement(_Footer2.default, null)
+        this.props.children
       );
     }
   }]);

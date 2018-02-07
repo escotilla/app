@@ -73,11 +73,15 @@ function renderApp(html, preloadedState) {
         <meta property="og:title" content="Sam Stanton-Reid"/> 
         <meta property="og:site_name" content="Sam Stanton-Reid"/> 
         <meta property="og:type" content="website"/> 
-        <meta name="author" content="Sam Stanton-Reid"/> 
+        <meta name="author" content="Sam Stanton-Reid"/>
         <style>
-        .escotilla-nav .escotilla-nav-flex{display:flex}.escotilla-nav .escotilla-nav-flex div{flex-grow:1}.escotilla-nav .escotilla-nav-flex .escotilla-nav-flex-logo{max-width:200px}.escotilla-nav .escotilla-nav-flex .escotilla-nav-flex-links{flex-direction:column}.escotilla-nav .escotilla-nav-flex .escotilla-nav-flex-links div{float:right}.escotilla-nav-auth{width:100%}.escotilla-nav-auth li,.escotilla-nav-auth ul{float:right}.flag{height:2rem}.side-bar{max-width:300px;position:-webkit-sticky;position:sticky;top:10rem}
+        html {
+    font-size: 10px;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+        .loader{border-radius:100%;height:5rem;width:5rem;position:absolute;top:50%;left:50%;transform:translate(-50%, -50%)}.loader:before{content:'';position:absolute;left:0;right:0;top:0;bottom:0;border:2px solid rgba(255,255,255,0.3);border-right-color:white;border-radius:100%;animation:spin 0.66s linear infinite;-webkit-animation:spin 0.66s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}@-webkit-keyframes spin{to{-webkit-transform:rotate(360deg)}}
         </style>
-        <noscript id="deferred-styles"}>
+        <noscript id="deferred-styles">
            <link
         rel="stylesheet"
         href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">

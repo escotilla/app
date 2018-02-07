@@ -10,6 +10,7 @@ exports.isNode = isNode;
 exports.hasWindow = hasWindow;
 exports.getApiUrl = getApiUrl;
 exports.handleErrors = handleErrors;
+exports.parseSearch = parseSearch;
 function isNode() {
   return (typeof process === 'undefined' ? 'undefined' : _typeof(process)) === 'object' && process.title && process.title === 'node';
 }
@@ -31,4 +32,17 @@ function handleErrors(response) {
   }
 
   return response;
+}
+
+function parseSearch(search) {
+  var obj = {};
+
+  search = search.substring(1).split('&');
+
+  for (var i = 0; i < search.length; i++) {
+    var inner = search[i].split('=');
+    obj[inner[0]] = inner[1];
+  }
+
+  return obj;
 }

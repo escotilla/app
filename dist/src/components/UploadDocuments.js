@@ -78,7 +78,7 @@ var UploadDocuments = function (_React$Component) {
           download = _props.download,
           api_token = _props.api_token;
 
-      var hasFiles = uploaded_files && uploaded_files.length;
+      var hasFiles = uploaded_files && uploaded_files.length > 0;
 
       return _react2.default.createElement(
         'div',

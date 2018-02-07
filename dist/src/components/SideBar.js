@@ -38,10 +38,19 @@ var SideBar = function (_React$Component) {
         _react2.default.createElement(
           'ul',
           { className: 'nav flex-column' },
+          _react2.default.createElement(
+            'li',
+            { className: 'nav-item' },
+            _react2.default.createElement(
+              _reactRouterDom.NavLink,
+              { to: '/account', exact: true, activeStyle: { color: 'rgba(255, 0, 0, 1)' } },
+              'Account Home'
+            )
+          ),
           this.props.routes.map(function (route, i) {
             return _react2.default.createElement(
               'li',
-              { className: 'nav-item' },
+              { className: 'nav-item', key: i },
               _react2.default.createElement(
                 _reactRouterDom.NavLink,
                 {

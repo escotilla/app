@@ -19,8 +19,7 @@ var _reactRouterDom = require('react-router-dom');
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Home = function Home(_ref) {
-  var match = _ref.match,
-      language = _ref.language,
+  var language = _ref.language,
       loggedIn = _ref.loggedIn;
 
 
@@ -30,7 +29,7 @@ var Home = function Home(_ref) {
 
   return _react2.default.createElement(
     'div',
-    { className: 'table' },
+    { className: 'row' },
     _react2.default.createElement(
       'div',
       {
@@ -43,12 +42,12 @@ var Home = function Home(_ref) {
         'div',
         { className: 'hero-text' },
         _react2.default.createElement(
-          'h1',
+          'h3',
           { id: 'home-header-text' },
           _language2.default.get(language, 'home.header.part_1')
         ),
         _react2.default.createElement(
-          'h1',
+          'h3',
           { id: 'home-header-text' },
           _react2.default.createElement(
             'strong',
@@ -57,7 +56,7 @@ var Home = function Home(_ref) {
           )
         ),
         _react2.default.createElement(
-          'h1',
+          'h3',
           { id: 'home-header-text' },
           _language2.default.get(language, 'home.header.part_3')
         ),
@@ -75,12 +74,12 @@ var Home = function Home(_ref) {
         'div',
         { className: 'col-xs-12 text-center' },
         _react2.default.createElement(
-          'h2',
+          'h3',
           null,
           'HOW IT WORKS'
         ),
         _react2.default.createElement(
-          'h3',
+          'h4',
           null,
           'Apply quickly online directly from your Computer or Mobile Phone'
         )

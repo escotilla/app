@@ -14,7 +14,7 @@ var About = function About(_ref) {
   var match = _ref.match;
   return _react2.default.createElement(
     "div",
-    null,
+    { className: "row" },
     _react2.default.createElement(
       "div",
       {

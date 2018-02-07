@@ -42,6 +42,7 @@ var App = function App() {
   return _react2.default.createElement(
     _AppContainer2.default,
     null,
+    _react2.default.createElement(_Nav2.default, { routes: _routes2.default }),
     _react2.default.createElement(
       _reactRouterDom.Switch,
       null,
@@ -49,7 +50,8 @@ var App = function App() {
         return _react2.default.createElement(_RouteWithSubRoutes2.default, _extends({}, route, { key: i }));
       }),
       _react2.default.createElement(_reactRouterDom.Route, { component: _NotFound2.default })
-    )
+    ),
+    _react2.default.createElement(_Footer2.default, null)
   );
 };
 

@@ -29,6 +29,7 @@
     "react-transition-group": "^2.2.1",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
+    "semantic-ui-react": "^0.77.2",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"
   },
@@ -36,7 +37,7 @@
     "build": "gulp --production 8000",
     "start": "gulp",
     "buildModule": "gulp buildModules",
-    "test": "mocha dist/tests/unit",
+    "test": "gulp build && mocha dist/tests/unit",
     "e2e": "webdriver-manager update && ./node_modules/.bin/protractor",
     "server": "node dist/server.js"
   },

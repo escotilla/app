@@ -75,34 +75,22 @@ var Nav = function (_React$Component) {
           'li',
           null,
           _react2.default.createElement(
-            'div',
-            { style: { padding: '10px 15px' } },
+            'select',
+            {
+              style: { maxWidth: '200px' },
+              value: language,
+              onChange: function onChange(e) {
+                return _this2.props.changeLanguage(e.target.value);
+              },
+              className: 'form-control' },
             _react2.default.createElement(
-              'button',
-              {
-                className: 'btn btn-light',
-                onClick: function onClick() {
-                  return _this2.props.changeLanguage('spanish');
-                } },
-              _react2.default.createElement('img', { className: 'flag', src: '/public/images/spain-flag.svg' }),
+              'option',
+              { value: 'spanish' },
               _language2.default.get(language, 'spanish')
-            )
-          )
-        ),
-        _react2.default.createElement(
-          'li',
-          null,
-          _react2.default.createElement(
-            'div',
-            { style: { padding: '10px 15px' } },
+            ),
             _react2.default.createElement(
-              'button',
-              {
-                className: 'btn btn-light',
-                onClick: function onClick() {
-                  return _this2.props.changeLanguage('english');
-                } },
-              _react2.default.createElement('img', { className: 'flag', src: '/public/images/uk.svg' }),
+              'option',
+              { value: 'english' },
               _language2.default.get(language, 'english')
             )
           )
@@ -117,13 +105,13 @@ var Nav = function (_React$Component) {
             null,
             'Logout'
           )
-        ) : null,
-        isAuthenticated ? null : [_react2.default.createElement(
+        ) : _react2.default.createElement(
           'li',
           null,
           _react2.default.createElement(
             _reactRouterDom.NavLink,
             {
+              style: { display: 'inline-block' },
               to: '/login',
               activeStyle: { color: 'rgba(255, 0, 0, 1)' } },
             _react2.default.createElement(
@@ -131,13 +119,11 @@ var Nav = function (_React$Component) {
               { className: 'btn btn-primary' },
               _language2.default.get(language, 'button.login')
             )
-          )
-        ), _react2.default.createElement(
-          'li',
-          null,
+          ),
           _react2.default.createElement(
             _reactRouterDom.NavLink,
             {
+              style: { display: 'inline-block' },
               to: '/register',
               activeStyle: { color: 'rgba(255, 0, 0, 1)' } },
             _react2.default.createElement(
@@ -146,54 +132,36 @@ var Nav = function (_React$Component) {
               _language2.default.get(language, 'button.register')
             )
           )
-        )]
-      );
-
-      var linkNav = isAuthenticated ? null : _react2.default.createElement(
-        'nav',
-        { className: 'escotilla-nav-auth' },
-        _react2.default.createElement(
-          'div',
-          { className: 'container-fluid' },
-          _react2.default.createElement(
-            'ul',
-            { className: 'nav navbar-nav' },
-            navLinks
-          )
         )
       );
 
       return _react2.default.createElement(
-        'div',
-        null,
+        'nav',
+        {
+          style: {
+            marginBottom: '0',
+            minHeight: '4rem'
+          },
+          className: 'navbar row' },
         _react2.default.createElement(
-          'nav',
-          { className: 'escotilla-nav' },
+          _reactRouterDom.NavLink,
+          { className: 'navbar-brand row', to: '/' },
+          _react2.default.createElement('div', {
+            className: 'brand-logo',
+            style: {
+              backgroundImage: 'url("/public/images/logo.png")'
+            } })
+        ),
+        _react2.default.createElement(
+          'div',
+          null,
           _react2.default.createElement(
-            'div',
-            { className: 'escotilla-nav-flex' },
-            _react2.default.createElement(
-              'div',
-              { className: 'escotilla-nav-flex-logo' },
-              _react2.default.createElement(
-                _reactRouterDom.NavLink,
-                { to: '/' },
-                _react2.default.createElement('img', { src: '/public/images/logo.png' })
-              )
-            ),
-            _react2.default.createElement(
-              'div',
-              { className: 'escotilla-nav-flex-links' },
-              _react2.default.createElement(
-                'div',
-                { className: 'container-fluid' },
-                authLinks
-              ),
-              _react2.default.createElement('div', null)
-            )
+            'ul',
+            { className: 'nav navbar-nav' },
+            isAuthenticated ? null : navLinks
           )
         ),
-        linkNav
+        authLinks
       );
     }
   }]);
