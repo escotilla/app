@@ -4,7 +4,7 @@ import l from '../configs/language';
 export default class Language {
   static resolve(path, obj) {
     return path.split('.').reduce((prev, current) => {
-      return prev ? prev[current] : undefined
+      return prev ? prev[current] : ''
     }, obj);
   }
 

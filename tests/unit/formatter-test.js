@@ -1,4 +1,4 @@
-import Formatter from '../../src/utilities/formatter';
+import * as Formatter from '../../src/utilities/formatter';
 import should from 'should';
 
 describe('Formatter', function () {
