@@ -5,7 +5,9 @@ import {
   REGISTER_FAILURE,
   LOGIN_FAILURE,
   LOGIN_INIT,
-  REGISTER_INIT
+  REGISTER_INIT,
+  CLEAR_PAYLOAD,
+  LOGOUT,
 } from '../actions/action-types';
 
 const INITIAL_STATE = {};
@@ -44,6 +46,10 @@ const payload = (state = {
             code: action.error.code || 500
           }
         });
+      case CLEAR_PAYLOAD:
+        return Object.assign({}, state, {
+          payload: {}
+        });
       default:
         return state;
     }
@@ -69,9 +75,12 @@ const payloadByPage = (state = {}, action) => {
     case LOGIN_SUCCESS:
     case LOGIN_FAILURE:
     case LOGIN_INIT:
+    case CLEAR_PAYLOAD:
       return Object.assign({}, state, {
         [action.page]: payload(state[action.page], action)
       });
+    case LOGOUT:
+      return {};
     default:
       return state
   }
