@@ -8,6 +8,7 @@ import boot from './boot';
 import file from './file';
 import application from './application';
 import question from './question';
+import menu from './menu';
 
 const rootReducer = combineReducers({
   featuresByCollection,
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
   application,
   question,
   file,
+  menu,
 });
 
 export default rootReducer;

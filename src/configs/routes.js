@@ -1,5 +1,5 @@
 import Home from '../components/Home';
-import Settings from '../components/Settings';
+import Profile from '../components/Profile';
 import About from '../components/About';
 import Register from '../components/Register';
 import Login from '../components/Login';
@@ -50,25 +50,27 @@ export default [
     title: 'Dashboard Escotilla',
     component: Dashboard,
     private: true,
-    includeInPrivateNav: true,
     routes: [
       {
-        path: '/account/settings',
-        title: 'Settings',
-        component: Settings,
+        path: '/account/profile',
+        title: 'Profile',
+        component: Profile,
         private: true,
+        includeInNav: true
       },
       {
         path: '/account/upload-documents',
         title: 'Upload Documents',
         component: UploadDocuments,
-        private: true
+        private: true,
+        includeInNav: true
       },
       {
         path: '/account/loan-contract',
         title: 'Loan Contract',
         component: LoanContract,
-        private: true
+        private: true,
+        includeInNav: true
       }
     ]
   }
