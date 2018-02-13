@@ -1,16 +1,16 @@
 import React from 'react';
 
 const About = ({match}) => (
-  <div className="row">
+  <div>
     <div
       style={{backgroundImage: "url('/public/images/application-banner.jpg')"}}
-      className="hero-image">
+      className="hero-image jumbotron">
       <div className="hero-text">
         <h1>WE HELP YOU TO GROW
           YOUR DREAM BUSINESS</h1>
       </div>
     </div>
-    <div className="container">
+    <div className="container-fluid">
       <h1 id="home-header-text">About page</h1>
       <h1>BACKGROUND</h1>
       <h2>CONTEXT – THE NEED FOR RESPONSIBLE MICRO DOLLAR CREDIT</h2>

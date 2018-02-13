@@ -25,7 +25,7 @@ class AppContainer extends React.Component {
     }
 
     return (
-      <div className="container-fluid">
+      <div>
         {this.props.children}
       </div>
     );
