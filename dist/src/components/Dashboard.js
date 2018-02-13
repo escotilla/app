@@ -65,7 +65,7 @@ var Dashboard = function (_React$Component) {
       var params = (0, _environment.parseSearch)(location.search || '');
       console.log(params);
       if (params && params.success && params.paymentId && params.token && params.PayerID) {
-        console.log('yess');
+        // add paypal stuff
       }
 
       console.log(this);

@@ -47,10 +47,8 @@ function loadApplication() {
 function boot() {
   return function (dispatch) {
     dispatch((0, _fetchQuestions.fetchQuestionsIfNeeded)());
-    var user = dispatch(loadUser());
-    if (user) {
-      dispatch(loadApplication());
-    }
+    dispatch(loadUser());
+
     dispatch(bootComplete());
   };
 }

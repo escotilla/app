@@ -55,7 +55,7 @@ var Nav = function (_React$Component) {
       var navLinks = routes.map(function (route) {
         return route.includeInNav ? _react2.default.createElement(
           'li',
-          { key: route.path },
+          { key: route.path, className: 'nav-item' },
           _react2.default.createElement(
             _reactRouterDom.NavLink,
             {
@@ -70,29 +70,25 @@ var Nav = function (_React$Component) {
 
       var authLinks = _react2.default.createElement(
         'ul',
-        { className: 'nav navbar-nav' },
+        { className: 'navbar-nav' },
         _react2.default.createElement(
-          'li',
-          null,
+          'select',
+          {
+            style: { maxWidth: '120px', display: 'inline-block' },
+            value: language,
+            onChange: function onChange(e) {
+              return _this2.props.changeLanguage(e.target.value);
+            },
+            className: 'form-control' },
           _react2.default.createElement(
-            'select',
-            {
-              style: { maxWidth: '200px' },
-              value: language,
-              onChange: function onChange(e) {
-                return _this2.props.changeLanguage(e.target.value);
-              },
-              className: 'form-control' },
-            _react2.default.createElement(
-              'option',
-              { value: 'spanish' },
-              _language2.default.get(language, 'spanish')
-            ),
-            _react2.default.createElement(
-              'option',
-              { value: 'english' },
-              _language2.default.get(language, 'english')
-            )
+            'option',
+            { value: 'spanish' },
+            _language2.default.get(language, 'spanish')
+          ),
+          _react2.default.createElement(
+            'option',
+            { value: 'english' },
+            _language2.default.get(language, 'english')
           )
         ),
         isAuthenticated ? _react2.default.createElement(
@@ -101,8 +97,8 @@ var Nav = function (_React$Component) {
               return _this2.props.logout();
             } },
           _react2.default.createElement(
-            'a',
-            null,
+            'button',
+            { className: 'btn btn-primary' },
             'Logout'
           )
         ) : _react2.default.createElement(
@@ -142,23 +138,27 @@ var Nav = function (_React$Component) {
             marginBottom: '0',
             minHeight: '4rem'
           },
-          className: 'navbar row' },
-        _react2.default.createElement(
-          _reactRouterDom.NavLink,
-          { className: 'navbar-brand row', to: '/' },
-          _react2.default.createElement('div', {
-            className: 'brand-logo',
-            style: {
-              backgroundImage: 'url("/public/images/logo.png")'
-            } })
-        ),
+          className: 'navbar justify-content-between' },
         _react2.default.createElement(
           'div',
           null,
           _react2.default.createElement(
-            'ul',
-            { className: 'nav navbar-nav' },
-            isAuthenticated ? null : navLinks
+            _reactRouterDom.NavLink,
+            { className: 'navbar-brand', to: '/' },
+            _react2.default.createElement('div', {
+              className: 'brand-logo',
+              style: {
+                backgroundImage: 'url("/public/images/logo.png")'
+              } })
+          ),
+          _react2.default.createElement(
+            'div',
+            null,
+            _react2.default.createElement(
+              'ul',
+              { className: 'nav navbar-nav' },
+              isAuthenticated ? null : navLinks
+            )
           )
         ),
         authLinks

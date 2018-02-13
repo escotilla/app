@@ -3,8 +3,8 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.createApplication = createApplication;
-exports.createApplicationWithAuth = createApplicationWithAuth;
+exports.updateApplication = updateApplication;
+exports.updateApplicationWithAuth = updateApplicationWithAuth;
 
 var _isomorphicFetch = require('isomorphic-fetch');
 
@@ -22,38 +22,39 @@ var _actionTypes = require('./action-types');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function createApplication(body) {
+function updateApplication(body) {
   return function (dispatch) {
-    dispatch(createApplicationStart());
+    dispatch(updateApplicationStart());
 
     var headers = new Headers({
       'Content-Type': 'application/json'
     });
 
-    return (0, _isomorphicFetch2.default)((0, _environment.getApiUrl)() + '/application/create', {
+    return (0, _isomorphicFetch2.default)((0, _environment.getApiUrl)() + '/application/update', {
       method: "POST",
       body: JSON.stringify(body),
       headers: headers
     }).then(function (response) {
       return response.json();
     }).then(handleErrors).then(function (json) {
-      dispatch(createApplicationSuccess(json.data));
+      dispatch(updateApplicationSuccess(json.data));
       _lsCache2.default.set('user', json.data);
 
       dispatch((0, _clearPayload.clearPayload)('review-application'));
     }).catch(function (err) {
-      dispatch(createApplicationFailure(err));
+      dispatch(updateApplicationFailure(err));
     });
   };
 }
 
-function createApplicationWithAuth(payload) {
+function updateApplicationWithAuth(payload, applicationId) {
   return function (dispatch, getState) {
     var state = getState();
     if (state.user && state.user.api_token) {
-      dispatch(createApplication({
+      dispatch(updateApplication({
         payload: payload,
-        api_token: state.user.api_token
+        api_token: state.user.api_token,
+        application_id: applicationId
       }));
     }
   };
@@ -67,22 +68,22 @@ function handleErrors(response) {
   return response;
 }
 
-function createApplicationStart() {
+function updateApplicationStart() {
   return {
-    type: _actionTypes.CREATE_APPLICATION_INIT
+    type: _actionTypes.UPDATE_APPLICATION_INIT
   };
 }
 
-function createApplicationSuccess(json) {
+function updateApplicationSuccess(json) {
   return {
-    type: _actionTypes.CREATE_APPLICATION_SUCCESS,
+    type: _actionTypes.UPDATE_APPLICATION_SUCCESS,
     user: json
   };
 }
 
-function createApplicationFailure(err) {
+function updateApplicationFailure(err) {
   return {
-    type: _actionTypes.CREATE_APPLICATION_FAILURE,
+    type: _actionTypes.UPDATE_APPLICATION_FAILURE,
     error: err
   };
 }

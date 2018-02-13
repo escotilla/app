@@ -73,7 +73,10 @@ var payloadByPage = function payloadByPage() {
     case _actionTypes.LOGIN_SUCCESS:
     case _actionTypes.LOGIN_FAILURE:
     case _actionTypes.LOGIN_INIT:
+    case _actionTypes.CLEAR_PAYLOAD:
       return Object.assign({}, state, _defineProperty({}, action.page, payload(state[action.page], action)));
+    case _actionTypes.LOGOUT:
+      return {};
     default:
       return state;
   }

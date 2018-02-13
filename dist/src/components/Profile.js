@@ -12,9 +12,21 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = require('react-redux');
 
+var _logout = require('../actions/logout');
+
 var _redux = require('redux');
 
-var _loadUser = require('../actions/load-user');
+var _CreateApplication = require('./CreateApplication');
+
+var _CreateApplication2 = _interopRequireDefault(_CreateApplication);
+
+var _ReviewApplication = require('./ReviewApplication');
+
+var _ReviewApplication2 = _interopRequireDefault(_ReviewApplication);
+
+var _questions = require('../configs/questions');
+
+var _questions2 = _interopRequireDefault(_questions);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -24,60 +36,59 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var AppContainer = function (_React$Component) {
-  _inherits(AppContainer, _React$Component);
+var Profile = function (_React$Component) {
+  _inherits(Profile, _React$Component);
 
-  function AppContainer() {
-    _classCallCheck(this, AppContainer);
+  function Profile() {
+    _classCallCheck(this, Profile);
 
-    return _possibleConstructorReturn(this, (AppContainer.__proto__ || Object.getPrototypeOf(AppContainer)).apply(this, arguments));
+    return _possibleConstructorReturn(this, (Profile.__proto__ || Object.getPrototypeOf(Profile)).apply(this, arguments));
   }
 
-  _createClass(AppContainer, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      this.props.boot();
-    }
-  }, {
+  _createClass(Profile, [{
     key: 'render',
     value: function render() {
-      if (this.props.booting) {
-        return _react2.default.createElement(
-          'div',
-          { style: {
-              height: '100vh',
-              width: '100vw',
-              background: '#212121',
-              position: 'fixed',
-              top: 0,
-              left: 0
-            } },
-          _react2.default.createElement('div', { className: 'loader' })
-        );
-      }
+      var _props = this.props,
+          user = _props.user,
+          question = _props.question,
+          language = _props.language;
 
-      return _react2.default.createElement(
+
+      var hasApplications = user.applications && user.applications.length > 0;
+
+      console.log(this);
+      return hasApplications ? _react2.default.createElement(
         'div',
         null,
-        this.props.children
-      );
+        user.applications.map(function (app) {
+          return _react2.default.createElement(
+            'div',
+            null,
+            _react2.default.createElement(_ReviewApplication2.default, { applicationId: app.id, answers: app.answers })
+          );
+        })
+      ) : _react2.default.createElement(_CreateApplication2.default, { language: language, questions: question.questions });
     }
   }]);
 
-  return AppContainer;
+  return Profile;
 }(_react2.default.Component);
 
 var mapStateToProps = function mapStateToProps(state) {
-  var boot = state.boot;
+  var user = state.user,
+      application = state.application,
+      question = state.question,
+      language = state.language,
+      payloadByPage = state.payloadByPage;
 
 
-  return { booting: boot.booting };
+  return { user: user, application: application, question: question, language: language, payloadByPage: payloadByPage };
 };
 
-var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+var mapStateToDispatch = function mapStateToDispatch(dispatch) {
   return {
-    boot: (0, _redux.bindActionCreators)(_loadUser.boot, dispatch)
+    logout: (0, _redux.bindActionCreators)(_logout.logout, dispatch)
   };
 };
 
-exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(AppContainer);
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapStateToDispatch)(Profile);

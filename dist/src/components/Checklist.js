@@ -20,9 +20,9 @@ var _CreateApplication = require('./CreateApplication');
 
 var _CreateApplication2 = _interopRequireDefault(_CreateApplication);
 
-var _Checklist = require('./Checklist');
+var _ReviewApplication = require('./ReviewApplication');
 
-var _Checklist2 = _interopRequireDefault(_Checklist);
+var _ReviewApplication2 = _interopRequireDefault(_ReviewApplication);
 
 var _questions = require('../configs/questions');
 
@@ -42,7 +42,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var checklist = {
+var checklistConfig = {
   review_profile: {
     path: '/account/profile'
   },
@@ -54,64 +54,50 @@ var checklist = {
   }
 };
 
-var Account = function (_React$Component) {
-  _inherits(Account, _React$Component);
+var Checklist = function (_React$Component) {
+  _inherits(Checklist, _React$Component);
 
-  function Account() {
-    _classCallCheck(this, Account);
+  function Checklist() {
+    _classCallCheck(this, Checklist);
 
-    return _possibleConstructorReturn(this, (Account.__proto__ || Object.getPrototypeOf(Account)).apply(this, arguments));
+    return _possibleConstructorReturn(this, (Checklist.__proto__ || Object.getPrototypeOf(Checklist)).apply(this, arguments));
   }
 
-  _createClass(Account, [{
+  _createClass(Checklist, [{
     key: 'render',
     value: function render() {
       var _props = this.props,
-          user = _props.user,
-          question = _props.question,
+          checklist = _props.checklist,
           language = _props.language;
 
 
-      var hasApplications = user.applications && user.applications.length > 0;
-
-      return hasApplications ? _react2.default.createElement(
+      return _react2.default.createElement(
         'div',
-        null,
-        user.applications.map(function (app) {
+        { className: 'list-group' },
+        _react2.default.createElement(
+          'a',
+          { className: 'list-group-item list-group-item-action active' },
+          'Todo List'
+        ),
+        checklist.map(function (item) {
           return _react2.default.createElement(
-            'div',
-            null,
+            _reactRouterDom.NavLink,
+            {
+              to: checklistConfig[item.title].path,
+              className: 'list-group-item list-group-item-action justify-content-between align-items-center' },
+            _language2.default.get(language, 'checklist.' + item.title),
             _react2.default.createElement(
-              'h1',
-              null,
-              'Loan application for: $',
-              app.answers[_questions2.default.LOAN_AMOUNT]
-            ),
-            _react2.default.createElement(_Checklist2.default, { checklist: app.checklist, language: language })
+              'span',
+              { className: 'badge badge-pill badge-warning' },
+              item.status
+            )
           );
         })
-      ) : _react2.default.createElement(_CreateApplication2.default, { language: language, questions: question.questions });
+      );
     }
   }]);
 
-  return Account;
+  return Checklist;
 }(_react2.default.Component);
 
-var mapStateToProps = function mapStateToProps(state) {
-  var user = state.user,
-      application = state.application,
-      question = state.question,
-      language = state.language,
-      payloadByPage = state.payloadByPage;
-
-
-  return { user: user, application: application, question: question, language: language, payloadByPage: payloadByPage };
-};
-
-var mapStateToDispatch = function mapStateToDispatch(dispatch) {
-  return {
-    logout: (0, _redux.bindActionCreators)(_logout.logout, dispatch)
-  };
-};
-
-exports.default = (0, _reactRedux.connect)(mapStateToProps, mapStateToDispatch)(Account);
+exports.default = Checklist;

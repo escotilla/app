@@ -10,7 +10,7 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _createApplication = require('../actions/create-application');
+var _updateApplication = require('../actions/update-application');
 
 var _updatePayload = require('../actions/update-payload');
 
@@ -28,9 +28,9 @@ var _questions = require('../configs/questions');
 
 var _questions2 = _interopRequireDefault(_questions);
 
-var _createApplicationForm = require('../configs/create-application-form');
+var _reviewApplicationForm = require('../configs/review-application-form');
 
-var _createApplicationForm2 = _interopRequireDefault(_createApplicationForm);
+var _reviewApplicationForm2 = _interopRequireDefault(_reviewApplicationForm);
 
 var _validate = require('validate.js');
 
@@ -46,15 +46,15 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var PAGE = 'create-application';
+var PAGE = 'review-application';
 
-var CreateApplication = function (_React$Component) {
-  _inherits(CreateApplication, _React$Component);
+var ReviewApplication = function (_React$Component) {
+  _inherits(ReviewApplication, _React$Component);
 
-  function CreateApplication(props) {
-    _classCallCheck(this, CreateApplication);
+  function ReviewApplication(props) {
+    _classCallCheck(this, ReviewApplication);
 
-    var _this = _possibleConstructorReturn(this, (CreateApplication.__proto__ || Object.getPrototypeOf(CreateApplication)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (ReviewApplication.__proto__ || Object.getPrototypeOf(ReviewApplication)).call(this, props));
 
     _this.submit = _this.submit.bind(_this);
     _this.renderForm = _this.renderForm.bind(_this);
@@ -66,34 +66,52 @@ var CreateApplication = function (_React$Component) {
     return _this;
   }
 
-  _createClass(CreateApplication, [{
+  _createClass(ReviewApplication, [{
     key: 'submit',
     value: function submit() {
-      var validation = (0, _validate.validate)(this.props.payload, _createApplicationForm2.default.constraints, { fullMessages: false });
+      var _props = this.props,
+          payload = _props.payload,
+          applicationId = _props.applicationId,
+          updateApplicationWithAuth = _props.updateApplicationWithAuth;
+
+      var validation = (0, _validate.validate)(payload, _reviewApplicationForm2.default.constraints, { fullMessages: false });
+
       this.setState({ validation: validation });
 
       if (validation === undefined) {
-        this.props.createApplicationWithAuth(this.props.payload);
+        updateApplicationWithAuth(payload, applicationId);
       }
     }
+
+    // componentWillMount() {
+    //   const {payload, answers} = this.props;
+    //
+    //   for (let id in answers) {
+    //     if (answers.hasOwnProperty(id) && !payload.hasOwnProperty(id)) {
+    //       this.props.updatePayload(id, PAGE, answers[id]);
+    //     }
+    //   }
+    // }
+
   }, {
     key: 'renderForm',
     value: function renderForm() {
-      var _props = this.props,
-          error = _props.error,
-          loading = _props.loading,
-          payload = _props.payload;
+      var _props2 = this.props,
+          error = _props2.error,
+          loading = _props2.loading,
+          payload = _props2.payload,
+          answers = _props2.answers;
 
       var validation = this.state.validation;
 
       var button = _react2.default.createElement(
         'button',
         {
-          disabled: loading,
+          disabled: loading || Object.keys(payload).length === 0,
           id: 'submit',
           onClick: this.submit,
           className: 'button' },
-        loading ? _react2.default.createElement('i', { className: 'fa fa-cog fa-spin' }) : 'Create Application'
+        loading ? _react2.default.createElement('i', { className: 'fa fa-cog fa-spin' }) : 'Update'
       );
 
       console.log(this);
@@ -103,13 +121,15 @@ var CreateApplication = function (_React$Component) {
         _react2.default.createElement(
           'form',
           null,
-          _createApplicationForm2.default.questions.map(function (question) {
+          _reviewApplicationForm2.default.questions.map(function (question) {
             return _react2.default.createElement(_Input2.default, {
               loading: loading,
               validation: validation,
-              value: payload[question.inputId],
+              value: payload.hasOwnProperty(question.inputId) ? payload[question.inputId] : answers[question.inputId],
               inputId: question.inputId,
-              page: PAGE
+              page: PAGE,
+              formatter: question.formatter,
+              parser: question.parser
             });
           })
         ),
@@ -128,7 +148,7 @@ var CreateApplication = function (_React$Component) {
     }
   }]);
 
-  return CreateApplication;
+  return ReviewApplication;
 }(_react2.default.Component);
 
 var mapStateToProps = function mapStateToProps(state) {
@@ -152,8 +172,8 @@ var mapStateToProps = function mapStateToProps(state) {
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     updatePayload: (0, _redux.bindActionCreators)(_updatePayload.updatePayload, dispatch),
-    createApplicationWithAuth: (0, _redux.bindActionCreators)(_createApplication.createApplicationWithAuth, dispatch)
+    updateApplicationWithAuth: (0, _redux.bindActionCreators)(_updateApplication.updateApplicationWithAuth, dispatch)
   };
 };
 
-exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(CreateApplication);
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(ReviewApplication);

@@ -8,9 +8,9 @@ var _Home = require('../components/Home');
 
 var _Home2 = _interopRequireDefault(_Home);
 
-var _Settings = require('../components/Settings');
+var _Profile = require('../components/Profile');
 
-var _Settings2 = _interopRequireDefault(_Settings);
+var _Profile2 = _interopRequireDefault(_Profile);
 
 var _About = require('../components/About');
 
@@ -82,9 +82,9 @@ exports.default = [{
   private: true,
   includeInPrivateNav: true,
   routes: [{
-    path: '/account/settings',
-    title: 'Settings',
-    component: _Settings2.default,
+    path: '/account/profile',
+    title: 'Profile',
+    component: _Profile2.default,
     private: true
   }, {
     path: '/account/upload-documents',

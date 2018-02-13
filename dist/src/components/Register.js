@@ -194,7 +194,7 @@ var Register = function (_React$Component) {
           'div',
           {
             style: { backgroundImage: "url('/public/images/application-banner.jpg')" },
-            className: 'hero-image' },
+            className: 'hero-image jumbotron' },
           _react2.default.createElement(
             'div',
             { className: 'hero-text' },

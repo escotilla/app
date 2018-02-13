@@ -16,6 +16,8 @@ var user = function user() {
     case _actionTypes.REGISTER_SUCCESS:
     case _actionTypes.LOGIN_SUCCESS:
     case _actionTypes.LOAD_USER:
+    case _actionTypes.CREATE_APPLICATION_SUCCESS:
+    case _actionTypes.UPDATE_APPLICATION_SUCCESS:
       return Object.assign({}, state, action.user);
     case _actionTypes.LOGOUT:
       return INITIAL_STATE;

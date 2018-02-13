@@ -29,7 +29,7 @@ var Home = function Home(_ref) {
 
   return _react2.default.createElement(
     'div',
-    { className: 'row' },
+    null,
     _react2.default.createElement(
       'div',
       {
@@ -37,7 +37,7 @@ var Home = function Home(_ref) {
           backgroundImage: 'url("/public/images/background-shop.jpg")',
           height: '25vw'
         },
-        className: 'hero-image' },
+        className: 'jumbotron hero-image' },
       _react2.default.createElement(
         'div',
         { className: 'hero-text' },
@@ -61,9 +61,13 @@ var Home = function Home(_ref) {
           _language2.default.get(language, 'home.header.part_3')
         ),
         _react2.default.createElement(
-          'button',
-          { className: 'btn btn-primary btn-lg' },
-          _language2.default.get(language, 'button.get_started')
+          _reactRouterDom.NavLink,
+          { to: '/register' },
+          _react2.default.createElement(
+            'button',
+            { className: 'btn btn-primary btn-lg' },
+            _language2.default.get(language, 'button.get_started')
+          )
         )
       )
     ),

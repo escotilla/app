@@ -27,7 +27,7 @@ var Language = function () {
     key: 'resolve',
     value: function resolve(path, obj) {
       return path.split('.').reduce(function (prev, current) {
-        return prev ? prev[current] : undefined;
+        return prev ? prev[current] : '';
       }, obj);
     }
   }, {

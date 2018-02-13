@@ -14,12 +14,12 @@ var About = function About(_ref) {
   var match = _ref.match;
   return _react2.default.createElement(
     "div",
-    { className: "row" },
+    null,
     _react2.default.createElement(
       "div",
       {
         style: { backgroundImage: "url('/public/images/application-banner.jpg')" },
-        className: "hero-image" },
+        className: "hero-image jumbotron" },
       _react2.default.createElement(
         "div",
         { className: "hero-text" },
@@ -32,7 +32,7 @@ var About = function About(_ref) {
     ),
     _react2.default.createElement(
       "div",
-      { className: "container" },
+      { className: "container-fluid" },
       _react2.default.createElement(
         "h1",
         { id: "home-header-text" },
