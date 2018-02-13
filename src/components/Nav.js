@@ -5,6 +5,9 @@ import {logout} from '../actions/logout';
 import {changeLanguage} from '../actions/change-language';
 import {bindActionCreators} from 'redux';
 import Language from '../utilities/language';
+import Hamburger from './Hamburger';
+import { withRouter } from 'react-router'
+import {setMenu} from '../actions/set-menu';
 
 class Nav extends React.Component {
   constructor(props) {
@@ -12,11 +15,12 @@ class Nav extends React.Component {
   }
 
   render() {
-    const {routes, language, isAuthenticated} = this.props;
+    const {routes, language, isAuthenticated, location} = this.props;
 
     const navLinks = routes.map(route => route.includeInNav ? (
-      <li key={route.path}>
+      <li key={route.path} className="nav-item d-none d-md-block">
         <NavLink
+          className="nav-link"
           exact={route.exact}
           to={route.path}
           id={route.path}
@@ -27,24 +31,24 @@ class Nav extends React.Component {
     ) : null);
 
     const authLinks = (
-      <ul className="nav flex-auth">
+      <ul className="navbar-nav flex-row d-none d-md-block">
+        <select
+          style={{maxWidth: '120px', display: 'inline-block'}}
+          value={language}
+          onChange={e => this.props.changeLanguage(e.target.value)}
+          className="form-control">
+          <option value="spanish">
+            {Language.get(language, 'spanish')}
+          </option>
+          <option value="english">
+            {Language.get(language, 'english')}
+          </option>
+        </select>
         {isAuthenticated ? (
           <li onClick={() => this.props.logout()}>
-            <a>Logout</a>
+            <button className="btn btn-primary">Logout</button>
           </li>
         ) : <li>
-          <select
-            style={{maxWidth: '120px', display: 'inline-block'}}
-            value={language}
-            onChange={e => this.props.changeLanguage(e.target.value)}
-            className="form-control">
-            <option value="spanish">
-              {Language.get(language, 'spanish')}
-            </option>
-            <option value="english">
-              {Language.get(language, 'english')}
-            </option>
-          </select>
           <NavLink
             style={{display: 'inline-block'}}
             to='/login'
@@ -66,27 +70,26 @@ class Nav extends React.Component {
     );
 
     return (
-      <nav
-        style={{
-          marginBottom: '0',
-          minHeight: '4rem'
-        }}
-        className="navbar flex-nav">
-        <div className="flex-links">
-        <NavLink className="navbar-brand" to='/'>
-          <div
-            className="brand-logo"
-            style={{
-              backgroundImage: 'url("/public/images/logo.png")'
-            }}/>
-        </NavLink>
-        <div>
-          <ul className="nav navbar-nav">
+      <nav className="navbar justify-content-between flex-row escotilla-navbar">
+        <div
+          onClick={() => this.props.setMenu('closed')}
+          className="flex-row">
+          <ul className="nav navbar-nav flex-row" style={{paddingLeft: '11px'}}>
+            <li>
+              <NavLink className="navbar-brand" to='/'>
+                <div
+                  className="brand-logo flex-row"
+                  style={{backgroundImage: 'url("/public/images/logo.png")'}}/>
+              </NavLink>
+            </li>
             {isAuthenticated ? null : navLinks}
           </ul>
         </div>
-        </div>
         {authLinks}
+        <Hamburger
+          location={location}
+          className="d-md-none"
+          routes={routes}/>
       </nav>
     );
   }
@@ -110,8 +113,9 @@ const mapStateToProps = state => {
 const mapStateToDispatch = dispatch => {
   return {
     logout: bindActionCreators(logout, dispatch),
+    setMenu: bindActionCreators(setMenu, dispatch),
     changeLanguage: bindActionCreators(changeLanguage, dispatch),
   }
 };
 
-export default connect(mapStateToProps, mapStateToDispatch)(Nav);
+export default withRouter(connect(mapStateToProps, mapStateToDispatch)(Nav));

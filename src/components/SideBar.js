@@ -4,7 +4,7 @@ import {NavLink} from 'react-router-dom';
 class SideBar extends React.Component {
   render() {
     return (
-      <div className="col-12 col-sm-3 col-lg-2 side-bar">
+      <div className="col-md-3 col-lg-2 side-bar d-none d-md-block">
         <ul className="nav flex-column">
           <li className="nav-item">
             <NavLink to='/account' exact={true} activeStyle={{color: 'rgba(255, 0, 0, 1)'}}>Account Home</NavLink>
