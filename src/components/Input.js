@@ -35,7 +35,7 @@ class Input extends React.Component {
 
     return (
       <div className={"form-group " + (hasError ? 'has-error' : '')}>
-        <label>{questions[inputId][language]}</label>
+        <label>{questions.hasOwnProperty(inputId) ? questions[inputId][language] : ''}</label>
         <input
           required
           disabled={loading || disabled}

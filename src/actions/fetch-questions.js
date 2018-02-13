@@ -10,39 +10,46 @@ import {
 
 export function fetchQuestions() {
   return dispatch => {
-    dispatch(fetchQuestionsStart());
+    return new Promise((resolve, reject) => {
+      dispatch(fetchQuestionsStart());
 
-    const questions = lscache.get('questions');
+      const questions = lscache.get('questions');
 
-    if (questions) {
-      return dispatch(fetchQuestionsSuccess(questions));
-    }
+      if (questions) {
+        dispatch(fetchQuestionsSuccess(questions));
+        return resolve(questions);
+      }
 
-    const headers = new Headers({
-      'Content-Type': 'application/json'
+      return fetch(getApiUrl() + '/question/read')
+        .then(response => {
+          return response.json();
+        })
+        .then(handleErrors)
+        .then(json => {
+          dispatch(fetchQuestionsSuccess(json.data));
+          lscache.set('questions', json.data);
+          resolve(json);
+        })
+        .catch(err => {
+          dispatch(fetchQuestionsFailure(err));
+          reject(err);
+        })
     });
-
-    return fetch(getApiUrl() + '/question/read')
-      .then(response => {
-        return response.json();
-      })
-      .then(handleErrors)
-      .then(json => {
-        dispatch(fetchQuestionsSuccess(json.data));
-        lscache.set('questions', json.data);
-      })
-      .catch(err => {
-        dispatch(fetchQuestionsFailure(err));
-      })
   }
 }
 
 export function fetchQuestionsIfNeeded() {
   return (dispatch, getState) => {
-    const state = getState();
-    if (shouldFetchApplications(state)) {
-      dispatch(fetchQuestions());
-    }
+    return new Promise((resolve, reject) => {
+      const state = getState();
+      if (shouldFetchApplications(state)) {
+        return dispatch(fetchQuestions())
+          .then(json => resolve(json))
+          .catch(err => reject(err));
+      }
+
+      resolve();
+    });
   }
 }
 
