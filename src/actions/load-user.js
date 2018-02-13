@@ -1,6 +1,7 @@
 import lscache from 'ls-cache';
 import {getApplicationsSuccess} from './get-applications';
 import {fetchQuestionsIfNeeded} from './fetch-questions';
+import {changeLanguage} from './change-language';
 import {
   LOAD_USER,
   BOOT_COMPLETE
@@ -17,15 +18,16 @@ export function loadUser() {
     return user;
   }
 }
-export function loadApplication() {
-  return dispatch => {
-    const user = lscache.get('application');
 
-    if (user) {
-      dispatch(getApplicationsSuccess(user));
+export function loadLanguage() {
+  return dispatch => {
+    const language = lscache.get('language');
+
+    if (language) {
+      dispatch(changeLanguage(language));
     }
 
-    return user;
+    return language;
   }
 }
 
@@ -33,6 +35,7 @@ export function boot() {
   return dispatch => {
     dispatch(fetchQuestionsIfNeeded())
       .then(() => dispatch(loadUser()))
+      .then(() => dispatch(loadLanguage()))
       .then(() => dispatch(bootComplete()));
   }
 }
