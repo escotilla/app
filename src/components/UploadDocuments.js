@@ -9,7 +9,7 @@ import {getApiUrl} from '../utilities/environment';
 class UploadDocuments extends React.Component {
   componentDidMount() {
     const api_token = this.props.api_token;
-    const application_ids = this.props.application_ids;
+    const applications = this.props.applications;
     const updateUserSuccess = this.props.updateUserSuccess;
 
     if (typeof window !== 'undefined') {
@@ -23,7 +23,7 @@ class UploadDocuments extends React.Component {
         init: function () {
           this.on("sending", function (file, xhr, formData) {
             formData.append("api_token", api_token);
-            formData.append("application_id", application_ids && application_ids.length > 0 ? application_ids[0] : 'bnan');
+            formData.append("application_id", applications && applications.length > 0 ? applications[0].id : 'bnan');
           });
 
           this.on("success", function (file, response) {
@@ -91,10 +91,10 @@ const mapStateToProps = state => {
 
   const uploaded_files = user.uploaded_files;
   const api_token = user.api_token;
-  const application_ids = user.application_ids;
+  const applications = user.applications;
   const isLoading = file.loading;
 
-  return {uploaded_files, api_token, application_ids, user, isLoading};
+  return {uploaded_files, api_token, applications, user, isLoading};
 };
 
 const mapStateToDispatch = dispatch => {
