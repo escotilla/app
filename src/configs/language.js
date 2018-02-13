@@ -13,6 +13,16 @@ export default {
         part_2: 'Fast and easy',
         part_3: 'Direct to your Paypal',
       }
+    },
+    errors: {
+      amountMax: 'Amount cannot exceed $200',
+      required: '*required',
+      info_accurate: 'Please make sure your info is accurate'
+    },
+    checklist: {
+      review_profile: 'Review Profile',
+      upload_documents: 'Upload Documents',
+      sign_agreement: 'Loan Contract',
     }
   },
   spanish: {
@@ -29,6 +39,16 @@ export default {
         part_2: 'Rápido y fácil',
         part_3: 'Directamente al Paypal',
       }
+    },
+    errors: {
+      amountMax: 'Amount no puede exceed $200',
+      required: '*requiredo',
+      info_accurate: 'Please make sure your info is accurate'
+    },
+    checklist: {
+      review_profile: 'Review Profile',
+      upload_documents: 'Upload Documents',
+      sign_agreement: 'Loan Contract',
     }
   }
 }
