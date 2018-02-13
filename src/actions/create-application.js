@@ -1,6 +1,7 @@
 import fetch from 'isomorphic-fetch';
 import {getApiUrl} from '../utilities/environment';
 import lscache from 'ls-cache';
+import {clearPayload} from './clear-payload';
 
 import {
   CREATE_APPLICATION_INIT,
@@ -27,7 +28,9 @@ export function createApplication(body) {
       .then(handleErrors)
       .then(json => {
         dispatch(createApplicationSuccess(json.data));
-        lscache.set('application', json.data);
+        lscache.set('user', json.data);
+
+        dispatch(clearPayload('review-application'));
       })
       .catch(err => {
         dispatch(createApplicationFailure(err));
@@ -66,7 +69,7 @@ function createApplicationStart() {
 function createApplicationSuccess(json) {
   return {
     type: CREATE_APPLICATION_SUCCESS,
-    applications: json
+    user: json
   }
 }
 

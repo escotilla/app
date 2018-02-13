@@ -10,13 +10,15 @@ import AppContainer from './AppContainer';
 const App = () => (
   <AppContainer>
     <Nav routes={routes}/>
-    <Switch>
-      {routes.map((route, i) => (
-        <RouteWithSubRoutes {...route} key={i}/>
-      ))}
-      <Route component={NotFound}/>
-    </Switch>
-    <Footer />
+    <div style={{position: 'relative', top: '47px'}}>
+      <Switch>
+        {routes.map((route, i) => (
+          <RouteWithSubRoutes {...route} key={i}/>
+        ))}
+        <Route component={NotFound}/>
+      </Switch>
+      <Footer/>
+    </div>
   </AppContainer>
 );
 
