@@ -7,7 +7,7 @@ class Footer extends React.Component {
 
   render() {
     return (
-      <div className="row footer escotilla-footer">
+      <div className="footer escotilla-footer">
         <img src="/public/images/logo.png"/>
         <p className="text-center">© 2017. Escotilla Financiera. All Rights Reserved.
           Torres de Las Americas, Punta Pacifica, 15th Floor Panama City, Panama</p>

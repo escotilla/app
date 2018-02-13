@@ -76,15 +76,13 @@ function renderApp(html, preloadedState) {
         <meta name="author" content="Sam Stanton-Reid"/>
         <style>
         html {
-    font-size: 10px;
+    font-size: 14px;
     -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
         .loader{border-radius:100%;height:5rem;width:5rem;position:absolute;top:50%;left:50%;transform:translate(-50%, -50%)}.loader:before{content:'';position:absolute;left:0;right:0;top:0;bottom:0;border:2px solid rgba(255,255,255,0.3);border-right-color:white;border-radius:100%;animation:spin 0.66s linear infinite;-webkit-animation:spin 0.66s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}@-webkit-keyframes spin{to{-webkit-transform:rotate(360deg)}}
         </style>
         <noscript id="deferred-styles">
-           <link
-        rel="stylesheet"
-        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://cdn.rawgit.com/konpa/devicon/df6431e323547add1b4cf45992913f15286456d3/devicon.min.css">
         <link rel="stylesheet" type="text/css" href="/public/styles.css">
