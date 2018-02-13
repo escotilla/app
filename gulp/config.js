@@ -22,7 +22,6 @@ module.exports = {
   dest: dest,
   presets: ['react', 'stage-2', 'env'],
   browserSync: {
-    files: [dest + '/public/**'],
     proxy: 'localhost:' + port,
     ui: {
       port: 3007

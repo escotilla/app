@@ -8,13 +8,17 @@ gulp.task('watch', function (callback) {
   runSequence(
     'build',
     'nodemon',
+    'browsersync',
     callback
   );
 
   if (!config.production) {
-    browserSync.init(config.browserSync);
-
     gulp.watch('src/sass/*.scss', ['sass']);
-    gulp.watch(['server.js'], ['buildServer']);
+  }
+});
+
+gulp.task('browsersync', function () {
+  if (!config.production) {
+    return browserSync.init(config.browserSync);
   }
 });

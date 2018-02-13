@@ -32,10 +32,8 @@ export function loadApplication() {
 export function boot() {
   return dispatch => {
     dispatch(fetchQuestionsIfNeeded());
-    const user = dispatch(loadUser());
-    if (user) {
-      dispatch(loadApplication());
-    }
+    dispatch(loadUser());
+
     dispatch(bootComplete());
   }
 }
