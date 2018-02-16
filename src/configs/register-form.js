@@ -1,12 +1,41 @@
 import Q from '../configs/questions'
 import {formatDollars} from '../utilities/formatter';
 
-const constraints = {};
+const constraints = {
+  [Q.LOAN_AMOUNT]: {
+    numericality: {
+      lessThanOrEqualTo: 200,
+      message: 'errors.amountMax'
+    }
+  },
 
-constraints[Q.LOAN_AMOUNT] = {
-  numericality: {
-    lessThanOrEqualTo: 200,
-    message: 'errors.amountMax'
+  [Q.EMAIL]: {
+    presence: {
+      message: 'errors.required',
+      allowEmpty: false
+    }
+  },
+  [Q.FULL_NAME]: {
+    presence: {
+      message: 'errors.required',
+      allowEmpty: false
+    }
+  },
+  [Q.PASSWORD]: {
+    presence: {
+      message: 'errors.required',
+      allowEmpty: false
+    }
+  },
+  password: {
+    presence: {
+      message: 'errors.required',
+      allowEmpty: false
+    },
+    equality: {
+      attribute: Q.PASSWORD,
+      message: 'errors.passwordMatch'
+    }
   }
 };
 
@@ -17,6 +46,13 @@ const questions = [
   {
     inputId: Q.FULL_NAME
   },
+  {
+    inputId: Q.PASSWORD
+  },
+  {
+    inputId: 'password',
+    type: 'password'
+  }
 ];
 
 export default {
