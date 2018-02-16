@@ -129,6 +129,10 @@
   border: none;
   border-bottom: 1px solid #757373;
   margin-bottom: 1px;
+  border-radius: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  box-shadow: none;
 
   &::placeholder {
     color: #757373;
