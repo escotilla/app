@@ -2,6 +2,7 @@ import { combineReducers } from 'redux'
 
 import featuresByCollection from './featuresByCollection';
 import user from './user';
+import users from './users';
 import payloadByPage from './payloadByPage';
 import language from './language';
 import boot from './boot';
@@ -13,6 +14,7 @@ import menu from './menu';
 const rootReducer = combineReducers({
   featuresByCollection,
   user,
+  users,
   payloadByPage,
   language,
   boot,

@@ -43,7 +43,7 @@ var UploadDocuments = function (_React$Component) {
     key: 'componentDidMount',
     value: function componentDidMount() {
       var api_token = this.props.api_token;
-      var application_ids = this.props.application_ids;
+      var applications = this.props.applications;
       var updateUserSuccess = this.props.updateUserSuccess;
 
       if (typeof window !== 'undefined') {
@@ -57,7 +57,7 @@ var UploadDocuments = function (_React$Component) {
           init: function init() {
             this.on("sending", function (file, xhr, formData) {
               formData.append("api_token", api_token);
-              formData.append("application_id", application_ids && application_ids.length > 0 ? application_ids[0] : 'bnan');
+              formData.append("application_id", applications && applications.length > 0 ? applications[0].id : 'bnan');
             });
 
             this.on("success", function (file, response) {
@@ -178,10 +178,10 @@ var mapStateToProps = function mapStateToProps(state) {
 
   var uploaded_files = user.uploaded_files;
   var api_token = user.api_token;
-  var application_ids = user.application_ids;
+  var applications = user.applications;
   var isLoading = file.loading;
 
-  return { uploaded_files: uploaded_files, api_token: api_token, application_ids: application_ids, user: user, isLoading: isLoading };
+  return { uploaded_files: uploaded_files, api_token: api_token, applications: applications, user: user, isLoading: isLoading };
 };
 
 var mapStateToDispatch = function mapStateToDispatch(dispatch) {

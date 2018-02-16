@@ -80,21 +80,23 @@ exports.default = [{
   title: 'Dashboard Escotilla',
   component: _Dashboard2.default,
   private: true,
-  includeInPrivateNav: true,
   routes: [{
     path: '/account/profile',
     title: 'Profile',
     component: _Profile2.default,
-    private: true
+    private: true,
+    includeInNav: true
   }, {
     path: '/account/upload-documents',
     title: 'Upload Documents',
     component: _UploadDocuments2.default,
-    private: true
+    private: true,
+    includeInNav: true
   }, {
     path: '/account/loan-contract',
     title: 'Loan Contract',
     component: _LoanContract2.default,
-    private: true
+    private: true,
+    includeInNav: true
   }]
 }];

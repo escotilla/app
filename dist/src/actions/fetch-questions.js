@@ -23,35 +23,44 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function fetchQuestions() {
   return function (dispatch) {
-    dispatch(fetchQuestionsStart());
+    return new Promise(function (resolve, reject) {
+      dispatch(fetchQuestionsStart());
 
-    var questions = _lsCache2.default.get('questions');
+      var questions = _lsCache2.default.get('questions');
 
-    if (questions) {
-      return dispatch(fetchQuestionsSuccess(questions));
-    }
+      if (questions) {
+        dispatch(fetchQuestionsSuccess(questions));
+        return resolve(questions);
+      }
 
-    var headers = new Headers({
-      'Content-Type': 'application/json'
-    });
-
-    return (0, _isomorphicFetch2.default)((0, _environment.getApiUrl)() + '/question/read').then(function (response) {
-      return response.json();
-    }).then(handleErrors).then(function (json) {
-      dispatch(fetchQuestionsSuccess(json.data));
-      _lsCache2.default.set('questions', json.data);
-    }).catch(function (err) {
-      dispatch(fetchQuestionsFailure(err));
+      return (0, _isomorphicFetch2.default)((0, _environment.getApiUrl)() + '/question/read').then(function (response) {
+        return response.json();
+      }).then(handleErrors).then(function (json) {
+        dispatch(fetchQuestionsSuccess(json.data));
+        _lsCache2.default.set('questions', json.data);
+        resolve(json);
+      }).catch(function (err) {
+        dispatch(fetchQuestionsFailure(err));
+        reject(err);
+      });
     });
   };
 }
 
 function fetchQuestionsIfNeeded() {
   return function (dispatch, getState) {
-    var state = getState();
-    if (shouldFetchApplications(state)) {
-      dispatch(fetchQuestions());
-    }
+    return new Promise(function (resolve, reject) {
+      var state = getState();
+      if (shouldFetchApplications(state)) {
+        return dispatch(fetchQuestions()).then(function (json) {
+          return resolve(json);
+        }).catch(function (err) {
+          return reject(err);
+        });
+      }
+
+      resolve();
+    });
   };
 }
 

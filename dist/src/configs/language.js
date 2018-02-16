@@ -21,7 +21,8 @@ exports.default = {
     },
     errors: {
       amountMax: 'Amount cannot exceed $200',
-      required: '*required'
+      required: '*required',
+      info_accurate: 'Please make sure your info is accurate'
     },
     checklist: {
       review_profile: 'Review Profile',
@@ -46,7 +47,8 @@ exports.default = {
     },
     errors: {
       amountMax: 'Amount no puede exceed $200',
-      required: '*requiredo'
+      required: '*requiredo',
+      info_accurate: 'Please make sure your info is accurate'
     },
     checklist: {
       review_profile: 'Review Profile',

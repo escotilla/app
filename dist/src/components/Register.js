@@ -20,9 +20,9 @@ var _redux = require('redux');
 
 var _reactRouterDom = require('react-router-dom');
 
-var _Warning = require('./Warning');
+var _RegisterForm = require('./Forms/RegisterForm');
 
-var _Warning2 = _interopRequireDefault(_Warning);
+var _RegisterForm2 = _interopRequireDefault(_RegisterForm);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -32,152 +32,18 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var REGISTER = 'register';
+var PAGE = 'register';
 
 var Register = function (_React$Component) {
   _inherits(Register, _React$Component);
 
-  function Register(props) {
+  function Register() {
     _classCallCheck(this, Register);
 
-    var _this = _possibleConstructorReturn(this, (Register.__proto__ || Object.getPrototypeOf(Register)).call(this, props));
-
-    _this.submit = _this.submit.bind(_this);
-    _this.verifiedSubmit = _this.verifiedSubmit.bind(_this);
-    _this.renderForm = _this.renderForm.bind(_this);
-
-    _this.state = {
-      invalid: []
-    };
-    return _this;
+    return _possibleConstructorReturn(this, (Register.__proto__ || Object.getPrototypeOf(Register)).apply(this, arguments));
   }
 
   _createClass(Register, [{
-    key: 'verifiedSubmit',
-    value: function verifiedSubmit(email, name, password) {
-      this.props.register({
-        email: email,
-        name: name,
-        password: password
-      });
-    }
-  }, {
-    key: 'submit',
-    value: function submit() {
-      var _props$payload = this.props.payload,
-          email = _props$payload.email,
-          name = _props$payload.name,
-          password = _props$payload.password;
-
-      var invalid = [];
-
-      if (!Register.validateEmail(email)) {
-        invalid.push('email');
-      }
-
-      if (!name || name.length < 2) {
-        invalid.push('name');
-      }
-
-      if (!password || password.length < 2) {
-        invalid.push('password');
-      }
-
-      if (invalid.length === 0) {
-        this.setState({
-          invalid: invalid
-        });
-
-        this.verifiedSubmit(email, name, password);
-      } else {
-        this.setState({
-          invalid: invalid
-        });
-      }
-    }
-  }, {
-    key: 'renderForm',
-    value: function renderForm() {
-      var _this2 = this;
-
-      var _props = this.props,
-          error = _props.error,
-          loading = _props.loading,
-          payload = _props.payload;
-      var email = payload.email,
-          name = payload.name,
-          password = payload.password;
-      var invalid = this.state.invalid;
-
-
-      var emailClass = invalid.indexOf('email') > -1 ? 'has-error' : '';
-      var nameClass = invalid.indexOf('name') > -1 ? 'has-error' : '';
-      var passwordClass = invalid.indexOf('password') > -1 ? 'has-error' : '';
-
-      var button = _react2.default.createElement(
-        'button',
-        {
-          disabled: loading,
-          id: 'submit',
-          onClick: this.submit,
-          className: 'button' },
-        loading ? _react2.default.createElement('i', { className: 'fa fa-cog fa-spin' }) : 'Create Account'
-      );
-
-      return _react2.default.createElement(
-        'div',
-        null,
-        _react2.default.createElement(
-          'form',
-          null,
-          _react2.default.createElement(
-            'div',
-            { className: "form-group " + emailClass },
-            _react2.default.createElement('input', {
-              disabled: loading,
-              onChange: function onChange(e) {
-                return _this2.props.updatePayload('email', REGISTER, e.target.value);
-              },
-              value: email,
-              type: 'email',
-              className: 'form-control form-transparent',
-              id: 'email',
-              placeholder: 'Email or phone' })
-          ),
-          _react2.default.createElement(
-            'div',
-            { className: "form-group " + nameClass },
-            _react2.default.createElement('input', {
-              onChange: function onChange(e) {
-                return _this2.props.updatePayload('name', REGISTER, e.target.value);
-              },
-              disabled: loading,
-              value: name,
-              type: 'name',
-              className: 'form-control form-transparent',
-              id: 'name',
-              placeholder: 'Name' })
-          ),
-          _react2.default.createElement(
-            'div',
-            { className: "form-group " + passwordClass },
-            _react2.default.createElement('input', {
-              onChange: function onChange(e) {
-                return _this2.props.updatePayload('password', REGISTER, e.target.value);
-              },
-              disabled: loading,
-              value: password,
-              type: 'password',
-              className: 'form-control form-transparent',
-              id: 'password',
-              placeholder: 'Password' })
-          )
-        ),
-        button,
-        error ? _react2.default.createElement(_Warning2.default, { error: error }) : null
-      );
-    }
-  }, {
     key: 'render',
     value: function render() {
       var loggedIn = this.props.loggedIn;
@@ -197,7 +63,7 @@ var Register = function (_React$Component) {
             className: 'hero-image jumbotron' },
           _react2.default.createElement(
             'div',
-            { className: 'hero-text' },
+            { className: 'text-center' },
             _react2.default.createElement(
               'h1',
               null,
@@ -213,14 +79,8 @@ var Register = function (_React$Component) {
             null,
             'Sign up for an account.'
           ),
-          this.renderForm()
+          _react2.default.createElement(_RegisterForm2.default, null)
         )
-      );
-    }
-  }], [{
-    key: 'validateEmail',
-    value: function validateEmail(email) {
-      return (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)
       );
     }
   }]);
@@ -232,7 +92,7 @@ var mapStateToProps = function mapStateToProps(state) {
   var user = state.user,
       payloadByPage = state.payloadByPage;
 
-  var _ref = payloadByPage[REGISTER] || {
+  var _ref = payloadByPage[PAGE] || {
     loading: false,
     error: null,
     payload: {

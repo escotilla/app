@@ -4,11 +4,15 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = require('react-redux');
 
 var _reactRouterDom = require('react-router-dom');
 
@@ -20,52 +24,45 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var SideBar = function (_React$Component) {
-  _inherits(SideBar, _React$Component);
+var AdminRoute = function (_React$Component) {
+  _inherits(AdminRoute, _React$Component);
 
-  function SideBar() {
-    _classCallCheck(this, SideBar);
+  function AdminRoute() {
+    _classCallCheck(this, AdminRoute);
 
-    return _possibleConstructorReturn(this, (SideBar.__proto__ || Object.getPrototypeOf(SideBar)).apply(this, arguments));
+    return _possibleConstructorReturn(this, (AdminRoute.__proto__ || Object.getPrototypeOf(AdminRoute)).apply(this, arguments));
   }
 
-  _createClass(SideBar, [{
+  _createClass(AdminRoute, [{
     key: 'render',
     value: function render() {
-      return _react2.default.createElement(
-        'div',
-        { className: 'col-md-3 col-lg-2 side-bar d-none d-md-block' },
-        _react2.default.createElement(
-          'ul',
-          { className: 'nav flex-column' },
-          _react2.default.createElement(
-            'li',
-            { className: 'nav-item' },
-            _react2.default.createElement(
-              _reactRouterDom.NavLink,
-              { to: '/account', exact: true, activeStyle: { color: 'rgba(255, 0, 0, 1)' } },
-              'Account Home'
-            )
-          ),
-          this.props.routes.map(function (route, i) {
-            return _react2.default.createElement(
-              'li',
-              { className: 'nav-item', key: i },
-              _react2.default.createElement(
-                _reactRouterDom.NavLink,
-                {
-                  to: route.path,
-                  activeStyle: { color: 'rgba(255, 0, 0, 1)' } },
-                route.title
-              )
-            );
-          })
-        )
-      );
+      var _props = this.props,
+          route = _props.route,
+          isAdmin = _props.isAdmin;
+
+
+      return _react2.default.createElement(_reactRouterDom.Route, { path: route.path,
+        exact: route.exact,
+        render: function render(props) {
+          return isAdmin ? _react2.default.createElement(route.component, _extends({}, props, { routes: route.routes })) : _react2.default.createElement(_reactRouterDom.Redirect, { to: {
+              pathname: '/login',
+              state: { from: props.location }
+            } });
+        } });
     }
   }]);
 
-  return SideBar;
+  return AdminRoute;
 }(_react2.default.Component);
 
-exports.default = SideBar;
+var mapStateToProps = function mapStateToProps(state) {
+  var user = state.user;
+
+
+  var isAuthenticated = user.api_token && user.api_token.length > 0;
+  var isAdmin = isAuthenticated && user.role === 'admin';
+
+  return { isAdmin: isAdmin };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps)(AdminRoute);

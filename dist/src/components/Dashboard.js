@@ -24,7 +24,17 @@ var _Account = require('./Account');
 
 var _Account2 = _interopRequireDefault(_Account);
 
+var _Users = require('./Users');
+
+var _Users2 = _interopRequireDefault(_Users);
+
 var _environment = require('../utilities/environment');
+
+var _reactRedux = require('react-redux');
+
+var _CreateApplication = require('./CreateApplication');
+
+var _CreateApplication2 = _interopRequireDefault(_CreateApplication);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -60,26 +70,52 @@ var Dashboard = function (_React$Component) {
       var _props = this.props,
           routes = _props.routes,
           match = _props.match,
-          location = _props.location;
+          location = _props.location,
+          user = _props.user,
+          question = _props.question,
+          language = _props.language;
+
+      var isAdmin = user.role === 'admin';
+
+      var hasApplications = user.applications && user.applications.length > 0;
 
       var params = (0, _environment.parseSearch)(location.search || '');
-      console.log(params);
+
       if (params && params.success && params.paymentId && params.token && params.PayerID) {
         // add paypal stuff
       }
 
-      console.log(this);
+      if (isAdmin) {
+        return _react2.default.createElement(_Users2.default, null);
+      }
+
+      if (!hasApplications) {
+        return _react2.default.createElement(
+          'div',
+          { className: 'container-fluid' },
+          _react2.default.createElement(
+            'div',
+            { className: 'row' },
+            _react2.default.createElement(_CreateApplication2.default, { language: language, questions: question.questions })
+          )
+        );
+      }
+
       return _react2.default.createElement(
         'div',
-        { className: 'row' },
-        _react2.default.createElement(_SideBar2.default, { routes: routes }),
+        { className: 'container-fluid' },
         _react2.default.createElement(
           'div',
-          { className: 'col-12 col-sm-9 col-lg-10' },
-          routes.map(function (route, i) {
-            return _react2.default.createElement(_RouteWithSubRoutes2.default, _extends({}, route, { key: i }));
-          }),
-          match.isExact ? _react2.default.createElement(_Account2.default, null) : null
+          { className: 'row' },
+          _react2.default.createElement(_SideBar2.default, { routes: routes }),
+          _react2.default.createElement(
+            'div',
+            { className: 'col-sm' },
+            routes.map(function (route, i) {
+              return _react2.default.createElement(_RouteWithSubRoutes2.default, _extends({}, route, { key: i }));
+            }),
+            match.isExact ? _react2.default.createElement(_Account2.default, null) : null
+          )
         )
       );
     }
@@ -88,4 +124,21 @@ var Dashboard = function (_React$Component) {
   return Dashboard;
 }(_react2.default.Component);
 
-exports.default = Dashboard;
+var mapStateToProps = function mapStateToProps(state) {
+  var user = state.user,
+      application = state.application,
+      question = state.question,
+      language = state.language,
+      payloadByPage = state.payloadByPage;
+
+
+  return {
+    user: user,
+    application: application,
+    question: question,
+    language: language,
+    payloadByPage: payloadByPage
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps)(Dashboard);

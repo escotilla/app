@@ -4,7 +4,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.loadUser = loadUser;
-exports.loadApplication = loadApplication;
+exports.loadLanguage = loadLanguage;
 exports.boot = boot;
 exports.loadSuccess = loadSuccess;
 exports.bootComplete = bootComplete;
@@ -16,6 +16,8 @@ var _lsCache2 = _interopRequireDefault(_lsCache);
 var _getApplications = require('./get-applications');
 
 var _fetchQuestions = require('./fetch-questions');
+
+var _changeLanguage = require('./change-language');
 
 var _actionTypes = require('./action-types');
 
@@ -32,24 +34,28 @@ function loadUser() {
     return user;
   };
 }
-function loadApplication() {
-  return function (dispatch) {
-    var user = _lsCache2.default.get('application');
 
-    if (user) {
-      dispatch((0, _getApplications.getApplicationsSuccess)(user));
+function loadLanguage() {
+  return function (dispatch) {
+    var language = _lsCache2.default.get('language');
+
+    if (language) {
+      dispatch((0, _changeLanguage.changeLanguage)(language));
     }
 
-    return user;
+    return language;
   };
 }
 
 function boot() {
   return function (dispatch) {
-    dispatch((0, _fetchQuestions.fetchQuestionsIfNeeded)());
-    dispatch(loadUser());
-
-    dispatch(bootComplete());
+    dispatch((0, _fetchQuestions.fetchQuestionsIfNeeded)()).then(function () {
+      return dispatch(loadUser());
+    }).then(function () {
+      return dispatch(loadLanguage());
+    }).then(function () {
+      return dispatch(bootComplete());
+    });
   };
 }
 

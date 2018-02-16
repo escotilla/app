@@ -10,24 +10,6 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRedux = require('react-redux');
-
-var _logout = require('../actions/logout');
-
-var _redux = require('redux');
-
-var _CreateApplication = require('./CreateApplication');
-
-var _CreateApplication2 = _interopRequireDefault(_CreateApplication);
-
-var _ReviewApplication = require('./ReviewApplication');
-
-var _ReviewApplication2 = _interopRequireDefault(_ReviewApplication);
-
-var _questions = require('../configs/questions');
-
-var _questions2 = _interopRequireDefault(_questions);
-
 var _reactRouterDom = require('react-router-dom');
 
 var _language = require('../utilities/language');
@@ -80,6 +62,8 @@ var Checklist = function (_React$Component) {
           'Todo List'
         ),
         checklist.map(function (item) {
+          var badgeClass = item.status === 'complete' ? 'badge-success' : 'badge-warning';
+
           return _react2.default.createElement(
             _reactRouterDom.NavLink,
             {
@@ -88,7 +72,7 @@ var Checklist = function (_React$Component) {
             _language2.default.get(language, 'checklist.' + item.title),
             _react2.default.createElement(
               'span',
-              { className: 'badge badge-pill badge-warning' },
+              { className: "badge badge-pill " + badgeClass },
               item.status
             )
           );

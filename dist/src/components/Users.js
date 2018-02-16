@@ -10,7 +10,11 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouterDom = require('react-router-dom');
+var _reactRedux = require('react-redux');
+
+var _getUsers = require('../actions/get-users');
+
+var _redux = require('redux');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -20,52 +24,80 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var SideBar = function (_React$Component) {
-  _inherits(SideBar, _React$Component);
+var Users = function (_React$Component) {
+  _inherits(Users, _React$Component);
 
-  function SideBar() {
-    _classCallCheck(this, SideBar);
+  function Users() {
+    _classCallCheck(this, Users);
 
-    return _possibleConstructorReturn(this, (SideBar.__proto__ || Object.getPrototypeOf(SideBar)).apply(this, arguments));
+    return _possibleConstructorReturn(this, (Users.__proto__ || Object.getPrototypeOf(Users)).apply(this, arguments));
   }
 
-  _createClass(SideBar, [{
+  _createClass(Users, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      this.props.getUsersIfAdmin();
+    }
+  }, {
     key: 'render',
     value: function render() {
+      var users = this.props.users;
+      var current_page = users.current_page,
+          last_page = users.last_page,
+          loading = users.loading;
+
+
+      if (loading) {
+        return _react2.default.createElement(
+          'h1',
+          null,
+          'LOADING...'
+        );
+      }
+
+      var current = users.users;
+      console.log(this);
       return _react2.default.createElement(
         'div',
-        { className: 'col-md-3 col-lg-2 side-bar d-none d-md-block' },
-        _react2.default.createElement(
-          'ul',
-          { className: 'nav flex-column' },
-          _react2.default.createElement(
-            'li',
-            { className: 'nav-item' },
+        null,
+        current.map(function (user) {
+          return _react2.default.createElement(
+            'div',
+            null,
             _react2.default.createElement(
-              _reactRouterDom.NavLink,
-              { to: '/account', exact: true, activeStyle: { color: 'rgba(255, 0, 0, 1)' } },
-              'Account Home'
+              'h4',
+              null,
+              user.name
+            ),
+            _react2.default.createElement(
+              'p',
+              null,
+              user.email
             )
-          ),
-          this.props.routes.map(function (route, i) {
-            return _react2.default.createElement(
-              'li',
-              { className: 'nav-item', key: i },
-              _react2.default.createElement(
-                _reactRouterDom.NavLink,
-                {
-                  to: route.path,
-                  activeStyle: { color: 'rgba(255, 0, 0, 1)' } },
-                route.title
-              )
-            );
-          })
-        )
+          );
+        })
       );
     }
   }]);
 
-  return SideBar;
+  return Users;
 }(_react2.default.Component);
 
-exports.default = SideBar;
+var mapStateToProps = function mapStateToProps(state) {
+  var users = state.users,
+      application = state.application,
+      question = state.question,
+      language = state.language,
+      payloadByPage = state.payloadByPage;
+
+
+  return { users: users, application: application, question: question, language: language, payloadByPage: payloadByPage };
+};
+
+var mapStateToDispatch = function mapStateToDispatch(dispatch) {
+  return {
+    getUsersIfAdmin: (0, _redux.bindActionCreators)(_getUsers.getUsersIfAdmin, dispatch)
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapStateToDispatch)(Users);

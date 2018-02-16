@@ -24,14 +24,6 @@ var _language = require('../utilities/language');
 
 var _language2 = _interopRequireDefault(_language);
 
-var _Hamburger = require('./Hamburger');
-
-var _Hamburger2 = _interopRequireDefault(_Hamburger);
-
-var _reactRouter = require('react-router');
-
-var _setMenu = require('../actions/set-menu');
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -40,16 +32,16 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Nav = function (_React$Component) {
-  _inherits(Nav, _React$Component);
+var NavBar = function (_React$Component) {
+  _inherits(NavBar, _React$Component);
 
-  function Nav(props) {
-    _classCallCheck(this, Nav);
+  function NavBar(props) {
+    _classCallCheck(this, NavBar);
 
-    return _possibleConstructorReturn(this, (Nav.__proto__ || Object.getPrototypeOf(Nav)).call(this, props));
+    return _possibleConstructorReturn(this, (NavBar.__proto__ || Object.getPrototypeOf(NavBar)).call(this, props));
   }
 
-  _createClass(Nav, [{
+  _createClass(NavBar, [{
     key: 'render',
     value: function render() {
       var _this2 = this;
@@ -57,14 +49,13 @@ var Nav = function (_React$Component) {
       var _props = this.props,
           routes = _props.routes,
           language = _props.language,
-          isAuthenticated = _props.isAuthenticated,
-          location = _props.location;
+          isAuthenticated = _props.isAuthenticated;
 
 
       var navLinks = routes.map(function (route) {
         return route.includeInNav ? _react2.default.createElement(
           'li',
-          { key: route.path, className: 'nav-item d-none d-md-block' },
+          { key: route.path, className: 'nav-item' },
           _react2.default.createElement(
             _reactRouterDom.NavLink,
             {
@@ -80,7 +71,7 @@ var Nav = function (_React$Component) {
 
       var authLinks = _react2.default.createElement(
         'ul',
-        { className: 'navbar-nav flex-row d-none d-md-block' },
+        { className: 'navbar-nav flex-row' },
         _react2.default.createElement(
           'select',
           {
@@ -143,41 +134,27 @@ var Nav = function (_React$Component) {
 
       return _react2.default.createElement(
         'nav',
-        { className: 'navbar justify-content-between flex-row escotilla-navbar' },
+        { className: 'escotilla-navbar' },
         _react2.default.createElement(
           'div',
-          {
-            onClick: function onClick() {
-              return _this2.props.setMenu('closed');
-            },
-            className: 'flex-row' },
+          { className: 'justify-content-between' },
           _react2.default.createElement(
-            'ul',
-            { className: 'nav navbar-nav flex-row', style: { paddingLeft: '11px' } },
-            _react2.default.createElement(
-              'li',
-              null,
-              _react2.default.createElement(
-                _reactRouterDom.NavLink,
-                { className: 'navbar-brand', to: '/' },
-                _react2.default.createElement('div', {
-                  className: 'brand-logo flex-row',
-                  style: { backgroundImage: 'url("/public/images/logo.png")' } })
-              )
-            ),
-            isAuthenticated ? null : navLinks
-          )
+            _reactRouterDom.NavLink,
+            { className: 'navbar-brand', to: '/' },
+            _react2.default.createElement('div', {
+              className: 'brand-logo',
+              style: {
+                backgroundImage: 'url("/public/images/logo.png")'
+              } })
+          ),
+          isAuthenticated ? null : navLinks
         ),
-        authLinks,
-        _react2.default.createElement(_Hamburger2.default, {
-          location: location,
-          className: 'd-md-none',
-          routes: routes })
+        authLinks
       );
     }
   }]);
 
-  return Nav;
+  return NavBar;
 }(_react2.default.Component);
 
 Nav.defaultProps = {
@@ -197,9 +174,8 @@ var mapStateToProps = function mapStateToProps(state) {
 var mapStateToDispatch = function mapStateToDispatch(dispatch) {
   return {
     logout: (0, _redux.bindActionCreators)(_logout.logout, dispatch),
-    setMenu: (0, _redux.bindActionCreators)(_setMenu.setMenu, dispatch),
     changeLanguage: (0, _redux.bindActionCreators)(_changeLanguage.changeLanguage, dispatch)
   };
 };
 
-exports.default = (0, _reactRouter.withRouter)((0, _reactRedux.connect)(mapStateToProps, mapStateToDispatch)(Nav));
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapStateToDispatch)(NavBar);

@@ -10,7 +10,7 @@ import AppContainer from './AppContainer';
 const App = () => (
   <AppContainer>
     <Nav routes={routes}/>
-    <div style={{position: 'relative', top: '47px'}}>
+    <div className="nav-offset">
       <Switch>
         {routes.map((route, i) => (
           <RouteWithSubRoutes {...route} key={i}/>

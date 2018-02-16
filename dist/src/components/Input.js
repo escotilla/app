@@ -50,12 +50,14 @@ var Input = function (_React$Component) {
           value = _props.value,
           questions = _props.questions,
           language = _props.language,
-          inputId = _props.inputId,
           placeholder = _props.placeholder,
           page = _props.page,
-          formatter = _props.formatter,
-          parser = _props.parser;
-
+          question = _props.question;
+      var inputId = question.inputId,
+          formatter = question.formatter,
+          parser = question.parser,
+          type = question.type,
+          disabled = question.disabled;
 
       var hasError = validation && validation.hasOwnProperty(inputId);
 
@@ -71,17 +73,19 @@ var Input = function (_React$Component) {
         _react2.default.createElement(
           'label',
           null,
-          questions[inputId][language]
+          questions.hasOwnProperty(inputId) ? questions[inputId][language] : ''
         ),
         _react2.default.createElement('input', {
           required: true,
-          disabled: loading,
+          disabled: loading || disabled,
           onChange: function onChange(e) {
-            return _this2.props.updatePayload(inputId, page, parser ? parser(e.target.value) : e.target.value);
+            return _this2.props.updatePayload(inputId, page, parser ? parser(e.target.value) : e.target.type === 'checkbox' ? e.target.checked : e.target.value);
           },
           value: formatter ? formatter(value) : value,
+          checked: type === 'checkbox' ? value : null,
           className: 'form-control form-transparent',
           id: inputId,
+          type: type || 'text',
           placeholder: questions[inputId][language] || placeholder }),
         feedback
       );

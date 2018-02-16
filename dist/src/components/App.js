@@ -44,14 +44,18 @@ var App = function App() {
     null,
     _react2.default.createElement(_Nav2.default, { routes: _routes2.default }),
     _react2.default.createElement(
-      _reactRouterDom.Switch,
-      null,
-      _routes2.default.map(function (route, i) {
-        return _react2.default.createElement(_RouteWithSubRoutes2.default, _extends({}, route, { key: i }));
-      }),
-      _react2.default.createElement(_reactRouterDom.Route, { component: _NotFound2.default })
-    ),
-    _react2.default.createElement(_Footer2.default, null)
+      'div',
+      { style: { position: 'relative', top: '47px' } },
+      _react2.default.createElement(
+        _reactRouterDom.Switch,
+        null,
+        _routes2.default.map(function (route, i) {
+          return _react2.default.createElement(_RouteWithSubRoutes2.default, _extends({}, route, { key: i }));
+        }),
+        _react2.default.createElement(_reactRouterDom.Route, { component: _NotFound2.default })
+      ),
+      _react2.default.createElement(_Footer2.default, null)
+    )
   );
 };
 

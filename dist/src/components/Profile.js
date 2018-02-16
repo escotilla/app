@@ -20,13 +20,9 @@ var _CreateApplication = require('./CreateApplication');
 
 var _CreateApplication2 = _interopRequireDefault(_CreateApplication);
 
-var _ReviewApplication = require('./ReviewApplication');
+var _ReviewApplication = require('./Forms/ReviewApplication');
 
 var _ReviewApplication2 = _interopRequireDefault(_ReviewApplication);
-
-var _questions = require('../configs/questions');
-
-var _questions2 = _interopRequireDefault(_questions);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -56,14 +52,18 @@ var Profile = function (_React$Component) {
 
       var hasApplications = user.applications && user.applications.length > 0;
 
-      console.log(this);
       return hasApplications ? _react2.default.createElement(
         'div',
         null,
         user.applications.map(function (app) {
           return _react2.default.createElement(
             'div',
-            null,
+            { className: 'container-fluid' },
+            _react2.default.createElement(
+              'h2',
+              null,
+              'My Profile'
+            ),
             _react2.default.createElement(_ReviewApplication2.default, { applicationId: app.id, answers: app.answers })
           );
         })

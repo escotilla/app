@@ -16,6 +16,10 @@ var _logout = require('../actions/logout');
 
 var _redux = require('redux');
 
+var _LoanContractForm = require('./Forms/LoanContractForm');
+
+var _LoanContractForm2 = _interopRequireDefault(_LoanContractForm);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -44,29 +48,38 @@ var LoanContract = function (_React$Component) {
       return _react2.default.createElement(
         'div',
         null,
-        _react2.default.createElement(
-          'h1',
-          null,
-          'Loan Contract page'
-        ),
-        _react2.default.createElement(
-          'p',
-          null,
-          'You are logged in as ',
-          user.email
-        ),
-        _react2.default.createElement(
-          'h1',
-          null,
-          'Please accept our contract'
-        ),
-        _react2.default.createElement(
-          'h3',
-          { onClick: function onClick() {
-              return _this2.props.logout();
-            } },
-          ' LOGOUT '
-        )
+        user.applications.map(function (app) {
+          return _react2.default.createElement(
+            'div',
+            null,
+            _react2.default.createElement(
+              'h1',
+              null,
+              'Loan Contract page'
+            ),
+            _react2.default.createElement(
+              'p',
+              null,
+              'You are logged in as ',
+              user.email
+            ),
+            _react2.default.createElement(
+              'h1',
+              null,
+              'Please accept our contract'
+            ),
+            _react2.default.createElement(_LoanContractForm2.default, {
+              applicationId: app.id,
+              answers: app.answers }),
+            _react2.default.createElement(
+              'h3',
+              { onClick: function onClick() {
+                  return _this2.props.logout();
+                } },
+              ' LOGOUT '
+            )
+          );
+        })
       );
     }
   }]);

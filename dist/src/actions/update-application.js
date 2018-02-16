@@ -22,7 +22,7 @@ var _actionTypes = require('./action-types');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function updateApplication(body) {
+function updateApplication(body, page) {
   return function (dispatch) {
     dispatch(updateApplicationStart());
 
@@ -39,15 +39,15 @@ function updateApplication(body) {
     }).then(handleErrors).then(function (json) {
       dispatch(updateApplicationSuccess(json.data));
       _lsCache2.default.set('user', json.data);
-
-      dispatch((0, _clearPayload.clearPayload)('review-application'));
+    }).then(function () {
+      return dispatch((0, _clearPayload.clearPayload)(page));
     }).catch(function (err) {
       dispatch(updateApplicationFailure(err));
     });
   };
 }
 
-function updateApplicationWithAuth(payload, applicationId) {
+function updateApplicationWithAuth(payload, applicationId, page) {
   return function (dispatch, getState) {
     var state = getState();
     if (state.user && state.user.api_token) {
@@ -55,7 +55,7 @@ function updateApplicationWithAuth(payload, applicationId) {
         payload: payload,
         api_token: state.user.api_token,
         application_id: applicationId
-      }));
+      }, page));
     }
   };
 }
