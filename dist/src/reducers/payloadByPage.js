@@ -47,6 +47,10 @@ var payload = function payload() {
           code: action.error.code || 500
         }
       });
+    case _actionTypes.CLEAR_PAYLOAD:
+      return Object.assign({}, state, {
+        payload: {}
+      });
     default:
       return state;
   }
