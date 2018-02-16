@@ -1,10 +1,10 @@
 import React from 'react';
 import {register} from '../actions/register';
-import {updatePayload} from '../actions/update-payload';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux'
 import {Redirect} from 'react-router-dom';
-import RegisterForm from './Forms/RegisterForm'
+import Form from './Forms/Form'
+import formConfig from '../configs/register-form'
 
 const PAGE = 'register';
 
@@ -21,14 +21,21 @@ class Register extends React.Component {
         <div
           style={{backgroundImage: "url('/public/images/application-banner.jpg')"}}
           className="hero-image jumbotron">
-          <div className="text-center">
+          <div className="text-center hero-text">
             <h1>WE HELP YOU TO GROW
               YOUR DREAM BUSINESS</h1>
           </div>
         </div>
         <div className="register-container text-center">
           <h4>Sign up for an account.</h4>
-          <RegisterForm/>
+          <div className="col-12">
+            <Form
+              onSubmit={this.props.register}
+              page={PAGE}
+              formConfig={formConfig}
+              buttonText="Create Account"
+            />
+          </div>
         </div>
       </div>
     );
@@ -49,11 +56,7 @@ const mapStateToProps = state => {
   } = payloadByPage[PAGE] || {
     loading: false,
     error: null,
-    payload: {
-      name: '',
-      email: '',
-      password: ''
-    }
+    payload: {}
   };
 
   const loggedIn = user && user.api_token && user.api_token.length > 0;
@@ -63,7 +66,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    updatePayload: bindActionCreators(updatePayload, dispatch),
     register: bindActionCreators(register, dispatch)
   }
 };
