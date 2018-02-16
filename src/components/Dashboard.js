@@ -2,6 +2,7 @@ import React from 'react';
 import RouteWithSubRoutes from './RouteWithSubRoutes';
 import SideBar from './SideBar';
 import Account from './Account';
+import Users from './Users';
 import {parseSearch} from '../utilities/environment';
 import {connect} from 'react-redux';
 import CreateApplication from './CreateApplication';
@@ -19,6 +20,7 @@ class Dashboard extends React.Component {
 
   render() {
     const {routes, match, location, user, question, language} = this.props;
+    const isAdmin = user.role === 'admin';
 
     const hasApplications = user.applications && user.applications.length > 0;
 
@@ -26,6 +28,10 @@ class Dashboard extends React.Component {
 
     if (params && params.success && params.paymentId && params.token && params.PayerID) {
       // add paypal stuff
+    }
+
+    if (isAdmin) {
+      return <Users />;
     }
 
     if (!hasApplications) {

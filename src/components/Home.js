@@ -29,24 +29,24 @@ const Home = ({language, loggedIn}) => {
         </div>
       </div>
       <div className="container">
-        <div className="col-xs-12 text-center">
+        <div className="col-12 text-center">
           <h3>HOW IT WORKS</h3>
           <h4>Apply quickly online directly from your Computer or Mobile Phone</h4>
         </div>
-        <div>
-          <div className="col-xs-12 col-sm-4 text-center">
+        <div className="row">
+          <div className="col-12 col-sm-4 text-center">
             <i className="fa fa-user-circle fa-5x" aria-hidden="true"/>
             <h5>Step 1</h5>
             <h4>TELL US ABOUT YOUR BUSINESS</h4>
             <p>Create an Escotilla profile and complete our simple online application</p>
           </div>
-          <div className="col-xs-12 col-sm-4 text-center">
+          <div className="col-12 col-sm-4 text-center">
             <i className="fa fa-user-circle fa-5x" aria-hidden="true"/>
             <h5>Step 1</h5>
             <h4>TELL US ABOUT YOUR BUSINESS</h4>
             <p>Create an Escotilla profile and complete our simple online application</p>
           </div>
-          <div className="col-xs-12 col-sm-4 text-center">
+          <div className="col-12 col-sm-4 text-center">
             <i className="fa fa-user-circle fa-5x" aria-hidden="true"/>
             <h5>Step 1</h5>
             <h4>TELL US ABOUT YOUR BUSINESS</h4>
