@@ -1,11 +1,11 @@
 .escotilla-navbar {
   margin-bottom: 0;
   padding: 0;
-  border-bottom: 1px solid #aaa;
   position: fixed;
   z-index: 999;
   background: white;
   width: 100%;
+  box-shadow: 0 2px 5px rgba(0,0,0,.26);
 }
 
 .escotilla-nav-auth {
@@ -20,14 +20,32 @@
 }
 
 .brand-logo {
-  background-size: contain;
-  height: 35px;
-  width: 53px;
-  background-position: center;
-  background-repeat: no-repeat;
+  position: relative;
+  top: 50%;
+  display: inline-block;
+  transform: translateY(-50%);
+  margin-left: 15px;
+
+  div {
+    background-size: contain;
+    height: 35px;
+    width: 53px;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
 }
 
 .hamburger {
+  display: flex;
+
+  .nav-button-container {
+    a {
+      position: relative;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+
   i {
     z-index: 99999999;
     position: relative;
@@ -38,9 +56,9 @@
   }
 
   .burger {
-    height: 47px;
+    height: 56px;
     background: white;
-    width: 47px;
+    width: 56px;
     display: inline-block;
   }
 
@@ -82,4 +100,70 @@
       color: blue;
     }
   }
+}
+.nav-offset {
+  top: 56px;
+  position: relative;
+}
+@media (min-width: 768px) {
+  //56,64
+  .hamburger {
+    .burger {
+      height: 64px;
+      width: 64px;
+    }
+  }
+
+  .nav-offset {
+    top: 64px;
+  }
+}
+
+.form-group {
+  min-height: 5rem;
+}
+
+.form-input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #757373;
+  margin-bottom: 1px;
+
+  &::placeholder {
+    color: #757373;
+  }
+
+  &:hover {
+    box-shadow: none;
+    outline: none;
+  }
+
+  &:visited,&:focus,&:active {
+    border-bottom: 2px solid blue;
+    box-shadow: none;
+    outline: none;
+    margin-bottom: 0;
+  }
+}
+
+.form-label {
+  float: left;
+  color: blue;
+  font-size: 0.8rem;
+  margin: 0;
+}
+
+.helper {
+  float: left;
+  color: #757373;
+  font-size: 0.8rem;
+}
+
+.register-container {
+  margin-bottom: 5rem;
+}
+
+h4 {
+  margin-bottom: 1.5rem;
 }
