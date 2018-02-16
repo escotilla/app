@@ -60,6 +60,16 @@ class Hamburger extends React.Component {
 
     return (
       <div className={"hamburger " + className}>
+        <div className="nav-button-container mr-4 d-sm-none d-none d-md-block">
+          <NavLink
+            style={{display: 'inline-block'}}
+            to='/register'
+            activeStyle={{color: 'rgba(255, 0, 0, 1)'}}>
+            <button className="btn btn-primary">
+              {Language.get(language, 'button.register')}
+            </button>
+          </NavLink>
+        </div>
         <NavLink
           onClick={() => setMenu('closed')}
           to={isAuthenticated ? "#" : "/login"}>
@@ -86,7 +96,8 @@ class Hamburger extends React.Component {
 }
 
 Hamburger.defaultProps = {
-  routes: []
+  routes: [],
+  className: ''
 };
 
 const mapStateToProps = state => {
