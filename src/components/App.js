@@ -6,10 +6,12 @@ import Footer from './Footer';
 import routes from '../configs/routes';
 import NotFound from './NotFound';
 import AppContainer from './AppContainer';
+import MenuOverlay from './MenuOverlay';
 
 const App = () => (
   <AppContainer>
     <Nav routes={routes}/>
+    <MenuOverlay routes={routes}/>
     <div className="nav-offset">
       <Switch>
         {routes.map((route, i) => (

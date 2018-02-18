@@ -28,29 +28,29 @@ const Home = ({language, loggedIn}) => {
           </NavLink>
         </div>
       </div>
-      <div className="container">
-        <div className="col-12 text-center">
-          <h3>HOW IT WORKS</h3>
-          <h4>Apply quickly online directly from your Computer or Mobile Phone</h4>
+      <div className="container mb-5 mt-5">
+        <div className="col-12 text-center mb-5 mt-5">
+          <h2>How it works</h2>
+          <h6>Apply quickly online directly from your Computer or Mobile Phone</h6>
         </div>
-        <div className="row">
+        <div className="row mb-5 mt-2">
           <div className="col-12 col-sm-4 text-center">
             <i className="fa fa-user-circle fa-5x" aria-hidden="true"/>
-            <h5>Step 1</h5>
-            <h4>TELL US ABOUT YOUR BUSINESS</h4>
-            <p>Create an Escotilla profile and complete our simple online application</p>
+            <h6>Step 1</h6>
+            <h5>Tell us about your business</h5>
+            <h6 className="mb-5">Create an Escotilla profile and complete our simple online application</h6>
           </div>
           <div className="col-12 col-sm-4 text-center">
             <i className="fa fa-user-circle fa-5x" aria-hidden="true"/>
-            <h5>Step 1</h5>
-            <h4>TELL US ABOUT YOUR BUSINESS</h4>
-            <p>Create an Escotilla profile and complete our simple online application</p>
+            <h6>Step 1</h6>
+            <h5>Tell us about your business</h5>
+            <h6 className="mb-5">Create an Escotilla profile and complete our simple online application</h6>
           </div>
           <div className="col-12 col-sm-4 text-center">
             <i className="fa fa-user-circle fa-5x" aria-hidden="true"/>
-            <h5>Step 1</h5>
-            <h4>TELL US ABOUT YOUR BUSINESS</h4>
-            <p>Create an Escotilla profile and complete our simple online application</p>
+            <h6>Step 1</h6>
+            <h5>Tell us about your business</h5>
+            <h6 className="mb-5">Create an Escotilla profile and complete our simple online application</h6>
           </div>
         </div>
       </div>
