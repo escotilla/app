@@ -5,8 +5,23 @@
 
 body {
   min-width: 320px;
+  background: #f8f8f8;
 }
 
+.language-dropdown {
+  position: relative;
+  margin-left: 2rem;
+  margin-right: 2rem;
+  margin-top: 1rem;
+  i {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 8px;
+    font-size: 1.5em;
+    color: black;
+  }
+}
 .hero {
   width: 100%;
   background-size: cover;

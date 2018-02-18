@@ -23,7 +23,7 @@ class Nav extends React.Component {
           className="flex-row">
           <NavLink className="brand-logo" to='/'>
             <div
-              className="flex-row"
+              className="flex-row logo"
               style={{backgroundImage: 'url("/public/images/logo.png")'}}/>
           </NavLink>
         </div>
