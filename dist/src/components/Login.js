@@ -12,17 +12,19 @@ var _react2 = _interopRequireDefault(_react);
 
 var _login = require('../actions/login');
 
-var _updatePayload = require('../actions/update-payload');
-
 var _reactRedux = require('react-redux');
 
 var _redux = require('redux');
 
 var _reactRouterDom = require('react-router-dom');
 
-var _Warning = require('./Warning');
+var _Form = require('./Forms/Form');
 
-var _Warning2 = _interopRequireDefault(_Warning);
+var _Form2 = _interopRequireDefault(_Form);
+
+var _loginForm = require('../configs/login-form');
+
+var _loginForm2 = _interopRequireDefault(_loginForm);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -32,131 +34,18 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var LOGIN = 'login';
+var PAGE = 'login';
 
 var Login = function (_React$Component) {
   _inherits(Login, _React$Component);
 
-  function Login(props) {
+  function Login() {
     _classCallCheck(this, Login);
 
-    var _this = _possibleConstructorReturn(this, (Login.__proto__ || Object.getPrototypeOf(Login)).call(this, props));
-
-    _this.submit = _this.submit.bind(_this);
-    _this.verifiedSubmit = _this.verifiedSubmit.bind(_this);
-    _this.renderForm = _this.renderForm.bind(_this);
-
-    _this.state = {
-      invalid: []
-    };
-    return _this;
+    return _possibleConstructorReturn(this, (Login.__proto__ || Object.getPrototypeOf(Login)).apply(this, arguments));
   }
 
   _createClass(Login, [{
-    key: 'verifiedSubmit',
-    value: function verifiedSubmit(email, password) {
-      this.props.login({
-        email: email,
-        password: password
-      });
-    }
-  }, {
-    key: 'submit',
-    value: function submit() {
-      var _props$payload = this.props.payload,
-          email = _props$payload.email,
-          password = _props$payload.password;
-
-      var invalid = [];
-
-      if (!Login.validateEmail(email)) {
-        invalid.push('email');
-      }
-
-      if (!password || password.length < 2) {
-        invalid.push('password');
-      }
-
-      if (invalid.length === 0) {
-        this.setState({
-          invalid: invalid
-        });
-
-        this.verifiedSubmit(email, password);
-      } else {
-        this.setState({
-          invalid: invalid
-        });
-      }
-    }
-  }, {
-    key: 'renderForm',
-    value: function renderForm() {
-      var _this2 = this;
-
-      var _props = this.props,
-          error = _props.error,
-          loading = _props.loading,
-          payload = _props.payload;
-      var email = payload.email,
-          password = payload.password;
-
-
-      var invalid = this.state.invalid;
-
-      var emailClass = invalid.indexOf('email') > -1 ? 'has-error' : '';
-      var passwordClass = invalid.indexOf('password') > -1 ? 'has-error' : '';
-
-      var button = _react2.default.createElement(
-        'button',
-        {
-          disabled: loading,
-          id: 'submit',
-          onClick: this.submit,
-          className: 'button' },
-        loading ? _react2.default.createElement('i', { className: 'fa fa-cog fa-spin' }) : 'Login'
-      );
-
-      return _react2.default.createElement(
-        'div',
-        null,
-        _react2.default.createElement(
-          'form',
-          null,
-          _react2.default.createElement(
-            'div',
-            { className: "form-group " + emailClass },
-            _react2.default.createElement('input', {
-              disabled: loading,
-              onChange: function onChange(e) {
-                return _this2.props.updatePayload('email', LOGIN, e.target.value);
-              },
-              value: email,
-              type: 'email',
-              className: 'form-control form-transparent',
-              id: 'email',
-              placeholder: 'Email or phone' })
-          ),
-          _react2.default.createElement(
-            'div',
-            { className: "form-group " + passwordClass },
-            _react2.default.createElement('input', {
-              disabled: loading,
-              onChange: function onChange(e) {
-                return _this2.props.updatePayload('password', LOGIN, e.target.value);
-              },
-              value: password,
-              type: 'password',
-              className: 'form-control form-transparent',
-              id: 'password',
-              placeholder: 'Password' })
-          )
-        ),
-        button,
-        error ? _react2.default.createElement(_Warning2.default, { error: error }) : null
-      );
-    }
-  }, {
     key: 'render',
     value: function render() {
       var loggedIn = this.props.loggedIn;
@@ -165,21 +54,29 @@ var Login = function (_React$Component) {
       if (loggedIn) {
         return _react2.default.createElement(_reactRouterDom.Redirect, { to: '/account' });
       }
+
       return _react2.default.createElement(
         'div',
-        { className: 'login-container text-center' },
+        null,
         _react2.default.createElement(
-          'h4',
-          null,
-          'Login'
-        ),
-        this.renderForm()
-      );
-    }
-  }], [{
-    key: 'validateEmail',
-    value: function validateEmail(email) {
-      return (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)
+          'div',
+          { className: 'register-container text-center' },
+          _react2.default.createElement(
+            'h4',
+            null,
+            'Sign in to your account.'
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'col-12' },
+            _react2.default.createElement(_Form2.default, {
+              onSubmit: this.props.login,
+              page: PAGE,
+              formConfig: _loginForm2.default,
+              buttonText: 'Login'
+            })
+          )
+        )
       );
     }
   }]);
@@ -191,14 +88,10 @@ var mapStateToProps = function mapStateToProps(state) {
   var user = state.user,
       payloadByPage = state.payloadByPage;
 
-  var _ref = payloadByPage[LOGIN] || {
+  var _ref = payloadByPage[PAGE] || {
     loading: false,
     error: null,
-    payload: {
-      name: '',
-      email: '',
-      password: ''
-    }
+    payload: {}
   },
       loading = _ref.loading,
       error = _ref.error,
@@ -211,7 +104,6 @@ var mapStateToProps = function mapStateToProps(state) {
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
-    updatePayload: (0, _redux.bindActionCreators)(_updatePayload.updatePayload, dispatch),
     login: (0, _redux.bindActionCreators)(_login.login, dispatch)
   };
 };

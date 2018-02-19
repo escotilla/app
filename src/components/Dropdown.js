@@ -4,41 +4,38 @@ import {changeLanguage} from '../actions/change-language';
 import {bindActionCreators} from 'redux';
 import {setMenu} from '../actions/set-menu';
 import {withRouter} from 'react-router-dom';
-import Language from '../utilities/language';
 
-class MenuOverlay extends React.Component {
+class Dropdown extends React.Component {
   constructor(props) {
     super(props);
   }
 
   render() {
-    const {language} = this.props;
+    const {value} = this.props;
 
     return (
       <div className={"language-dropdown " + this.props.className}>
-        <i className="fa fa-2x fa-globe"/>
         <select
-          style={{paddingLeft: '2rem', display: 'inline-block'}}
-          value={language}
-          onChange={e => {
-            this.props.changeLanguage(e.target.value);
-            this.props.setMenu('closed');
-          }}
+          style={{display: 'inline-block', fontSize: '16px'}}
+          value={value}
+          onChange={this.props.onChange}
           className="form-control">
-          <option value="spanish">
-            {Language.get(language, 'spanish')}
-          </option>
-          <option value="english">
-            {Language.get(language, 'english')}
-          </option>
+          {this.props.options.map(option => {
+            return (
+              <option value={option.value}>
+                {option.text}
+              </option>
+            )
+          })}
         </select>
       </div>
     );
   }
 }
 
-MenuOverlay.defaultProps = {
-  className: ''
+Dropdown.defaultProps = {
+  className: '',
+  options: []
 };
 
 const mapStateToProps = state => {
@@ -57,4 +54,4 @@ const mapStateToDispatch = dispatch => {
   }
 };
 
-export default withRouter(connect(mapStateToProps, mapStateToDispatch)(MenuOverlay));
+export default withRouter(connect(mapStateToProps, mapStateToDispatch)(Dropdown));

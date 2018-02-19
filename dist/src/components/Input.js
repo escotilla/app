@@ -33,29 +33,45 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var Input = function (_React$Component) {
   _inherits(Input, _React$Component);
 
-  function Input() {
+  function Input(props) {
     _classCallCheck(this, Input);
 
-    return _possibleConstructorReturn(this, (Input.__proto__ || Object.getPrototypeOf(Input)).apply(this, arguments));
+    var _this = _possibleConstructorReturn(this, (Input.__proto__ || Object.getPrototypeOf(Input)).call(this, props));
+
+    _this.updatePayload = _this.updatePayload.bind(_this);
+    return _this;
   }
 
   _createClass(Input, [{
-    key: 'render',
-    value: function render() {
-      var _this2 = this;
-
+    key: 'updatePayload',
+    value: function updatePayload(e) {
       var _props = this.props,
-          validation = _props.validation,
-          loading = _props.loading,
-          value = _props.value,
-          questions = _props.questions,
-          language = _props.language,
-          placeholder = _props.placeholder,
           page = _props.page,
           question = _props.question;
       var inputId = question.inputId,
+          parser = question.parser;
+
+
+      this.props.updatePayload(inputId, page, parser ? parser(e.target.value) : e.target.type === 'checkbox' ? e.target.checked : e.target.value);
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _props2 = this.props,
+          validation = _props2.validation,
+          loading = _props2.loading,
+          value = _props2.value,
+          language = _props2.language,
+          placeholder = _props2.placeholder,
+          question = _props2.question,
+          helper = _props2.helper,
+          questions = _props2.questions;
+
+
+      var formLabel = this.props.label;
+
+      var inputId = question.inputId,
           formatter = question.formatter,
-          parser = question.parser,
           type = question.type,
           disabled = question.disabled;
 
@@ -63,30 +79,32 @@ var Input = function (_React$Component) {
 
       var feedback = hasError ? _react2.default.createElement(
         'div',
-        { className: 'invalid-feedback' },
+        { className: 'helper invalid-feedback' },
         _language2.default.get(language, validation[inputId][0])
-      ) : null;
+      ) : _react2.default.createElement(
+        'div',
+        { className: 'helper' },
+        helper !== undefined ? helper : _language2.default.get(language, inputId + '.helper')
+      );
 
       return _react2.default.createElement(
         'div',
         { className: "form-group " + (hasError ? 'has-error' : '') },
         _react2.default.createElement(
           'label',
-          null,
-          questions.hasOwnProperty(inputId) ? questions[inputId][language] : ''
+          { className: 'form-label' },
+          _language2.default.get(language, inputId + '.label') || formLabel
         ),
         _react2.default.createElement('input', {
           required: true,
           disabled: loading || disabled,
-          onChange: function onChange(e) {
-            return _this2.props.updatePayload(inputId, page, parser ? parser(e.target.value) : e.target.type === 'checkbox' ? e.target.checked : e.target.value);
-          },
+          onChange: this.updatePayload,
           value: formatter ? formatter(value) : value,
           checked: type === 'checkbox' ? value : null,
-          className: 'form-control form-transparent',
+          className: 'form-input form-transparent',
           id: inputId,
-          type: type || 'text',
-          placeholder: questions[inputId][language] || placeholder }),
+          type: questions.hasOwnProperty(inputId) ? questions[inputId]['input_type'] : question.type || 'text',
+          placeholder: _language2.default.get(language, inputId + '.placeholder') || placeholder }),
         feedback
       );
     }

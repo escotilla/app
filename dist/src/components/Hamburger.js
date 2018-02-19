@@ -28,7 +28,11 @@ var _NavIcon = require('./NavIcon');
 
 var _NavIcon2 = _interopRequireDefault(_NavIcon);
 
-var _logout = require('../actions/logout');
+var _login = require('../actions/login');
+
+var _Dropdown = require('./Dropdown');
+
+var _Dropdown2 = _interopRequireDefault(_Dropdown);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -66,90 +70,63 @@ var Hamburger = function (_React$Component) {
           isAuthenticated = _props.isAuthenticated;
 
 
-      var routeSet = routes;
-
-      if (isAuthenticated) {
-        routeSet = routes.filter(function (route) {
-          return route.path === '/account';
-        })[0].routes;
-      }
-
-      var languageLinks = [_react2.default.createElement(
-        'h2',
-        {
-          className: "hamburger-item " + (language === 'spanish' ? 'active' : ''),
-          onClick: function onClick() {
-            return _this2.props.changeLanguage('spanish');
-          } },
-        _language2.default.get(language, 'spanish')
-      ), _react2.default.createElement(
-        'h2',
-        {
-          className: "hamburger-item " + (language === 'english' ? 'active' : ''),
-          onClick: function onClick() {
-            return _this2.props.changeLanguage('english');
-          } },
-        _language2.default.get(language, 'english')
-      )];
-
-      var navLinks = routeSet.map(function (route) {
-        return route.includeInNav ? _react2.default.createElement(
-          _reactRouterDom.NavLink,
-          {
-            exact: route.exact,
-            to: route.path,
-            id: route.path,
-            activeStyle: { color: 'rgba(255, 0, 0, 1)' } },
-          _react2.default.createElement(
-            'h2',
-            { key: route.path, className: 'hamburger-item' },
-            route.title
-          )
-        ) : null;
-      });
-
       var langOpen = menu === 'lang';
       var menuOpen = menu === 'links';
       var closed = menu === 'closed';
       var linksClass = closed ? 'closed' : 'open';
+      var dropdown = [{ value: 'spanish', text: _language2.default.get(language, 'spanish') }, { value: 'english', text: _language2.default.get(language, 'english') }];
 
       return _react2.default.createElement(
         'div',
         { className: "hamburger " + className },
         _react2.default.createElement(
-          _reactRouterDom.NavLink,
-          {
-            onClick: function onClick() {
-              return setMenu('closed');
-            },
-            to: isAuthenticated ? "#" : "/login" },
-          _react2.default.createElement(_NavIcon2.default, {
-            onClick: function onClick() {
-              return _this2.props.logout();
-            },
-            icon: isAuthenticated ? "fa-sign-out" : "fa-sign-in" })
+          'div',
+          { className: 'nav-button-container d-sm-none d-none d-md-block' },
+          _react2.default.createElement(
+            _reactRouterDom.NavLink,
+            {
+              style: { display: 'inline-block' },
+              to: '/register',
+              className: 'mr-1',
+              activeStyle: { color: 'rgba(255, 0, 0, 1)' } },
+            _react2.default.createElement(
+              'button',
+              { className: 'btn btn-primary' },
+              _language2.default.get(language, 'button.register')
+            )
+          ),
+          _react2.default.createElement(
+            _reactRouterDom.NavLink,
+            {
+              style: { display: 'inline-block' },
+              to: '/login',
+              activeStyle: { color: 'rgba(255, 0, 0, 1)' } },
+            _react2.default.createElement(
+              'button',
+              { className: 'btn btn-primary' },
+              _language2.default.get(language, 'button.login')
+            )
+          )
         ),
-        _react2.default.createElement(_NavIcon2.default, {
-          selected: langOpen,
-          icon: langOpen ? "fa-times-circle" : "fa-globe",
-          onClick: function onClick() {
-            return langOpen ? setMenu('closed') : setMenu('lang');
-          } }),
+        _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement(_Dropdown2.default, {
+            value: language,
+            onChange: function onChange(e) {
+              _this2.props.changeLanguage(e.target.value);
+              _this2.props.setMenu('closed');
+            },
+            options: dropdown
+          }),
+          '        '
+        ),
         _react2.default.createElement(_NavIcon2.default, {
           selected: menuOpen,
           icon: menuOpen ? "fa-times-circle" : "fa-bars",
           onClick: function onClick() {
             return menuOpen ? setMenu('closed') : setMenu('links');
-          } }),
-        _react2.default.createElement(
-          'div',
-          {
-            onClick: function onClick() {
-              return setMenu('closed');
-            },
-            className: "hamburger-links " + linksClass },
-          menu === 'lang' ? languageLinks : navLinks
-        )
+          } })
       );
     }
   }]);
@@ -158,7 +135,8 @@ var Hamburger = function (_React$Component) {
 }(_react2.default.Component);
 
 Hamburger.defaultProps = {
-  routes: []
+  routes: [],
+  className: ''
 };
 
 var mapStateToProps = function mapStateToProps(state) {
@@ -174,7 +152,7 @@ var mapStateToProps = function mapStateToProps(state) {
 
 var mapStateToDispatch = function mapStateToDispatch(dispatch) {
   return {
-    logout: (0, _redux.bindActionCreators)(_logout.logout, dispatch),
+    login: (0, _redux.bindActionCreators)(_login.login, dispatch),
     setMenu: (0, _redux.bindActionCreators)(_setMenu.setMenu, dispatch),
     changeLanguage: (0, _redux.bindActionCreators)(_changeLanguage.changeLanguage, dispatch)
   };

@@ -18,9 +18,9 @@ class Login extends React.Component {
 
     return (
       <div>
-        <div className="register-container text-center">
-          <h4>Sign in to your account.</h4>
-          <div className="col-12">
+        <div className="register-container text-center pt-5">
+          <h4 className="pt-2">Sign in to your account.</h4>
+          <div className="col-12 col-md-6 offset-md-3 col-lg-4 offset-lg-4">
             <Form
               onSubmit={this.props.login}
               page={PAGE}

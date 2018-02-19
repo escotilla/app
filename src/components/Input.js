@@ -47,7 +47,7 @@ class Input extends React.Component {
     const hasError = validation && validation.hasOwnProperty(inputId);
 
     const feedback = hasError ? (
-      <div className="helper invalid-feedback">
+      <div style={{color: 'red'}} className="helper invalid-feedback">
         {Language.get(language, validation[inputId][0])}
       </div>
     ) : <div className="helper">

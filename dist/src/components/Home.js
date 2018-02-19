@@ -73,81 +73,81 @@ var Home = function Home(_ref) {
     ),
     _react2.default.createElement(
       'div',
-      { className: 'container' },
+      { className: 'container mb-5 mt-5' },
       _react2.default.createElement(
         'div',
-        { className: 'col-xs-12 text-center' },
+        { className: 'col-12 text-center mb-5 mt-5' },
         _react2.default.createElement(
-          'h3',
+          'h2',
           null,
-          'HOW IT WORKS'
+          'How it works'
         ),
         _react2.default.createElement(
-          'h4',
+          'h6',
           null,
           'Apply quickly online directly from your Computer or Mobile Phone'
         )
       ),
       _react2.default.createElement(
         'div',
-        null,
+        { className: 'row mb-5 mt-2' },
         _react2.default.createElement(
           'div',
-          { className: 'col-xs-12 col-sm-4 text-center' },
+          { className: 'col-12 col-sm-4 text-center' },
           _react2.default.createElement('i', { className: 'fa fa-user-circle fa-5x', 'aria-hidden': 'true' }),
           _react2.default.createElement(
-            'h5',
+            'h6',
             null,
             'Step 1'
           ),
           _react2.default.createElement(
-            'h4',
+            'h5',
             null,
-            'TELL US ABOUT YOUR BUSINESS'
+            'Tell us about your business'
           ),
           _react2.default.createElement(
-            'p',
-            null,
+            'h6',
+            { className: 'mb-5' },
             'Create an Escotilla profile and complete our simple online application'
           )
         ),
         _react2.default.createElement(
           'div',
-          { className: 'col-xs-12 col-sm-4 text-center' },
+          { className: 'col-12 col-sm-4 text-center' },
           _react2.default.createElement('i', { className: 'fa fa-user-circle fa-5x', 'aria-hidden': 'true' }),
           _react2.default.createElement(
-            'h5',
+            'h6',
             null,
             'Step 1'
           ),
           _react2.default.createElement(
-            'h4',
+            'h5',
             null,
-            'TELL US ABOUT YOUR BUSINESS'
+            'Tell us about your business'
           ),
           _react2.default.createElement(
-            'p',
-            null,
+            'h6',
+            { className: 'mb-5' },
             'Create an Escotilla profile and complete our simple online application'
           )
         ),
         _react2.default.createElement(
           'div',
-          { className: 'col-xs-12 col-sm-4 text-center' },
+          { className: 'col-12 col-sm-4 text-center' },
           _react2.default.createElement('i', { className: 'fa fa-user-circle fa-5x', 'aria-hidden': 'true' }),
           _react2.default.createElement(
-            'h5',
+            'h6',
             null,
             'Step 1'
           ),
           _react2.default.createElement(
-            'h4',
+            'h5',
             null,
-            'TELL US ABOUT YOUR BUSINESS'
+            'Tell us about your business'
           ),
           _react2.default.createElement(
-            'p',
-            null,
+            'h6',
+            { className: 'mb-5' },
             'Create an Escotilla profile and complete our simple online application'
           )
         )

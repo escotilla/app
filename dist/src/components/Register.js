@@ -12,17 +12,19 @@ var _react2 = _interopRequireDefault(_react);
 
 var _register = require('../actions/register');
 
-var _updatePayload = require('../actions/update-payload');
-
 var _reactRedux = require('react-redux');
 
 var _redux = require('redux');
 
 var _reactRouterDom = require('react-router-dom');
 
-var _RegisterForm = require('./Forms/RegisterForm');
+var _Form = require('./Forms/Form');
 
-var _RegisterForm2 = _interopRequireDefault(_RegisterForm);
+var _Form2 = _interopRequireDefault(_Form);
+
+var _registerForm = require('../configs/register-form');
+
+var _registerForm2 = _interopRequireDefault(_registerForm);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -63,7 +65,7 @@ var Register = function (_React$Component) {
             className: 'hero-image jumbotron' },
           _react2.default.createElement(
             'div',
-            { className: 'text-center' },
+            { className: 'text-center hero-text' },
             _react2.default.createElement(
               'h1',
               null,
@@ -79,7 +81,16 @@ var Register = function (_React$Component) {
             null,
             'Sign up for an account.'
           ),
-          _react2.default.createElement(_RegisterForm2.default, null)
+          _react2.default.createElement(
+            'div',
+            { className: 'col-12' },
+            _react2.default.createElement(_Form2.default, {
+              onSubmit: this.props.register,
+              page: PAGE,
+              formConfig: _registerForm2.default,
+              buttonText: 'Create Account'
+            })
+          )
         )
       );
     }
@@ -95,11 +106,7 @@ var mapStateToProps = function mapStateToProps(state) {
   var _ref = payloadByPage[PAGE] || {
     loading: false,
     error: null,
-    payload: {
-      name: '',
-      email: '',
-      password: ''
-    }
+    payload: {}
   },
       loading = _ref.loading,
       error = _ref.error,
@@ -112,7 +119,6 @@ var mapStateToProps = function mapStateToProps(state) {
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
-    updatePayload: (0, _redux.bindActionCreators)(_updatePayload.updatePayload, dispatch),
     register: (0, _redux.bindActionCreators)(_register.register, dispatch)
   };
 };

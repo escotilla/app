@@ -7,7 +7,7 @@ import {bindActionCreators} from 'redux';
 import Language from '../utilities/language';
 import NavIcon from './NavIcon';
 import {login} from '../actions/login';
-import LanguageDropdown from './LanguageDropdown';
+import Dropdown from './Dropdown';
 
 class Hamburger extends React.Component {
   constructor(props) {
@@ -21,31 +21,14 @@ class Hamburger extends React.Component {
   render() {
     const {routes, className, menu, setMenu, language, isAuthenticated} = this.props;
 
-    let routeSet = routes;
-
-    if (isAuthenticated) {
-      routeSet = routes.filter(route => route.path === '/account')[0].routes;
-    }
-
-    const languageLinks = (
-      [
-        <h2
-          className={"hamburger-item " + (language === 'spanish' ? 'active' : '')}
-          onClick={() => this.props.changeLanguage('spanish')}>
-          {Language.get(language, 'spanish')}
-        </h2>,
-        <h2
-          className={"hamburger-item " + (language === 'english' ? 'active' : '')}
-          onClick={() => this.props.changeLanguage('english')}>
-          {Language.get(language, 'english')}
-        </h2>
-      ]
-    );
-
     const langOpen = menu === 'lang';
     const menuOpen = menu === 'links';
     const closed = menu === 'closed';
     const linksClass = closed ? 'closed' : 'open';
+    const dropdown = [
+      {value: 'spanish', text: Language.get(language, 'spanish')},
+      {value: 'english', text: Language.get(language, 'english')},
+    ];
 
     return (
       <div className={"hamburger " + className}>
@@ -69,8 +52,15 @@ class Hamburger extends React.Component {
           </NavLink>
         </div>
         <div>
-        <LanguageDropdown  className="d-sm-none d-none d-md-block"/>
-        </div>
+          <Dropdown
+            value={language}
+            className="d-sm-none d-none d-md-block"
+            onChange={(e) => {
+              this.props.changeLanguage(e.target.value);
+              this.props.setMenu('closed');
+            }}
+            options={dropdown}
+          />        </div>
         <NavIcon
           selected={menuOpen}
           icon={menuOpen ? "fa-times-circle" : "fa-bars"}

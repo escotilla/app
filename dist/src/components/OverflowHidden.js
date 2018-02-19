@@ -10,22 +10,6 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _register = require('../../actions/register');
-
-var _updatePayload = require('../../actions/update-payload');
-
-var _reactRedux = require('react-redux');
-
-var _redux = require('redux');
-
-var _registerForm = require('../../configs/register-form');
-
-var _registerForm2 = _interopRequireDefault(_registerForm);
-
-var _Form = require('./Form');
-
-var _Form2 = _interopRequireDefault(_Form);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -34,39 +18,34 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var PAGE = 'register';
+var OverflowHidden = function (_React$Component) {
+  _inherits(OverflowHidden, _React$Component);
 
-var RegisterForm = function (_React$Component) {
-  _inherits(RegisterForm, _React$Component);
+  function OverflowHidden() {
+    _classCallCheck(this, OverflowHidden);
 
-  function RegisterForm() {
-    _classCallCheck(this, RegisterForm);
-
-    return _possibleConstructorReturn(this, (RegisterForm.__proto__ || Object.getPrototypeOf(RegisterForm)).apply(this, arguments));
+    return _possibleConstructorReturn(this, (OverflowHidden.__proto__ || Object.getPrototypeOf(OverflowHidden)).apply(this, arguments));
   }
 
-  _createClass(RegisterForm, [{
+  _createClass(OverflowHidden, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      document.body.classList.add("overflow-hidden");
+    }
+  }, {
+    key: 'componentWillUnmount',
+    value: function componentWillUnmount() {
+      console.log('banana');
+      document.body.classList.remove("overflow-hidden");
+    }
+  }, {
     key: 'render',
     value: function render() {
-      return _react2.default.createElement(_Form2.default, {
-        onSubmit: _register.register,
-        page: PAGE,
-        formConfig: _registerForm2.default,
-        buttonText: 'Create Account'
-      });
+      return _react2.default.createElement('div', null);
     }
   }]);
 
-  return RegisterForm;
+  return OverflowHidden;
 }(_react2.default.Component);
 
-var mapStateToProps = function mapStateToProps(state) {};
-
-var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-  return {
-    updatePayload: (0, _redux.bindActionCreators)(_updatePayload.updatePayload, dispatch),
-    register: (0, _redux.bindActionCreators)(_register.register, dispatch)
-  };
-};
-
-exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(RegisterForm);
+exports.default = OverflowHidden;

@@ -10,23 +10,15 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouterDom = require('react-router-dom');
-
 var _reactRedux = require('react-redux');
-
-var _logout = require('../actions/logout');
 
 var _changeLanguage = require('../actions/change-language');
 
 var _redux = require('redux');
 
-var _Hamburger = require('./Hamburger');
-
-var _Hamburger2 = _interopRequireDefault(_Hamburger);
-
-var _reactRouter = require('react-router');
-
 var _setMenu = require('../actions/set-menu');
+
+var _reactRouterDom = require('react-router-dom');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -36,72 +28,63 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Nav = function (_React$Component) {
-  _inherits(Nav, _React$Component);
+var Dropdown = function (_React$Component) {
+  _inherits(Dropdown, _React$Component);
 
-  function Nav(props) {
-    _classCallCheck(this, Nav);
+  function Dropdown(props) {
+    _classCallCheck(this, Dropdown);
 
-    return _possibleConstructorReturn(this, (Nav.__proto__ || Object.getPrototypeOf(Nav)).call(this, props));
+    return _possibleConstructorReturn(this, (Dropdown.__proto__ || Object.getPrototypeOf(Dropdown)).call(this, props));
   }
 
-  _createClass(Nav, [{
+  _createClass(Dropdown, [{
     key: 'render',
     value: function render() {
-      var _this2 = this;
-
-      var _props = this.props,
-          routes = _props.routes,
-          location = _props.location;
+      var value = this.props.value;
 
 
       return _react2.default.createElement(
-        'nav',
-        { className: 'navbar justify-content-between flex-row escotilla-navbar' },
+        'div',
+        { className: "language-dropdown " + this.props.className },
         _react2.default.createElement(
-          'div',
+          'select',
           {
-            onClick: function onClick() {
-              return _this2.props.setMenu('closed');
-            },
-            className: 'flex-row' },
-          _react2.default.createElement(
-            _reactRouterDom.NavLink,
-            { className: 'brand-logo', to: '/' },
-            _react2.default.createElement('div', {
-              className: 'flex-row logo',
-              style: { backgroundImage: 'url("/public/images/logo.png")' } })
-          )
-        ),
-        _react2.default.createElement(_Hamburger2.default, {
-          location: location,
-          routes: routes })
+            style: { paddingLeft: '2rem', display: 'inline-block' },
+            value: value,
+            onChange: this.props.onChange,
+            className: 'form-control' },
+          this.props.options.map(function (option) {
+            return _react2.default.createElement(
+              'option',
+              { value: option.value },
+              option.text
+            );
+          })
+        )
       );
     }
   }]);
 
-  return Nav;
+  return Dropdown;
 }(_react2.default.Component);
 
-Nav.defaultProps = {
-  routes: []
+Dropdown.defaultProps = {
+  className: '',
+  options: []
 };
 
 var mapStateToProps = function mapStateToProps(state) {
-  var user = state.user;
+  var language = state.language;
 
 
-  var isAuthenticated = user.api_token && user.api_token.length > 0;
-
-  return { isAuthenticated: isAuthenticated, user: user };
+  return { language: language };
 };
 
 var mapStateToDispatch = function mapStateToDispatch(dispatch) {
   return {
-    logout: (0, _redux.bindActionCreators)(_logout.logout, dispatch),
     setMenu: (0, _redux.bindActionCreators)(_setMenu.setMenu, dispatch),
     changeLanguage: (0, _redux.bindActionCreators)(_changeLanguage.changeLanguage, dispatch)
   };
 };
 
-exports.default = (0, _reactRouter.withRouter)((0, _reactRedux.connect)(mapStateToProps, mapStateToDispatch)(Nav));
+exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, mapStateToDispatch)(Dropdown));

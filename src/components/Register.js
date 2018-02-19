@@ -28,7 +28,7 @@ class Register extends React.Component {
         </div>
         <div className="register-container text-center">
           <h4>Sign up for an account.</h4>
-          <div className="col-12">
+          <div className="col-12 col-md-6 offset-md-3 col-lg-4 offset-lg-4">
             <Form
               onSubmit={this.props.register}
               page={PAGE}

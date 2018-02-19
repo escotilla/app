@@ -36,6 +36,10 @@ var _AppContainer = require('./AppContainer');
 
 var _AppContainer2 = _interopRequireDefault(_AppContainer);
 
+var _MenuOverlay = require('./MenuOverlay');
+
+var _MenuOverlay2 = _interopRequireDefault(_MenuOverlay);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var App = function App() {
@@ -43,9 +47,10 @@ var App = function App() {
     _AppContainer2.default,
     null,
     _react2.default.createElement(_Nav2.default, { routes: _routes2.default }),
+    _react2.default.createElement(_MenuOverlay2.default, { routes: _routes2.default }),
     _react2.default.createElement(
       'div',
-      { style: { position: 'relative', top: '47px' } },
+      { className: 'nav-offset' },
       _react2.default.createElement(
         _reactRouterDom.Switch,
         null,

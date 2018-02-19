@@ -7,7 +7,7 @@ import {setMenu} from '../actions/set-menu';
 import {CSSTransition, TransitionGroup} from 'react-transition-group';
 import {withRouter, NavLink} from 'react-router-dom';
 import Language from '../utilities/language';
-import LanguageDropdown from './LanguageDropdown';
+import Dropdown from './Dropdown';
 
 const Shift = ({children, ...props}) => (
   <CSSTransition
@@ -49,32 +49,34 @@ class MenuOverlay extends React.Component {
 
     const register = (
       isAuthenticated ? null : <NavLink
-        style={{display: 'inline-block'}}
         to='/register'
-        className="mr-1"
-        activeStyle={{color: 'rgba(255, 0, 0, 1)'}}>
-        <button className="btn btn-primary">
+        activeStyle={{color: 'rgba(0, 0, 255, 1)'}}>
+        <p className="hamburger-item">
           {Language.get(language, 'button.register')}
-        </button>
+        </p>
       </NavLink>
     );
 
     const auth = (
       isAuthenticated ?
-        <button
+        <p
           onClick={this.props.logout}
-          className="btn btn-primary">
+          className="hamburger-item">
           Logout
-        </button> : <NavLink
+        </p> : <NavLink
           style={{display: 'inline-block'}}
           to='/login'
-          activeStyle={{color: 'rgba(255, 0, 0, 1)'}}>
-          <button className="btn btn-primary">
+          activeStyle={{color: 'rgba(0, 0, 255, 1)'}}>
+        <p className="hamburger-item">
             {Language.get(language, 'button.login')}
-          </button>
+        </p>
         </NavLink>
     );
 
+    const dropdown = [
+      {value: 'spanish', text: Language.get(language, 'spanish')},
+      {value: 'english', text: Language.get(language, 'english')},
+    ];
 
     const shift = (
       <Shift>
@@ -89,24 +91,20 @@ class MenuOverlay extends React.Component {
                   style={{backgroundImage: 'url("/public/images/logo.png")'}}/>
               </NavLink>
             </div>
-            <LanguageDropdown/>
+            <Dropdown
+              value={language}
+              onChange={(e) => {
+                this.props.changeLanguage(e.target.value);
+                this.props.setMenu('closed');
+              }}
+              options={dropdown}
+            />
             <div className={"material-menu-links"}>
               {navLinks}
-            </div>
-          </div>
-          <div className="bottom-links">
-            <div>
+              <hr />
               {register}
               {auth}
-            </div>
-            <div>
-              <NavLink to='/'>
-                terms
-              </NavLink>
-              <NavLink to='/'>
-                privacy
-              </NavLink>
-            </div>
+              </div>
           </div>
         </div>
       </Shift>
