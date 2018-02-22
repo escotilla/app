@@ -43,7 +43,7 @@ class Form extends React.Component {
     );
 
     return (
-      <div className="m-2 m-sm-4 m-md-6 mb-10">
+      <div className="m-2 m-sm-4 m-md-6 mb-10 card">
         <form>
           {formConfig.questions.map(question => (
             <Input
