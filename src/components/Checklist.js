@@ -16,7 +16,7 @@ const checklistConfig = {
 
 class Checklist extends React.Component {
   render() {
-    const {checklist, language} = this.props;
+    const {checklist, language, payloadByPage} = this.props;
 
     return (
       <div className="list-group">
@@ -24,6 +24,7 @@ class Checklist extends React.Component {
         Todo List
         </a>
         {checklist.map(item => {
+          const loading = payloadByPage.hasOwnProperty(item.title) && payloadByPage[item.title].loading;
           const badgeClass = item.status === 'complete' ? 'badge-success' : 'badge-warning';
 
           return (
@@ -31,7 +32,7 @@ class Checklist extends React.Component {
               to={checklistConfig[item.title].path}
               className="list-group-item list-group-item-action justify-content-between align-items-center">
               {Language.get(language, 'checklist.' + item.title)}
-              <span className={"badge badge-pill " + badgeClass}>{item.status}</span>
+              {!loading ? <span className={"badge badge-pill " + badgeClass}>{item.status}</span> : <i className="fa fa-cog fa-spin"/>}
             </NavLink>
           )}
         )}

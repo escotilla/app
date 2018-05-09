@@ -38,6 +38,9 @@ class Dashboard extends React.Component {
       return (
         <div className="container-fluid">
           <div className="row">
+            <div>
+              <h2>To get started, please fill out some more information</h2>
+            </div>
             <CreateApplication language={language} questions={question.questions}/>
           </div>
         </div>
