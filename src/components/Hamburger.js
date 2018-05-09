@@ -7,6 +7,7 @@ import {bindActionCreators} from 'redux';
 import Language from '../utilities/language';
 import NavIcon from './NavIcon';
 import {login} from '../actions/login';
+import {logout} from '../actions/logout';
 import Dropdown from './Dropdown';
 
 class Hamburger extends React.Component {
@@ -33,7 +34,7 @@ class Hamburger extends React.Component {
     return (
       <div className={"hamburger " + className}>
         <div className="nav-button-container d-sm-none d-none d-md-block">
-          <NavLink
+          {isAuthenticated ? null : <NavLink
             style={{display: 'inline-block'}}
             to='/register'
             className="mr-1"
@@ -41,15 +42,28 @@ class Hamburger extends React.Component {
             <button className="btn btn-primary">
               {Language.get(language, 'button.register')}
             </button>
-          </NavLink>
-          <NavLink
-            style={{display: 'inline-block'}}
-            to='/login'
-            activeStyle={{color: 'rgba(255, 0, 0, 1)'}}>
-            <button className="btn btn-primary">
-              {Language.get(language, 'button.login')}
-            </button>
-          </NavLink>
+          </NavLink>}
+          {isAuthenticated ? (
+            <NavLink
+              style={{display: 'inline-block'}}
+              to='/'
+              activeStyle={{color: 'rgba(255, 0, 0, 1)'}}>
+              <button
+                onClick={() => this.props.logout()}
+                className="btn btn-primary">
+                {Language.get(language, 'button.logout')}
+              </button>
+            </NavLink>
+          ) : (
+            <NavLink
+              style={{display: 'inline-block'}}
+              to='/login'
+              activeStyle={{color: 'rgba(255, 0, 0, 1)'}}>
+              <button className="btn btn-primary">
+                {Language.get(language, 'button.login')}
+              </button>
+            </NavLink>
+          )}
         </div>
         <div>
           <Dropdown
@@ -60,7 +74,8 @@ class Hamburger extends React.Component {
               this.props.setMenu('closed');
             }}
             options={dropdown}
-          />        </div>
+          />
+        </div>
         <NavIcon
           selected={menuOpen}
           icon={menuOpen ? "fa-times-circle" : "fa-bars"}
@@ -91,6 +106,7 @@ const mapStateToProps = state => {
 const mapStateToDispatch = dispatch => {
   return {
     login: bindActionCreators(login, dispatch),
+    logout: bindActionCreators(logout, dispatch),
     setMenu: bindActionCreators(setMenu, dispatch),
     changeLanguage: bindActionCreators(changeLanguage, dispatch),
   }
