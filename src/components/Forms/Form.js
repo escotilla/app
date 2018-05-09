@@ -6,6 +6,7 @@ import {bindActionCreators} from 'redux'
 import Warning from '../Warning';
 import Input from '../Input';
 import {validate} from 'validate.js';
+import {NavLink} from 'react-router-dom';
 
 class Form extends React.Component {
   constructor(props) {
@@ -30,12 +31,21 @@ class Form extends React.Component {
   }
 
   renderForm() {
-    const {error, loading, payload, formConfig, page, buttonText} = this.props;
+    const {error, loading, payload, formConfig, page, buttonText, answers, to} = this.props;
     const validation = this.state.validation;
 
-    let button = (
+    let button = to ? (
+      <NavLink disabled={Object.keys(payload).length === 0} to={to}>
+        <button
+          disabled={loading || Object.keys(payload).length === 0}
+          id="submit"
+          onClick={this.submit}
+          className="button btn btn-primary">{loading ? <i className="fa fa-cog fa-spin"/> : buttonText}
+        </button>
+      </NavLink>
+    ) : (
       <button
-        disabled={loading}
+        disabled={loading || Object.keys(payload).length === 0}
         id="submit"
         onClick={this.submit}
         className="button btn btn-primary">{loading ? <i className="fa fa-cog fa-spin"/> : buttonText}
@@ -44,18 +54,20 @@ class Form extends React.Component {
 
     return (
       <div className="m-2 m-sm-4 m-md-6 mb-10 card">
+        {this.props.children}
         <form>
           {formConfig.questions.map(question => (
             <Input
               loading={loading}
               validation={validation}
               question={question}
-              value={payload.hasOwnProperty(question.inputId) ? payload[question.inputId] : ''}
+              value={payload.hasOwnProperty(question.inputId) ? payload[question.inputId] : (answers[question.inputId] || '')}
               inputId={question.inputId}
               page={page}
               formatter={question.formatter}
               parser={question.parser}
               helper={question.helper}
+              type={question.type}
             />
           ))}
         </form>
@@ -70,6 +82,9 @@ class Form extends React.Component {
   }
 }
 
+Form.defaultProps = {
+  answers: {}
+};
 
 const mapStateToProps = (state, props) => {
   const {
@@ -84,11 +99,7 @@ const mapStateToProps = (state, props) => {
   } = payloadByPage[props.page] || {
     loading: false,
     error: null,
-    payload: {
-      name: '',
-      email: '',
-      password: ''
-    }
+    payload: {}
   };
 
   const loggedIn = user && user.api_token && user.api_token.length > 0;

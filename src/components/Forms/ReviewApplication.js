@@ -7,8 +7,9 @@ import Warning from '../Warning';
 import formConfig from '../../configs/review-application-form'
 import {validate} from 'validate.js';
 import Input from '../Input';
+import Form from '../Forms/Form'
 
-const PAGE = 'review-application';
+const PAGE = 'review_profile';
 
 class ReviewApplication extends React.Component {
   constructor(props) {
@@ -34,32 +35,19 @@ class ReviewApplication extends React.Component {
 
   renderForm() {
     const {error, loading, payload, answers} = this.props;
-    const validation = this.state.validation;
-
-    let button = (
-      <button
-        disabled={loading || Object.keys(payload).length === 0}
-        id="submit"
-        onClick={this.submit}
-        className="button">{loading ? <i className="fa fa-cog fa-spin"/> : 'Update'}
-      </button>
-    );
 
     return (
       <div>
-        <form>
-          {formConfig.questions.map(question => (
-            <Input
-              loading={loading}
-              validation={validation}
-              value={payload.hasOwnProperty(question.inputId) ? payload[question.inputId] : answers[question.inputId]}
-              question={question}
-              page={PAGE}
-            />
-          ))}
-        </form>
-        {button}
-        {error ? <Warning error={error}/> : null}
+        <Form
+          onSubmit={this.submit}
+          answers={answers}
+          loading={loading}
+          payload={payload}
+          page={PAGE}
+          formConfig={formConfig}
+          buttonText="Update"
+          error={error}
+        />
       </div>
     );
   }

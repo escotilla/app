@@ -3,12 +3,12 @@ import {updateApplicationWithAuth} from '../../actions/update-application';
 import {updatePayload} from '../../actions/update-payload';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux'
-import Warning from '../Warning';
 import formConfig from '../../configs/loan-contract-form'
 import {validate} from 'validate.js';
-import Input from '../Input';
+import Form from './Form';
+import Q from '../../configs/questions';
 
-const PAGE = 'loan-contract';
+const PAGE = 'sign_agreement';
 
 class LoanContractForm extends React.Component {
   constructor(props) {
@@ -23,7 +23,7 @@ class LoanContractForm extends React.Component {
   }
 
   submit() {
-    const {payload, applicationId, updateApplicationWithAuth} = this.props;
+    const {payload, applicationId, updateApplicationWithAuth, application} = this.props;
     const validation = validate(payload, formConfig.constraints, {fullMessages: false});
 
     this.setState({validation: validation});
@@ -34,33 +34,20 @@ class LoanContractForm extends React.Component {
   }
 
   renderForm() {
-    const {error, loading, payload, answers} = this.props;
-    const validation = this.state.validation;
-
-    let button = (
-      <button
-        disabled={loading || Object.keys(payload).length === 0}
-        id="submit"
-        onClick={this.submit}
-        className="button">{loading ? <i className="fa fa-cog fa-spin"/> : 'Update'}
-      </button>
-    );
+    const amount = this.props.application.answers[Q.LOAN_AMOUNT] || 0;
 
     return (
       <div>
-        <form>
-          {formConfig.questions.map(question => (
-            <Input
-              loading={loading}
-              validation={validation}
-              value={payload.hasOwnProperty(question.inputId) ? payload[question.inputId] : answers[question.inputId]}
-              question={question}
-              page={PAGE}
-            />
-          ))}
-        </form>
-        {button}
-        {error ? <Warning error={error}/> : null}
+        <Form
+          onSubmit={this.props.createApplicationWithAuth}
+          page={PAGE}
+          formConfig={formConfig}
+          buttonText="Update Application"
+        >
+          <div>
+            <p>I agree to borrow ${amount} and pay it all pay promptly, with interest.</p>
+          </div>
+        </Form>
       </div>
     );
   }
@@ -80,7 +67,7 @@ const mapStateToProps = state => {
   const {
     loading,
     error,
-    payload
+    payload,
   } = payloadByPage[PAGE] || {
     loading: false,
     error: null,

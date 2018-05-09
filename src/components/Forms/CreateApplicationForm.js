@@ -3,17 +3,14 @@ import {createApplicationWithAuth} from '../../actions/create-application';
 import {updatePayload} from '../../actions/update-payload';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux'
-import Warning from '../Warning';
 import formConfig from '../../configs/create-application-form'
-import {validate} from 'validate.js';
-import Input from '../Input';
+import Form from './Form';
 
 const PAGE = 'create-application';
 
 class CreateApplicationForm extends React.Component {
   constructor(props) {
     super(props);
-    this.submit = this.submit.bind(this);
     this.renderForm = this.renderForm.bind(this);
 
     this.state = {
@@ -21,45 +18,14 @@ class CreateApplicationForm extends React.Component {
     }
   }
 
-  submit() {
-    const validation = validate(this.props.payload, formConfig.constraints, {fullMessages: false});
-    this.setState({validation: validation});
-
-    if (validation === undefined) {
-      this.props.createApplicationWithAuth(this.props.payload);
-    }
-  }
-
   renderForm() {
-    const {error, loading, payload} = this.props;
-    const validation = this.state.validation;
-
-    let button = (
-      <button
-        disabled={loading}
-        id="submit"
-        onClick={this.submit}
-        className="button">{loading ? <i className="fa fa-cog fa-spin"/> : 'Create Application'}
-      </button>
-    );
-
     return (
-      <div>
-        <form>
-          {formConfig.questions.map((question, i) => (
-            <Input
-              key={i}
-              loading={loading}
-              validation={validation}
-              value={payload[question.inputId]}
-              page={PAGE}
-              question={question}
-            />
-          ))}
-        </form>
-        {button}
-        {error ? <Warning error={error}/> : null}
-      </div>
+      <Form
+        onSubmit={this.props.createApplicationWithAuth}
+        page={PAGE}
+        formConfig={formConfig}
+        buttonText="Create Application"
+      />
     );
   }
 
