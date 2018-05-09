@@ -5,12 +5,21 @@ import {download} from "../actions/download";
 import {updateUserSuccess} from '../actions/login';
 import {bindActionCreators} from 'redux'
 import {getApiUrl} from '../utilities/environment';
+import {
+  requestStart,
+  requestSuccess,
+  requestFailure
+} from '../actions/request';
+
+const PAGE = 'upload_documents';
 
 class UploadDocuments extends React.Component {
   componentDidMount() {
     const api_token = this.props.api_token;
     const applications = this.props.applications;
     const updateUserSuccess = this.props.updateUserSuccess;
+    const start = this.props.requestStart;
+    const complete = this.props.requestSuccess;
 
     if (typeof window !== 'undefined') {
       const Dropzone = require('dropzone');
@@ -22,6 +31,7 @@ class UploadDocuments extends React.Component {
         },
         init: function () {
           this.on("sending", function (file, xhr, formData) {
+            start(PAGE);
             formData.append("api_token", api_token);
             formData.append("application_id", applications && applications.length > 0 ? applications[0].id : 'bnan');
           });
@@ -30,6 +40,10 @@ class UploadDocuments extends React.Component {
             if (response.success) {
               updateUserSuccess(response.data);
             }
+          });
+
+          this.on("complete", function (file, response) {
+            complete(PAGE);
           });
         }
       });
@@ -59,23 +73,23 @@ class UploadDocuments extends React.Component {
           </thead>
           <tbody>
           {hasFiles && uploaded_files.map(file => {
-              return (
-                <tr>
-                  <td>{file.original_file_name}</td>
-                  <td>{Math.floor(file.size / 1000)} kB</td>
-                  <td>
-                    <i
-                      className="fa fa-download fa-2x link"
-                      aria-hidden="true"
-                      onClick={() => isLoading ? null : download({
-                        api_token: api_token,
-                        uploaded_file_id: file.uploaded_file_id
-                      }, file.original_file_name, file.mime_type)}
-                    />
-                  </td>
-                </tr>
-              )
-            })}
+            return (
+              <tr>
+                <td>{file.original_file_name}</td>
+                <td>{Math.floor(file.size / 1000)} kB</td>
+                <td>
+                  <i
+                    className="fa fa-download fa-2x link"
+                    aria-hidden="true"
+                    onClick={() => isLoading ? null : download({
+                      api_token: api_token,
+                      uploaded_file_id: file.uploaded_file_id
+                    }, file.original_file_name, file.mime_type)}
+                  />
+                </td>
+              </tr>
+            )
+          })}
           </tbody>
         </table>
       </div>
@@ -100,6 +114,9 @@ const mapStateToProps = state => {
 const mapStateToDispatch = dispatch => {
   return {
     logout: bindActionCreators(logout, dispatch),
+    requestSuccess: bindActionCreators(requestSuccess, dispatch),
+    requestFailure: bindActionCreators(requestFailure, dispatch),
+    requestStart: bindActionCreators(requestStart, dispatch),
     download: bindActionCreators(download, dispatch),
     updateUserSuccess: bindActionCreators(updateUserSuccess, dispatch)
   }
