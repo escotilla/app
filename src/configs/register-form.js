@@ -47,7 +47,8 @@ const questions = [
     inputId: Q.FULL_NAME
   },
   {
-    inputId: Q.PASSWORD
+    inputId: Q.PASSWORD,
+    type: 'password'
   },
   {
     inputId: 'password',

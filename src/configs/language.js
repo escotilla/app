@@ -5,6 +5,7 @@ let lang = {
     spanish: 'Español (Spanish)',
     button: {
       login: 'Login',
+      logout: 'Logout',
       register: 'Register',
       get_started: 'Let\'s get started!',
       passwordMatch: 'Passwords must match'
@@ -32,6 +33,7 @@ let lang = {
     spanish: 'Español',
     button: {
       login: 'Iniciar Sesion',
+      logout: 'Logout',
       register: 'Registro',
       get_started: '¡Empecemos!'
     },
