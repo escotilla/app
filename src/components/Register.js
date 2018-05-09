@@ -45,23 +45,12 @@ class Register extends React.Component {
 
 const mapStateToProps = state => {
   const {
-    user,
-    payloadByPage
+    user
   } = state;
-
-  const {
-    loading,
-    error,
-    payload
-  } = payloadByPage[PAGE] || {
-    loading: false,
-    error: null,
-    payload: {}
-  };
 
   const loggedIn = user && user.api_token && user.api_token.length > 0;
 
-  return {loggedIn, loading, error, payload};
+  return {loggedIn};
 };
 
 const mapDispatchToProps = dispatch => {

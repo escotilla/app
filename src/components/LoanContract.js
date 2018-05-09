@@ -11,10 +11,9 @@ class LoanContract extends React.Component {
     return (
       <div>{user.applications.map(app => (
         <div>
-          <h1>Loan Contract page</h1>
-          <p>You are logged in as {user.email}</p>
           <h1>Please accept our contract</h1>
           <LoanContractForm
+            application={app}
             applicationId={app.id}
             answers={app.answers}/>
           <h3 onClick={() => this.props.logout()}> LOGOUT </h3>
