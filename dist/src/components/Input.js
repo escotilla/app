@@ -79,7 +79,7 @@ var Input = function (_React$Component) {
 
       var feedback = hasError ? _react2.default.createElement(
         'div',
-        { className: 'helper invalid-feedback' },
+        { style: { color: 'red' }, className: 'helper invalid-feedback' },
         _language2.default.get(language, validation[inputId][0])
       ) : _react2.default.createElement(
         'div',

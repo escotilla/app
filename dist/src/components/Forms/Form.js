@@ -94,7 +94,7 @@ var Form = function (_React$Component) {
 
       return _react2.default.createElement(
         'div',
-        { className: 'm-2 m-sm-4 m-md-6 mb-10' },
+        { className: 'm-2 m-sm-4 m-md-6 mb-10 card' },
         _react2.default.createElement(
           'form',
           null,
@@ -108,7 +108,8 @@ var Form = function (_React$Component) {
               page: page,
               formatter: question.formatter,
               parser: question.parser,
-              helper: question.helper
+              helper: question.helper,
+              type: question.type
             });
           })
         ),

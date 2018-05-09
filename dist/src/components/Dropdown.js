@@ -49,7 +49,7 @@ var Dropdown = function (_React$Component) {
         _react2.default.createElement(
           'select',
           {
-            style: { paddingLeft: '2rem', display: 'inline-block' },
+            style: { display: 'inline-block', fontSize: '16px' },
             value: value,
             onChange: this.props.onChange,
             className: 'form-control' },

@@ -83,7 +83,7 @@ var Register = function (_React$Component) {
           ),
           _react2.default.createElement(
             'div',
-            { className: 'col-12' },
+            { className: 'col-12 col-md-6 offset-md-3 col-lg-4 offset-lg-4' },
             _react2.default.createElement(_Form2.default, {
               onSubmit: this.props.register,
               page: PAGE,

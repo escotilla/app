@@ -113,6 +113,7 @@ var Hamburger = function (_React$Component) {
           null,
           _react2.default.createElement(_Dropdown2.default, {
             value: language,
+            className: 'd-sm-none d-none d-md-block',
             onChange: function onChange(e) {
               _this2.props.changeLanguage(e.target.value);
               _this2.props.setMenu('closed');

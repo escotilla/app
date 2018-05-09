@@ -113,32 +113,30 @@ var MenuOverlay = function (_React$Component) {
       var register = isAuthenticated ? null : _react2.default.createElement(
         _reactRouterDom.NavLink,
         {
-          style: { display: 'inline-block' },
           to: '/register',
-          className: 'mr-1',
-          activeStyle: { color: 'rgba(255, 0, 0, 1)' } },
+          activeStyle: { color: 'rgba(0, 0, 255, 1)' } },
         _react2.default.createElement(
-          'button',
-          { className: 'btn btn-primary' },
+          'p',
+          { className: 'hamburger-item' },
           _language2.default.get(language, 'button.register')
         )
       );
 
       var auth = isAuthenticated ? _react2.default.createElement(
-        'button',
+        'p',
         {
           onClick: this.props.logout,
-          className: 'btn btn-primary' },
+          className: 'hamburger-item' },
         'Logout'
       ) : _react2.default.createElement(
         _reactRouterDom.NavLink,
         {
           style: { display: 'inline-block' },
           to: '/login',
-          activeStyle: { color: 'rgba(255, 0, 0, 1)' } },
+          activeStyle: { color: 'rgba(0, 0, 255, 1)' } },
         _react2.default.createElement(
-          'button',
-          { className: 'btn btn-primary' },
+          'p',
+          { className: 'hamburger-item' },
           _language2.default.get(language, 'button.login')
         )
       );
@@ -180,31 +178,10 @@ var MenuOverlay = function (_React$Component) {
             _react2.default.createElement(
               'div',
               { className: "material-menu-links" },
-              navLinks
-            )
-          ),
-          _react2.default.createElement(
-            'div',
-            { className: 'bottom-links' },
-            _react2.default.createElement(
-              'div',
-              null,
+              navLinks,
+              _react2.default.createElement('hr', null),
               register,
               auth
-            ),
-            _react2.default.createElement(
-              'div',
-              null,
-              _react2.default.createElement(
-                _reactRouterDom.NavLink,
-                { to: '/' },
-                'terms'
-              ),
-              _react2.default.createElement(
-                _reactRouterDom.NavLink,
-                { to: '/' },
-                'privacy'
-              )
             )
           )
         )

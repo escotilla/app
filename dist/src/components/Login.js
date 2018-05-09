@@ -60,15 +60,15 @@ var Login = function (_React$Component) {
         null,
         _react2.default.createElement(
           'div',
-          { className: 'register-container text-center' },
+          { className: 'register-container text-center pt-5' },
           _react2.default.createElement(
             'h4',
-            null,
+            { className: 'pt-2' },
             'Sign in to your account.'
           ),
           _react2.default.createElement(
             'div',
-            { className: 'col-12' },
+            { className: 'col-12 col-md-6 offset-md-3 col-lg-4 offset-lg-4' },
             _react2.default.createElement(_Form2.default, {
               onSubmit: this.props.login,
               page: PAGE,
