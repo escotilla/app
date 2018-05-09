@@ -2,6 +2,7 @@ import fetch from 'isomorphic-fetch';
 import {getApiUrl} from '../utilities/environment';
 import lscache from 'ls-cache';
 import {getApplicationsIfExist} from './get-applications';
+
 import {
   LOGIN_INIT,
   LOGIN_FAILURE,
@@ -9,9 +10,16 @@ import {
   LOAD_USER
 } from './action-types';
 
+import {
+  requestStart,
+  requestFailure,
+  requestSuccess
+} from './request';
+
 export function login(body, page = 'login') {
   return dispatch => {
     dispatch(loginStart(page));
+    dispatch(requestStart(page));
 
     const headers = new Headers({
       'Content-Type': 'application/json'
@@ -28,6 +36,7 @@ export function login(body, page = 'login') {
       .then(handleErrors)
       .then(json => {
         dispatch(loginSuccess(json.data, page));
+        dispatch(requestSuccess(page));
         lscache.set('user', json.data);
 
         return json.data;
@@ -35,6 +44,7 @@ export function login(body, page = 'login') {
       .then(user => dispatch(getApplicationsIfExist(user)))
       .catch(err => {
         dispatch(loginFailure(err, page));
+        dispatch(requestFailure(err, page));
       })
   }
 }

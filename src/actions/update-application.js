@@ -9,9 +9,16 @@ import {
   UPDATE_APPLICATION_SUCCESS,
 } from './action-types';
 
+import {
+  requestStart,
+  requestFailure,
+  requestSuccess
+} from './request';
+
 export function updateApplication(body, page) {
   return dispatch => {
     dispatch(updateApplicationStart());
+    dispatch(requestStart(page));
 
     const headers = new Headers({
       'Content-Type': 'application/json'
@@ -28,11 +35,13 @@ export function updateApplication(body, page) {
       .then(handleErrors)
       .then(json => {
         dispatch(updateApplicationSuccess(json.data));
+        dispatch(requestSuccess(page));
         lscache.set('user', json.data);
       })
       .then(() => dispatch(clearPayload(page)))
       .catch(err => {
         dispatch(updateApplicationFailure(err));
+        dispatch(requestFailure(err, page));
       })
   }
 }

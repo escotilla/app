@@ -7,7 +7,7 @@ import Q from '../configs/questions';
 
 class Account extends React.Component {
   render() {
-    const {user, language} = this.props;
+    const {user, language, payloadByPage} = this.props;
 
     return (
       <div>
@@ -15,7 +15,10 @@ class Account extends React.Component {
           return (
             <div>
               <h1>Loan application for: ${app.answers[Q.LOAN_AMOUNT]}</h1>
-              <Checklist checklist={app.checklist} language={language}/>
+              <Checklist
+                payloadByPage={payloadByPage}
+                checklist={app.checklist}
+                language={language}/>
             </div>
           )
         })}
