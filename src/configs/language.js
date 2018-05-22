@@ -20,7 +20,8 @@ let lang = {
     errors: {
       amountMax: 'Amount cannot exceed $200',
       required: '*required',
-      info_accurate: 'Please make sure your info is accurate'
+      info_accurate: 'Please make sure your info is accurate',
+      passwordMatch: 'Passwords must match'
     },
     checklist: {
       review_profile: 'Review Profile',

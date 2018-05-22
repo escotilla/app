@@ -20,6 +20,10 @@ var _LoanContractForm = require('./Forms/LoanContractForm');
 
 var _LoanContractForm2 = _interopRequireDefault(_LoanContractForm);
 
+var _questions = require('../configs/questions');
+
+var _questions2 = _interopRequireDefault(_questions);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -49,28 +53,21 @@ var LoanContract = function (_React$Component) {
         'div',
         null,
         user.applications.map(function (app) {
-          return _react2.default.createElement(
+          return app.answers[_questions2.default.AGREE_LOAN_CONTRACT] ? _react2.default.createElement(
+            'h2',
+            null,
+            'thanks'
+          ) : _react2.default.createElement(
             'div',
             null,
-            _react2.default.createElement(
-              'h1',
-              null,
-              'Loan Contract page'
-            ),
-            _react2.default.createElement(
-              'p',
-              null,
-              'You are logged in as ',
-              user.email
-            ),
             _react2.default.createElement(
               'h1',
               null,
               'Please accept our contract'
             ),
             _react2.default.createElement(_LoanContractForm2.default, {
-              applicationId: app.id,
-              answers: app.answers }),
+              answers: app.answers,
+              applicationId: app.id }),
             _react2.default.createElement(
               'h3',
               { onClick: function onClick() {

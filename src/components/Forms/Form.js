@@ -20,13 +20,13 @@ class Form extends React.Component {
   }
 
   submit() {
-    const {payload, onSubmit, formConfig} = this.props;
+    const {payload, onSubmit, formConfig, page} = this.props;
     const validation = validate(payload, formConfig.constraints, {fullMessages: false});
 
     this.setState({validation: validation});
 
     if (validation === undefined) {
-      onSubmit(payload);
+      onSubmit(payload, page);
     }
   }
 

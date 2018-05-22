@@ -22,6 +22,8 @@ var _redux = require('redux');
 
 var _environment = require('../utilities/environment');
 
+var _request = require('../actions/request');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -29,6 +31,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var PAGE = 'upload_documents';
 
 var UploadDocuments = function (_React$Component) {
   _inherits(UploadDocuments, _React$Component);
@@ -45,6 +49,8 @@ var UploadDocuments = function (_React$Component) {
       var api_token = this.props.api_token;
       var applications = this.props.applications;
       var updateUserSuccess = this.props.updateUserSuccess;
+      var start = this.props.requestStart;
+      var complete = this.props.requestSuccess;
 
       if (typeof window !== 'undefined') {
         var Dropzone = require('dropzone');
@@ -56,6 +62,7 @@ var UploadDocuments = function (_React$Component) {
           },
           init: function init() {
             this.on("sending", function (file, xhr, formData) {
+              start(PAGE);
               formData.append("api_token", api_token);
               formData.append("application_id", applications && applications.length > 0 ? applications[0].id : 'bnan');
             });
@@ -64,6 +71,10 @@ var UploadDocuments = function (_React$Component) {
               if (response.success) {
                 updateUserSuccess(response.data);
               }
+            });
+
+            this.on("complete", function (file, response) {
+              complete(PAGE);
             });
           }
         });
@@ -187,6 +198,9 @@ var mapStateToProps = function mapStateToProps(state) {
 var mapStateToDispatch = function mapStateToDispatch(dispatch) {
   return {
     logout: (0, _redux.bindActionCreators)(_logout.logout, dispatch),
+    requestSuccess: (0, _redux.bindActionCreators)(_request.requestSuccess, dispatch),
+    requestFailure: (0, _redux.bindActionCreators)(_request.requestFailure, dispatch),
+    requestStart: (0, _redux.bindActionCreators)(_request.requestStart, dispatch),
     download: (0, _redux.bindActionCreators)(_download.download, dispatch),
     updateUserSuccess: (0, _redux.bindActionCreators)(_login.updateUserSuccess, dispatch)
   };

@@ -18,19 +18,13 @@ var _reactRedux = require('react-redux');
 
 var _redux = require('redux');
 
-var _Warning = require('../Warning');
-
-var _Warning2 = _interopRequireDefault(_Warning);
-
 var _createApplicationForm = require('../../configs/create-application-form');
 
 var _createApplicationForm2 = _interopRequireDefault(_createApplicationForm);
 
-var _validate = require('validate.js');
+var _Form = require('./Form');
 
-var _Input = require('../Input');
-
-var _Input2 = _interopRequireDefault(_Input);
+var _Form2 = _interopRequireDefault(_Form);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -50,7 +44,6 @@ var CreateApplicationForm = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (CreateApplicationForm.__proto__ || Object.getPrototypeOf(CreateApplicationForm)).call(this, props));
 
-    _this.submit = _this.submit.bind(_this);
     _this.renderForm = _this.renderForm.bind(_this);
 
     _this.state = {
@@ -60,55 +53,14 @@ var CreateApplicationForm = function (_React$Component) {
   }
 
   _createClass(CreateApplicationForm, [{
-    key: 'submit',
-    value: function submit() {
-      var validation = (0, _validate.validate)(this.props.payload, _createApplicationForm2.default.constraints, { fullMessages: false });
-      this.setState({ validation: validation });
-
-      if (validation === undefined) {
-        this.props.createApplicationWithAuth(this.props.payload);
-      }
-    }
-  }, {
     key: 'renderForm',
     value: function renderForm() {
-      var _props = this.props,
-          error = _props.error,
-          loading = _props.loading,
-          payload = _props.payload;
-
-      var validation = this.state.validation;
-
-      var button = _react2.default.createElement(
-        'button',
-        {
-          disabled: loading,
-          id: 'submit',
-          onClick: this.submit,
-          className: 'button' },
-        loading ? _react2.default.createElement('i', { className: 'fa fa-cog fa-spin' }) : 'Create Application'
-      );
-
-      return _react2.default.createElement(
-        'div',
-        null,
-        _react2.default.createElement(
-          'form',
-          null,
-          _createApplicationForm2.default.questions.map(function (question, i) {
-            return _react2.default.createElement(_Input2.default, {
-              key: i,
-              loading: loading,
-              validation: validation,
-              value: payload[question.inputId],
-              page: PAGE,
-              question: question
-            });
-          })
-        ),
-        button,
-        error ? _react2.default.createElement(_Warning2.default, { error: error }) : null
-      );
+      return _react2.default.createElement(_Form2.default, {
+        onSubmit: this.props.createApplicationWithAuth,
+        page: PAGE,
+        formConfig: _createApplicationForm2.default,
+        buttonText: 'Create Application'
+      });
     }
   }, {
     key: 'render',

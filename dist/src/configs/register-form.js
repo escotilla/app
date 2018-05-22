@@ -52,7 +52,8 @@ var questions = [{
 }, {
   inputId: _questions2.default.FULL_NAME
 }, {
-  inputId: _questions2.default.PASSWORD
+  inputId: _questions2.default.PASSWORD,
+  type: 'password'
 }, {
   inputId: 'password',
   type: 'password'

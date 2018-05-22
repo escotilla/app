@@ -96,6 +96,15 @@ var Dashboard = function (_React$Component) {
           _react2.default.createElement(
             'div',
             { className: 'row' },
+            _react2.default.createElement(
+              'div',
+              null,
+              _react2.default.createElement(
+                'h2',
+                null,
+                'To get started, please fill out some more information'
+              )
+            ),
             _react2.default.createElement(_CreateApplication2.default, { language: language, questions: question.questions })
           )
         );

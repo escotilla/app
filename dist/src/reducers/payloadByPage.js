@@ -25,13 +25,13 @@ var payload = function payload() {
       return Object.assign({}, state, {
         payload: updatePayload(state.payload, action)
       });
-    case _actionTypes.LOGIN_INIT:
+    case _actionTypes.REQUEST_INIT:
     case _actionTypes.REGISTER_INIT:
       return Object.assign({}, state, {
         loading: true
       });
     case _actionTypes.REGISTER_SUCCESS:
-    case _actionTypes.LOGIN_SUCCESS:
+    case _actionTypes.REQUEST_SUCCESS:
       return Object.assign({}, state, {
         payload: INITIAL_STATE,
         loading: false,
@@ -39,7 +39,7 @@ var payload = function payload() {
         error: null
       });
     case _actionTypes.REGISTER_FAILURE:
-    case _actionTypes.LOGIN_FAILURE:
+    case _actionTypes.REQUEST_FAILURE:
       return Object.assign({}, state, {
         loading: false,
         error: {
@@ -74,9 +74,9 @@ var payloadByPage = function payloadByPage() {
     case _actionTypes.REGISTER_FAILURE:
     case _actionTypes.REGISTER_SUCCESS:
     case _actionTypes.REGISTER_INIT:
-    case _actionTypes.LOGIN_SUCCESS:
-    case _actionTypes.LOGIN_FAILURE:
-    case _actionTypes.LOGIN_INIT:
+    case _actionTypes.REQUEST_SUCCESS:
+    case _actionTypes.REQUEST_FAILURE:
+    case _actionTypes.REQUEST_INIT:
     case _actionTypes.CLEAR_PAYLOAD:
       return Object.assign({}, state, _defineProperty({}, action.page, payload(state[action.page], action)));
     case _actionTypes.LOGOUT:

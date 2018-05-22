@@ -4,7 +4,6 @@ import {updatePayload} from '../../actions/update-payload';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux'
 import formConfig from '../../configs/loan-contract-form'
-import {validate} from 'validate.js';
 import Form from './Form';
 import Q from '../../configs/questions';
 
@@ -13,7 +12,6 @@ const PAGE = 'sign_agreement';
 class LoanContractForm extends React.Component {
   constructor(props) {
     super(props);
-    this.submit = this.submit.bind(this);
     this.renderForm = this.renderForm.bind(this);
 
     this.state = {
@@ -22,24 +20,15 @@ class LoanContractForm extends React.Component {
     }
   }
 
-  submit() {
-    const {payload, applicationId, updateApplicationWithAuth, application} = this.props;
-    const validation = validate(payload, formConfig.constraints, {fullMessages: false});
-
-    this.setState({validation: validation});
-
-    if (validation === undefined) {
-      updateApplicationWithAuth(payload, applicationId, PAGE);
-    }
-  }
-
   renderForm() {
-    const amount = this.props.application.answers[Q.LOAN_AMOUNT] || 0;
+    const {answers, payload, applicationId, updateApplicationWithAuth} = this.props;
+    const amount = answers[Q.LOAN_AMOUNT] || 0;
 
     return (
       <div>
         <Form
-          onSubmit={this.props.createApplicationWithAuth}
+          answers={answers}
+          onSubmit={() => updateApplicationWithAuth(payload, applicationId, PAGE)}
           page={PAGE}
           formConfig={formConfig}
           buttonText="Update Application"

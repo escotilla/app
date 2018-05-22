@@ -18,19 +18,17 @@ var _reactRedux = require('react-redux');
 
 var _redux = require('redux');
 
-var _Warning = require('../Warning');
-
-var _Warning2 = _interopRequireDefault(_Warning);
-
 var _loanContractForm = require('../../configs/loan-contract-form');
 
 var _loanContractForm2 = _interopRequireDefault(_loanContractForm);
 
-var _validate = require('validate.js');
+var _Form = require('./Form');
 
-var _Input = require('../Input');
+var _Form2 = _interopRequireDefault(_Form);
 
-var _Input2 = _interopRequireDefault(_Input);
+var _questions = require('../../configs/questions');
+
+var _questions2 = _interopRequireDefault(_questions);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -40,7 +38,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var PAGE = 'loan-contract';
+var PAGE = 'sign_agreement';
 
 var LoanContractForm = function (_React$Component) {
   _inherits(LoanContractForm, _React$Component);
@@ -50,7 +48,6 @@ var LoanContractForm = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (LoanContractForm.__proto__ || Object.getPrototypeOf(LoanContractForm)).call(this, props));
 
-    _this.submit = _this.submit.bind(_this);
     _this.renderForm = _this.renderForm.bind(_this);
 
     _this.state = {
@@ -61,60 +58,42 @@ var LoanContractForm = function (_React$Component) {
   }
 
   _createClass(LoanContractForm, [{
-    key: 'submit',
-    value: function submit() {
+    key: 'renderForm',
+    value: function renderForm() {
       var _props = this.props,
+          answers = _props.answers,
           payload = _props.payload,
           applicationId = _props.applicationId,
           updateApplicationWithAuth = _props.updateApplicationWithAuth;
 
-      var validation = (0, _validate.validate)(payload, _loanContractForm2.default.constraints, { fullMessages: false });
-
-      this.setState({ validation: validation });
-
-      if (validation === undefined) {
-        updateApplicationWithAuth(payload, applicationId, PAGE);
-      }
-    }
-  }, {
-    key: 'renderForm',
-    value: function renderForm() {
-      var _props2 = this.props,
-          error = _props2.error,
-          loading = _props2.loading,
-          payload = _props2.payload,
-          answers = _props2.answers;
-
-      var validation = this.state.validation;
-
-      var button = _react2.default.createElement(
-        'button',
-        {
-          disabled: loading || Object.keys(payload).length === 0,
-          id: 'submit',
-          onClick: this.submit,
-          className: 'button' },
-        loading ? _react2.default.createElement('i', { className: 'fa fa-cog fa-spin' }) : 'Update'
-      );
+      var amount = answers[_questions2.default.LOAN_AMOUNT] || 0;
 
       return _react2.default.createElement(
         'div',
         null,
         _react2.default.createElement(
-          'form',
-          null,
-          _loanContractForm2.default.questions.map(function (question) {
-            return _react2.default.createElement(_Input2.default, {
-              loading: loading,
-              validation: validation,
-              value: payload.hasOwnProperty(question.inputId) ? payload[question.inputId] : answers[question.inputId],
-              question: question,
-              page: PAGE
-            });
-          })
-        ),
-        button,
-        error ? _react2.default.createElement(_Warning2.default, { error: error }) : null
+          _Form2.default,
+          {
+            answers: answers,
+            onSubmit: function onSubmit() {
+              return updateApplicationWithAuth(payload, applicationId, PAGE);
+            },
+            page: PAGE,
+            formConfig: _loanContractForm2.default,
+            buttonText: 'Update Application'
+          },
+          _react2.default.createElement(
+            'div',
+            null,
+            _react2.default.createElement(
+              'p',
+              null,
+              'I agree to borrow $',
+              amount,
+              ' and pay it all pay promptly, with interest.'
+            )
+          )
+        )
       );
     }
   }, {

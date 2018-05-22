@@ -20,11 +20,14 @@ var _clearPayload = require('./clear-payload');
 
 var _actionTypes = require('./action-types');
 
+var _request = require('./request');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function updateApplication(body, page) {
   return function (dispatch) {
     dispatch(updateApplicationStart());
+    dispatch((0, _request.requestStart)(page));
 
     var headers = new Headers({
       'Content-Type': 'application/json'
@@ -38,11 +41,13 @@ function updateApplication(body, page) {
       return response.json();
     }).then(handleErrors).then(function (json) {
       dispatch(updateApplicationSuccess(json.data));
+      dispatch((0, _request.requestSuccess)(page));
       _lsCache2.default.set('user', json.data);
     }).then(function () {
       return dispatch((0, _clearPayload.clearPayload)(page));
     }).catch(function (err) {
       dispatch(updateApplicationFailure(err));
+      dispatch((0, _request.requestFailure)(err, page));
     });
   };
 }

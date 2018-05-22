@@ -101,9 +101,9 @@ var Input = function (_React$Component) {
           onChange: this.updatePayload,
           value: formatter ? formatter(value) : value,
           checked: type === 'checkbox' ? value : null,
-          className: 'form-input form-transparent',
+          className: type === 'checkbox' ? "" : "form-input form-transparent",
           id: inputId,
-          type: questions.hasOwnProperty(inputId) ? questions[inputId]['input_type'] : question.type || 'text',
+          type: type || 'text',
           placeholder: _language2.default.get(language, inputId + '.placeholder') || placeholder }),
         feedback
       );

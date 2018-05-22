@@ -46,7 +46,8 @@ var Account = function (_React$Component) {
     value: function render() {
       var _props = this.props,
           user = _props.user,
-          language = _props.language;
+          language = _props.language,
+          payloadByPage = _props.payloadByPage;
 
 
       return _react2.default.createElement(
@@ -62,7 +63,10 @@ var Account = function (_React$Component) {
               'Loan application for: $',
               app.answers[_questions2.default.LOAN_AMOUNT]
             ),
-            _react2.default.createElement(_Checklist2.default, { checklist: app.checklist, language: language })
+            _react2.default.createElement(_Checklist2.default, {
+              payloadByPage: payloadByPage,
+              checklist: app.checklist,
+              language: language })
           );
         })
       );

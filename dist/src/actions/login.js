@@ -20,6 +20,8 @@ var _getApplications = require('./get-applications');
 
 var _actionTypes = require('./action-types');
 
+var _request = require('./request');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function login(body) {
@@ -27,6 +29,7 @@ function login(body) {
 
   return function (dispatch) {
     dispatch(loginStart(page));
+    dispatch((0, _request.requestStart)(page));
 
     var headers = new Headers({
       'Content-Type': 'application/json'
@@ -40,6 +43,7 @@ function login(body) {
       return response.json();
     }).then(handleErrors).then(function (json) {
       dispatch(loginSuccess(json.data, page));
+      dispatch((0, _request.requestSuccess)(page));
       _lsCache2.default.set('user', json.data);
 
       return json.data;
@@ -47,6 +51,7 @@ function login(body) {
       return dispatch((0, _getApplications.getApplicationsIfExist)(user));
     }).catch(function (err) {
       dispatch(loginFailure(err, page));
+      dispatch((0, _request.requestFailure)(err, page));
     });
   };
 }

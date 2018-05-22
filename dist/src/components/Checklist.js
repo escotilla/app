@@ -50,7 +50,8 @@ var Checklist = function (_React$Component) {
     value: function render() {
       var _props = this.props,
           checklist = _props.checklist,
-          language = _props.language;
+          language = _props.language,
+          payloadByPage = _props.payloadByPage;
 
 
       return _react2.default.createElement(
@@ -62,6 +63,7 @@ var Checklist = function (_React$Component) {
           'Todo List'
         ),
         checklist.map(function (item) {
+          var loading = payloadByPage.hasOwnProperty(item.title) && payloadByPage[item.title].loading;
           var badgeClass = item.status === 'complete' ? 'badge-success' : 'badge-warning';
 
           return _react2.default.createElement(
@@ -70,11 +72,11 @@ var Checklist = function (_React$Component) {
               to: checklistConfig[item.title].path,
               className: 'list-group-item list-group-item-action justify-content-between align-items-center' },
             _language2.default.get(language, 'checklist.' + item.title),
-            _react2.default.createElement(
+            !loading ? _react2.default.createElement(
               'span',
               { className: "badge badge-pill " + badgeClass },
               item.status
-            )
+            ) : _react2.default.createElement('i', { className: 'fa fa-cog fa-spin' })
           );
         })
       );

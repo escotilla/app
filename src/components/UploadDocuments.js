@@ -76,7 +76,7 @@ class UploadDocuments extends React.Component {
             return (
               <tr>
                 <td>{file.original_file_name}</td>
-                <td>{Math.floor(file.size / 1000)} kB</td>
+                <td>{Math.ceil(file.size / 1000)} kB</td>
                 <td>
                   <i
                     className="fa fa-download fa-2x link"

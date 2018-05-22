@@ -30,6 +30,8 @@ var _NavIcon2 = _interopRequireDefault(_NavIcon);
 
 var _login = require('../actions/login');
 
+var _logout = require('../actions/logout');
+
 var _Dropdown = require('./Dropdown');
 
 var _Dropdown2 = _interopRequireDefault(_Dropdown);
@@ -82,7 +84,7 @@ var Hamburger = function (_React$Component) {
         _react2.default.createElement(
           'div',
           { className: 'nav-button-container d-sm-none d-none d-md-block' },
-          _react2.default.createElement(
+          isAuthenticated ? null : _react2.default.createElement(
             _reactRouterDom.NavLink,
             {
               style: { display: 'inline-block' },
@@ -95,7 +97,22 @@ var Hamburger = function (_React$Component) {
               _language2.default.get(language, 'button.register')
             )
           ),
-          _react2.default.createElement(
+          isAuthenticated ? _react2.default.createElement(
+            _reactRouterDom.NavLink,
+            {
+              style: { display: 'inline-block' },
+              to: '/',
+              activeStyle: { color: 'rgba(255, 0, 0, 1)' } },
+            _react2.default.createElement(
+              'button',
+              {
+                onClick: function onClick() {
+                  return _this2.props.logout();
+                },
+                className: 'btn btn-primary' },
+              _language2.default.get(language, 'button.logout')
+            )
+          ) : _react2.default.createElement(
             _reactRouterDom.NavLink,
             {
               style: { display: 'inline-block' },
@@ -119,8 +136,7 @@ var Hamburger = function (_React$Component) {
               _this2.props.setMenu('closed');
             },
             options: dropdown
-          }),
-          '        '
+          })
         ),
         _react2.default.createElement(_NavIcon2.default, {
           selected: menuOpen,
@@ -154,6 +170,7 @@ var mapStateToProps = function mapStateToProps(state) {
 var mapStateToDispatch = function mapStateToDispatch(dispatch) {
   return {
     login: (0, _redux.bindActionCreators)(_login.login, dispatch),
+    logout: (0, _redux.bindActionCreators)(_logout.logout, dispatch),
     setMenu: (0, _redux.bindActionCreators)(_setMenu.setMenu, dispatch),
     changeLanguage: (0, _redux.bindActionCreators)(_changeLanguage.changeLanguage, dispatch)
   };

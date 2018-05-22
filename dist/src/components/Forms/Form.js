@@ -28,6 +28,8 @@ var _Input2 = _interopRequireDefault(_Input);
 
 var _validate = require('validate.js');
 
+var _reactRouterDom = require('react-router-dom');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -59,14 +61,15 @@ var Form = function (_React$Component) {
       var _props = this.props,
           payload = _props.payload,
           onSubmit = _props.onSubmit,
-          formConfig = _props.formConfig;
+          formConfig = _props.formConfig,
+          page = _props.page;
 
       var validation = (0, _validate.validate)(payload, formConfig.constraints, { fullMessages: false });
 
       this.setState({ validation: validation });
 
       if (validation === undefined) {
-        onSubmit(payload);
+        onSubmit(payload, page);
       }
     }
   }, {
@@ -78,14 +81,28 @@ var Form = function (_React$Component) {
           payload = _props2.payload,
           formConfig = _props2.formConfig,
           page = _props2.page,
-          buttonText = _props2.buttonText;
+          buttonText = _props2.buttonText,
+          answers = _props2.answers,
+          to = _props2.to;
 
       var validation = this.state.validation;
 
-      var button = _react2.default.createElement(
+      var button = to ? _react2.default.createElement(
+        _reactRouterDom.NavLink,
+        { disabled: Object.keys(payload).length === 0, to: to },
+        _react2.default.createElement(
+          'button',
+          {
+            disabled: loading || Object.keys(payload).length === 0,
+            id: 'submit',
+            onClick: this.submit,
+            className: 'button btn btn-primary' },
+          loading ? _react2.default.createElement('i', { className: 'fa fa-cog fa-spin' }) : buttonText
+        )
+      ) : _react2.default.createElement(
         'button',
         {
-          disabled: loading,
+          disabled: loading || Object.keys(payload).length === 0,
           id: 'submit',
           onClick: this.submit,
           className: 'button btn btn-primary' },
@@ -95,6 +112,7 @@ var Form = function (_React$Component) {
       return _react2.default.createElement(
         'div',
         { className: 'm-2 m-sm-4 m-md-6 mb-10 card' },
+        this.props.children,
         _react2.default.createElement(
           'form',
           null,
@@ -103,7 +121,7 @@ var Form = function (_React$Component) {
               loading: loading,
               validation: validation,
               question: question,
-              value: payload.hasOwnProperty(question.inputId) ? payload[question.inputId] : '',
+              value: payload.hasOwnProperty(question.inputId) ? payload[question.inputId] : answers[question.inputId] || '',
               inputId: question.inputId,
               page: page,
               formatter: question.formatter,
@@ -127,6 +145,10 @@ var Form = function (_React$Component) {
   return Form;
 }(_react2.default.Component);
 
+Form.defaultProps = {
+  answers: {}
+};
+
 var mapStateToProps = function mapStateToProps(state, props) {
   var user = state.user,
       payloadByPage = state.payloadByPage;
@@ -134,11 +156,7 @@ var mapStateToProps = function mapStateToProps(state, props) {
   var _ref = payloadByPage[props.page] || {
     loading: false,
     error: null,
-    payload: {
-      name: '',
-      email: '',
-      password: ''
-    }
+    payload: {}
   },
       loading = _ref.loading,
       error = _ref.error,

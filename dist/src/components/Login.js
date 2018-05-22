@@ -85,21 +85,12 @@ var Login = function (_React$Component) {
 }(_react2.default.Component);
 
 var mapStateToProps = function mapStateToProps(state) {
-  var user = state.user,
-      payloadByPage = state.payloadByPage;
+  var user = state.user;
 
-  var _ref = payloadByPage[PAGE] || {
-    loading: false,
-    error: null,
-    payload: {}
-  },
-      loading = _ref.loading,
-      error = _ref.error,
-      payload = _ref.payload;
 
   var loggedIn = user && user.api_token && user.api_token.length > 0;
 
-  return { loggedIn: loggedIn, loading: loading, error: error, payload: payload };
+  return { loggedIn: loggedIn };
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
